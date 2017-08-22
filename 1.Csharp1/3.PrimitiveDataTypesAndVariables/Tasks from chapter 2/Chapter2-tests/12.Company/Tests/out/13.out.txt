@@ -1,5 +1,0 @@
-Dimityr -> string
-Berbatov  -> string
-33  -> byte
-True  -> bool
-27568844  -> int

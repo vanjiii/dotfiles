@@ -1,5 +1,0 @@
-Sesil -> string
-Ilieva  -> string
-28  -> byte
-False  -> bool
-27563799  -> int

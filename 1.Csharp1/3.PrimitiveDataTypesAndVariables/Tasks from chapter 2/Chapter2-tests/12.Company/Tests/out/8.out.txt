@@ -1,5 +1,0 @@
-Svetlin -> string
-Nakov  -> string
-32  -> byte
-True  -> bool
-27560666  -> int

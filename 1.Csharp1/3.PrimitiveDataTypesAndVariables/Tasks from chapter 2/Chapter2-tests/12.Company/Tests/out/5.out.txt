@@ -1,5 +1,0 @@
-Ivelin -> string
-Popov  -> string
-34  -> byte
-True  -> bool
-27562211  -> int

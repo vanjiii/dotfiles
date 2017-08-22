@@ -1,5 +1,0 @@
-Iva -> string
-Ivanova  -> string
-42  -> byte
-False  -> bool
-27563245  -> int

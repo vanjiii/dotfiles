@@ -1,5 +1,0 @@
-Nikolay -> string
-Kostov  -> string
-21  -> byte
-True  -> bool
-27560001  -> int

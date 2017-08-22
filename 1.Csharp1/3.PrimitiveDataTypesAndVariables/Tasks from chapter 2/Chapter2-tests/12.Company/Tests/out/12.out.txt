@@ -1,5 +1,0 @@
-Rosen -> string
-Plevneliev  -> string
-49  -> byte
-True  -> bool
-27568754  -> int

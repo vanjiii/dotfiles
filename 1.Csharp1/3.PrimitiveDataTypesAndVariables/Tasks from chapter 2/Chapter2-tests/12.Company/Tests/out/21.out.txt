@@ -1,5 +1,0 @@
-Emiliq -> string
-Kostova  -> string
-21  -> byte
-False  -> bool
-27563595  -> int

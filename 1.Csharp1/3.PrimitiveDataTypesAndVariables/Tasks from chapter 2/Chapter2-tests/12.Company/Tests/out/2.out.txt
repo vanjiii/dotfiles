@@ -1,5 +1,0 @@
-Joro  -> string
-Todorov  -> string
-29  -> byte
-True  -> bool
-27560220  -> int

@@ -1,1 +1,0 @@
-byte, int, long, sbyte, short, uint, ulong, ushort

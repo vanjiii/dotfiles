@@ -1,0 +1,41 @@
+#Create new schema; locate collections-core\db-core\target\db\oracle\install and execute: 
+createschema.bat IVD_1 system Secret123 10.161.9.245/ORCL 
+
+#zsh
+This is the Z Shell configuration function for new users,
+zsh-newuser-install.
+You are seeing this message because you have no zsh startup files
+(the files .zshenv, .zprofile, .zshrc, .zlogin in the directory
+~).  This function can help you with a few settings that should
+make your use of the shell easier.
+
+
+#maven build command with the most arguments
+mvn clean install -o -T 4 -Dmaven.test.skip=true
+
+#VIM shortcuts
+:edit <location/file.ext> 	#open file 
+
+# create / restore database dumpfile
+expdp system/tallyman@orcl schemas=<schemaName> dumpfile=<schemaName>.dmp LOGFILE=<anyName>.log
+impdp system/tallyman@orcl schemas=<schemaName> dumpfile=<schemaName>.DMP LOGFILE=<anyName>.log
+
+expdp system/tallyman@orcl schemas=SS_TM_ON dumpfile=SS_TM_ON.dmp LOGFILE=Import.log
+impdp system/tallyman@orcl schemas=SS_TM_ON dumpfile=SS_TM_ON.DMP LOGFILE=Import.log
+impdp system/tallyman@orcl remap_schema=BP_TEST_PCC:SS_TM_ON dumpfile=BP_TEST_PCC.DMP logfile=Import.log 	#remap_schema=<schemaName on dump>:<schemaName like I want to import>
+
+tnsnames.ora # file to edit oracle client
+
+# Tools to use when creating demo application
+IDE: 		(Visual Studio)
+Language:	(C# & .NET)
+MVC framework:	(ASP.NET MVC 5 & Razor syntax for the views)
+DB:		(MS SQL)
+ORM: 		(Entity Framework)
+D. Inj : (StructureMap 3.1)
+UnitTest:	(NUit)
+Test mocking framework:(Moq)
+mocking and unit testin easier: (AutoMoq)
+Behavior driven design testing: (SpecFlow)
+
+

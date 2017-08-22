@@ -1,5 +1,0 @@
-network
-connection
-public
-securely
-
