@@ -2,13 +2,6 @@
 createschema.bat IVD_1 system Secret123 10.161.9.245/ORCL 
 
 #zsh
-This is the Z Shell configuration function for new users,
-zsh-newuser-install.
-You are seeing this message because you have no zsh startup files
-(the files .zshenv, .zprofile, .zshrc, .zlogin in the directory
-~).  This function can help you with a few settings that should
-make your use of the shell easier.
-
 
 #maven build command with the most arguments
 mvn clean install -o -T 4 -Dmaven.test.skip=true
