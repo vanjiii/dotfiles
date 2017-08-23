@@ -10,6 +10,10 @@ You are seeing this message because you have no zsh startup files
 make your use of the shell easier.
 
 
+# DDG
+s:d (sort:date) # sort the results by date
+something site:www.mysite.com # Look for something in this site
+
 #maven build command with the most arguments
 mvn clean install -o -T 4 -Dmaven.test.skip=true
 
