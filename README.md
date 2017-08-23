@@ -1,6 +1,6 @@
 # dotfiles
 My dot files and scripts
 
-#TODO
+# TODO
  - create folder structure
  - separate the scripts, cheatsheets and dotfiles
