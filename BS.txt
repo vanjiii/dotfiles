@@ -10,6 +10,17 @@ something site:www.mysite.com # Look for something in this site
 #maven build command with the most arguments
 mvn clean install -o -T 4 -Dmaven.test.skip=true
 
+# Java arguments
+-J-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=4000 	#opens remote debugger at port 4000; suspend will suspend the program until the debugger is attached;
+-J-DdebtManagement.exposeTempDB=true	#expose in memory (H2) DB
+-Joption 	#Pass option to the Java virtual machine used to run jdb.
+
+#tomcat
+#To add remote debugger, add  the following lines in ~/bin/startup.bin
+set JPDA_SUSPEND=n
+call "%EXECUTABLE%" jpda start %CMD_LINE_ARGS% 
+#before the ::end
+
 #VIM shortcuts
 :edit <location/file.ext> 	#open file 
 
