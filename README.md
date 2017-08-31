@@ -4,4 +4,3 @@ My dot files and scripts
 # TODO
  - create folder structure
  - separate the scripts, cheatsheets and dotfiles
- - add java arguments examples 
