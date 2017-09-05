@@ -22,7 +22,20 @@ call "%EXECUTABLE%" jpda start %CMD_LINE_ARGS%
 #before the ::end
 
 #VIM shortcuts
-:edit <location/file.ext> 	#open file 
+:edit <location/file.ext> 	#open file
+
+Ctrl W + Ctrl W			# Switch to the other split window.
+
+dd [Normal]			# Cut entire line
+p[Normal]			# Paste the buffer
+dw [Normal]			# Delete to next Word
+y				# copy
+
+$vim -d file1 file2 		# is equal to vimdiff
+do				# Get changes from other window into the current window.
+dp				# Put the changes from current window into the other window.
+]c				# Jump to the next change.
+[c				# Jump to the previous change.
 
 # create / restore database dumpfile
 expdp system/tallyman@orcl schemas=<schemaName> dumpfile=<schemaName>.dmp LOGFILE=<anyName>.log
@@ -45,5 +58,3 @@ UnitTest:	(NUit)
 Test mocking framework:(Moq)
 mocking and unit testin easier: (AutoMoq)
 Behavior driven design testing: (SpecFlow)
-
-
