@@ -88,6 +88,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias h="cd /cygdrive/c/dev/"
 alias e.="explorer ."
+alias gl=git log --oneline --all --graph --decorate  $*
 
 #autoload -U colors
 #colors
