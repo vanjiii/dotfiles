@@ -32,10 +32,13 @@ dw [Normal]			# Delete to next Word
 y				# copy
 
 $vim -d file1 file2 		# is equal to vimdiff
-do				# Get changes from other window into the current window.
-dp				# Put the changes from current window into the other window.
-]c				# Jump to the next change.
-[c				# Jump to the previous change.
+	->do			# Get changes from other window into the current window.
+	->dp			# Put the changes from current window into the other window.
+	->]c			# Jump to the next change.
+	->[c			# Jump to the previous change.
+
+:sh				# return to the shell but not end the vim process
+	->exit (CTRL+D)		# return to the cim session
 
 # create / restore database dumpfile
 expdp system/tallyman@orcl schemas=<schemaName> dumpfile=<schemaName>.dmp LOGFILE=<anyName>.log
