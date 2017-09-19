@@ -2,6 +2,8 @@
 createschema.bat IVD_1 system Secret123 10.161.9.245/ORCL 
 
 #zsh
+find . -name "foo*"		# find 'foo' under the current ( . ) directories recursively
+tail -f fail.log		# show the file realtime ( after update )
 
 # DDG
 s:d (sort:date) # sort the results by date
