@@ -73,6 +73,7 @@ M-y			#cycle through kill-ring
 C-k			#kills everything to the end of the line
 M-w			#copy region or push to kill-ring
 C-_			#undo
+C-S-BackSpace           #delete current row
 
 #Rectangles
 cua-mode		#rectangle editing; may conflict with other modes!
