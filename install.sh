@@ -14,3 +14,9 @@ echo "Hello master, $USER!" #TODO see how it is done in prelude
 $ln -s emacs-starter-kit .emacs.d
 
 #symolink to zsh
+
+#git
+#create $HOME/.git folder
+#symolink work.gitconfig
+#symolink gitconfig
+#symolink user.gitconfig

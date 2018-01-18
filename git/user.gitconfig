@@ -1,0 +1,10 @@
+[user]
+	name = Ivan Dimitrov
+	email = i.dimitrov@yatrusanalytics.com
+
+[push]
+	default = simple
+
+
+[github]
+        user = vanjiii
