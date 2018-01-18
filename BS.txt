@@ -17,7 +17,7 @@ mvn clean install -o -T 4 -Dmaven.test.skip=true
 #tomcat
 #To add remote debugger, add  the following lines in ~/bin/startup.bin
 set JPDA_SUSPEND=n
-call "%EXECUTABLE%" jpda start %CMD_LINE_ARGS% 
+call "%EXECUTABLE%" jpda start %CMD_LINE_ARGS%
 #before the ::end
 
 # create / restore database dumpfile
@@ -41,3 +41,6 @@ UnitTest:	(NUit)
 Test mocking framework:(Moq)
 mocking and unit testin easier: (AutoMoq)
 Behavior driven design testing: (SpecFlow)
+
+# Copy the file content to the clipboard
+xclip -set clip < id_rsa.pub
