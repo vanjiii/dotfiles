@@ -3,3 +3,4 @@ git add -u .
 
 # If a file is staged - unstage it
 git reset -- folder/file.go 
+g
