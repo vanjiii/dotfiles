@@ -8,3 +8,6 @@
 
 [github]
         user = vanjiii
+
+[pull]
+        rebase = true
