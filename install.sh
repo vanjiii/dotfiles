@@ -11,7 +11,7 @@ echo "Hello master, $USER!" #TODO see how it is done in prelude
 #symo link to vim
 
 #symo link emacs
-$ln -s emacs-starter-kit .emacs.d
+$ln -s ~/dev/src/dotfiles/emacs/personal.el ~/.emacs.d/personal.personal.el
 
 #symolink to zsh
 

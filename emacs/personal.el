@@ -4,6 +4,3 @@
 
 ;; Add line numbers
 (global-linum-mode t)
-
-;; Save the buffers from previous session
-(desktop-save-mode 1)
