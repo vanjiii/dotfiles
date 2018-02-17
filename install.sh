@@ -1,22 +1,25 @@
 #!/bin/bash
 
-echo "Hello master, $USER!" #TODO see how it is done in prelude
+echo "Hello master, $USER!"
 
-#TODO add interaction with user - u are going to import settings?
+# TODO add interaction with user - u are going to import settings?
 
-#checks for older settings - back up
+# checks for older settings - back up
 
-#symo link to git
+# symo link to git
 
-#symo link to vim
+# symo link to vim
 
-#symo link emacs
-$ln -s ~/dev/src/dotfiles/emacs/personal.el ~/.emacs.d/personal.personal.el
+# symo link emacs
+$ln -s $HOME/dev/src/dotfiles/emacs/personal.el $HOME/.emacs.d/personal.personal.el
 
-#symolink to zsh
+# symolink to zsh
+ln -s ~/dev/src/dotfiles/zshrc.zsh ~/.zshrc
 
-#git
-#create $HOME/.git folder
-#symolink work.gitconfig
-#symolink gitconfig
-#symolink user.gitconfig
+# git
+ln -s $HOME/dev/src/dotfiles/git/user.gitconfig $HOME/.gitconfig
+
+# ~/.profile
+## set PATH so it includes user's private bin directories
+## export GOPATH=$HOME/go
+## export PATH="$GOPATH/bin:$HOME/bin:$HOME/.local/bin:$PATH"
