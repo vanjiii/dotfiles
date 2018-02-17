@@ -2,11 +2,11 @@
 
 echo "Hello master, $USER!"
 
+chsh -s $(which -a zsh)
+
 # TODO add interaction with user - u are going to import settings?
 
 # checks for older settings - back up
-
-# symo link to git
 
 # symo link to vim
 
