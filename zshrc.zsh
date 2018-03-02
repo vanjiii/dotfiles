@@ -111,3 +111,8 @@ HISTSIZE=10000
 #export GOPATH=$HOME/go
 export SUNSHINE_ENV=test
 export PATH=$PATH
+
+srv() {
+    go install ./cmd/... &&
+    $GOPATH/bin/sunshine
+}
