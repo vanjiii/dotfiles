@@ -20,6 +20,9 @@
 ;; (go-guru-hl-identifier-mode)
 (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
 
+;; Set global env for emacs
+(add-to-list ' exec-path "/home/vanjiii/go/bin")
+
 ;;install neotree
 ;;install ag.el
 

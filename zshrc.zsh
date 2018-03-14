@@ -108,9 +108,10 @@ HISTFILE=~/.zsh_history
 SAVEHIST=10000
 HISTSIZE=10000
 
-#export GOPATH=$HOME/go
 export SUNSHINE_ENV=test
 export PATH=$PATH
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH
 
 srv() {
     go install ./cmd/... &&
