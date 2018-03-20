@@ -23,6 +23,13 @@
 ;; Set global env for emacs
 (add-to-list ' exec-path "/home/vanjiii/go/bin")
 
+
+;; Add scopes for go guru examples
+;; After adding GOPATH to emacs add the package
+;; The first is the project package, the second is the packages to ignore
+;; git.yatrusanalytics.com/yatrus/sunshine/...,-git.yatrusanalytics.com/yatrus/sunshine/vendor/...
+
+
 ;;install neotree
 ;;install ag.el
 
