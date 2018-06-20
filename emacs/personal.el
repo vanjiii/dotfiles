@@ -33,6 +33,14 @@
   (package-refresh-contents)
   (package-install 'go-tag))
 
+;; install neotree
+(unless (package-installed-p 'neotree)
+  (package-refresh-contents)
+  (package-install 'neotree))
+;; install ag.el
+;; install ag or ack or the_silver_searcher package in OS
+;; install graphql-mode
+
 
 ;; bind the sugegstion window to keybind and stops autosuggestion
 (global-set-key (kbd "C-s-SPC") 'company-complete)
@@ -49,7 +57,7 @@
 ;; add condition if statement is not nil
 
 (defun check-error()
-  "Insert err check under marked word"
+  "Insert err check under marked word."
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent)
@@ -66,8 +74,6 @@
   (interactive)
   (insert-print)
   (insert-arg-print))
-  
-  
 
 (defun insert-print ()
     "Insert marking print."
@@ -85,9 +91,5 @@
   (newline-and-indent)
   (insert "fmt.Println()"))
 
-;; install neotree
-;; install ag.el
-;; install graphql-mode
-
- (provide 'personal)
-;;; personal.el ends here 
+(provide 'personal)
+;;; personal.el ends here
