@@ -3,6 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Code:
+;;; In Scratch M-x eval-buffer - executes the lisp in the current buffer.
 
 ;; Add line numbers
 (global-linum-mode t)
