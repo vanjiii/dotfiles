@@ -81,7 +81,7 @@
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent)
-  (insert "fmt.Print(\"=========================\")"))
+  (insert "fmt.Print(\"=========================  \")"))
 
 ;; (thing-at-point 'word 'no-properties)
 
@@ -91,6 +91,11 @@
   (move-end-of-line 1)
   (newline-and-indent)
   (insert "fmt.Println()"))
+
+;; ignore directories in the grep search
+(eval-after-load "grep"
+  '(progn
+     (add-to-list 'grep-find-ignored-directories "vendor")))
 
 (provide 'personal)
 ;;; personal.el ends here
