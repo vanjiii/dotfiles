@@ -120,7 +120,7 @@ The top window goes to the left or vice-versa."
 
 (global-set-key (kbd "C-x |") 'toggle-window-split)
 
-(set-variable 'fill-column 79)
+(setq-default fill-column 79)
 
 (provide 'personal)
 ;;; personal.el ends here
