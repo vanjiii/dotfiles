@@ -39,7 +39,7 @@ ZSH_THEME="robbyrussell"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+# COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -100,9 +100,12 @@ source $ZSH/oh-my-zsh.sh
 alias em='emacsclient -t'
 alias ec='emacsclient -c'
 alias e='emacsclient -n'
-#alias gl=git log --oneline --all --graph --decorate  $*
+alias gl=git log --oneline --all --graph --decorate  $*
 alias e.="nautilus ."
 
+alias cp="cp -i"                          # confirm before overwriting something
+alias df='df -h'                          # human-readable sizes
+alias free='free -m'                      # show sizes in MB
 
 HISTFILE=~/.zsh_history
 SAVEHIST=10000
@@ -117,3 +120,31 @@ srv() {
     go install ./cmd/... &&
     $GOPATH/bin/sunshine
 }
+
+#
+# # ex - archive extractor
+# # usage: ex <file>
+ex ()
+{
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xjf $1   ;;
+            *.tar.gz)    tar xzf $1   ;;
+            *.bz2)       bunzip2 $1   ;;
+            *.rar)       unrar x $1     ;;
+            *.gz)        gunzip $1    ;;
+            *.tar)       tar xf $1    ;;
+            *.tbz2)      tar xjf $1   ;;
+            *.tgz)       tar xzf $1   ;;
+            *.zip)       unzip $1     ;;
+            *.Z)         uncompress $1;;
+            *.7z)        7z x $1      ;;
+            *)           echo "'$1' cannot be extracted via ex()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+
+
