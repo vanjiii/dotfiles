@@ -122,5 +122,9 @@ The top window goes to the left or vice-versa."
 
 (setq-default fill-column 79)
 
+;; (load-theme 'nord t1)
+
+(global-set-key (kbd "C-x m") 'ansi-term)
+
 (provide 'personal)
 ;;; personal.el ends here

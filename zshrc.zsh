@@ -121,6 +121,16 @@ srv() {
     $GOPATH/bin/sunshine
 }
 
+update-go-tools(){
+    go get -u -v github.com/nsf/gocode &&
+    go get -u -v github.com/rogpeppe/godef &&
+    go get -u -v golang.org/x/tools/cmd/gorename &&
+    go get -u -v golang.org/x/tools/cmd/guru &&
+    go get -u -v golang.org/x/tools/cmd/goimports &&
+    rm -f /tmp/gocode-daemon.vanjiii &&
+    gocode close   
+}
+
 #
 # # ex - archive extractor
 # # usage: ex <file>
