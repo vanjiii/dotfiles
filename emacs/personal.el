@@ -126,5 +126,8 @@ The top window goes to the left or vice-versa."
 
 (global-set-key (kbd "C-x m") 'ansi-term)
 
+(setq max-specpdl-size 650)
+(setq max-lisp-eval-depth 400)
+
 (provide 'personal)
 ;;; personal.el ends here
