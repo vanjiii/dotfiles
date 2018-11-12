@@ -103,12 +103,17 @@ source $ZSH/oh-my-zsh.sh
 alias em='emacsclient -t'
 alias ec='emacsclient -c'
 alias e='emacsclient -n'
+
 alias gl=git log --oneline --all --graph --decorate  $*
+
 alias e.="nautilus ."
 
-alias cp="cp -i"                          # confirm before overwriting something
+alias cp='cp -iv'                         # confirm before overwriting something
+alias mv='mv -iv'
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
+
+alias l='ls -lah --color=tty --group-directories-first'
 
 HISTFILE=~/.zsh_history
 SAVEHIST=10000
