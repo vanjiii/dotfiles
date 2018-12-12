@@ -115,6 +115,8 @@ alias free='free -m'                      # show sizes in MB
 
 alias l='ls -lah --color=tty --group-directories-first'
 
+alias gb='git --no-pager branch'
+
 HISTFILE=~/.zsh_history
 SAVEHIST=10000
 HISTSIZE=10000
@@ -123,11 +125,6 @@ export SUNSHINE_ENV=test
 export PATH=$PATH
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
-
-srv() {
-    go install ./cmd/... &&
-    $GOPATH/bin/sunshine
-}
 
 update-go-tools(){
     go get -u -v github.com/nsf/gocode &&

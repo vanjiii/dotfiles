@@ -14,9 +14,10 @@
 ;; Attempt to reload the buffers when they are edited outside emacs
 (global-auto-revert-mode t)
 
+;; bind 'f8' to neo tree toggle
 (global-set-key [f8] 'neotree-toggle)
 
-;; (go-guru-hl-identifier-mode)
+;; (go-guru-hl-identifier-mode) or highlight the occurrence when cursor is on.
 (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
 
 ;; Set global env for emacs
@@ -128,6 +129,8 @@ The top window goes to the left or vice-versa."
 
 (setq max-specpdl-size 650)
 (setq max-lisp-eval-depth 400)
+
+;; (setenv "GO111MODULE" "on")
 
 (provide 'personal)
 ;;; personal.el ends here
