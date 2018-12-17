@@ -113,7 +113,7 @@ alias mv='mv -iv'
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 
-alias l='ls -lah --color=tty --group-directories-first'
+alias l='pwd && ls -lah --color=tty --group-directories-first'
 
 alias gb='git --no-pager branch'
 
