@@ -46,7 +46,7 @@
 
 
 ;; bind the sugegstion window to keybind and stops autosuggestion
-(global-set-key (kbd "C-s-SPC") 'company-complete)
+(global-set-key (kbd "C-x C-o") 'company-complete)
 (setq company-idle-delay nil)
 
 ;; Add scopes for go guru examples
@@ -82,7 +82,7 @@
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent)
-  (insert "fmt.Printf(\" debugging: %v \\n\", )"))
+  (insert "fmt.Printf(\"\\n debugging: %v \\n\", )"))
 
 ;; ignore directories in the grep search
 (eval-after-load "grep"
@@ -131,6 +131,10 @@ The top window goes to the left or vice-versa."
 (setq max-lisp-eval-depth 400)
 
 ;; (setenv "GO111MODULE" "on")
+(setenv "SUNSHINE_ENV" "test")
+
+;; wrap lines in the read-only buffers like Go-fmt etc.
+(global-visual-line-mode t)
 
 (provide 'personal)
 ;;; personal.el ends here

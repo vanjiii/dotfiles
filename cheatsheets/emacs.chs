@@ -128,3 +128,8 @@ M-x eshell	 #opens bash emacs shell
 M-x package-list-packages
     i #mark package
     x #install marked packages
+
+# Execute lisp code (eval-expression)
+Alt-:
+
+(setenv "SUNSHINE_ENV" "test")
