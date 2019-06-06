@@ -38,6 +38,12 @@
   (package-refresh-contents)
   (package-install 'neotree))
 
+;; s package for test manipulation
+;; https://github.com/magnars/s.el
+(unless (package-installed-p 's)
+  (package-refresh-contents)
+  (package-install 's))
+
 ;; install ag or ack or the_silver_searcher package in OS
 (unless (package-installed-p 'ag)
   (package-refresh-contents)
@@ -82,7 +88,7 @@
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent)
-  (insert "fmt.Printf(\"\\n debugging: %v \\n\", )"))
+  (insert "fmt.Printf(\"\\n debugging: %#v \\n\", )"))
 
 ;; ignore directories in the grep search
 (eval-after-load "grep"
@@ -131,10 +137,43 @@ The top window goes to the left or vice-versa."
 (setq max-lisp-eval-depth 400)
 
 ;; (setenv "GO111MODULE" "on")
-(setenv "SUNSHINE_ENV" "test")
+(setenv "SUNSHINE_ENV" "dev")
 
 ;; wrap lines in the read-only buffers like Go-fmt etc.
 (global-visual-line-mode t)
+
+;; example of a function that just insert a tab char
+(defun insert-tab-char ()
+  "Insert a tab char. (ASCII 9, \t)."
+  (interactive)
+  (insert "\t"))
+
+(global-set-key (kbd "C-i") 'insert-tab-char) ; same as Ctrl+i
+
+(global-set-key (kbd "C-:") 'avy-goto-char)
+(global-set-key (kbd "C-'") 'avy-goto-char-2)
+(global-set-key (kbd "M-g f") 'avy-goto-line)
+(global-set-key (kbd "M-g w") 'avy-goto-word-1)
+
+;; Passing command line argument to `go test' using `--' -> `-- -c ./config/dev.toml'.
+;; dlv test stageai.tech/zzzax/pay/calendar/ -- -c ./config/dev.toml -test.run TestListEvents
+
+;; (add-to-list 'default-frame-alist
+;;              '(font . "Monoid-10"))
+
+(add-to-list 'default-frame-alist
+             '(font . "Fira Code Retina-11"))
+
+(doom-modeline-mode 1)
+(doom-themes-neotree-config)
+
+(global-set-key (kbd "C-<f8>") 'helm-semantic-or-imenu)
+(global-set-key (kbd "M-<f8>") 'minimap-mode)
+
+;; (add-hook 'after-save-hook #'projectile-regenerate-tags)
+;;(package-install 'ctags-update)
+;; (ctags-global-auto-update-mode)
+;; (setq ctags-update-prompt-create-tags nil);you need manually create TAGS in your project
 
 (provide 'personal)
 ;;; personal.el ends here

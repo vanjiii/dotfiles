@@ -117,11 +117,13 @@ alias l='pwd && ls -lah --color=tty --group-directories-first'
 
 alias gb='git --no-pager branch'
 
+alias restart_plasma="kquitapp5 plasmashell && kstart5 plasmashell"
+
 HISTFILE=~/.zsh_history
 SAVEHIST=10000
 HISTSIZE=10000
 
-export SUNSHINE_ENV=test
+export SUNSHINE_ENV=dev
 export PATH=$PATH
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
@@ -160,6 +162,14 @@ ex ()
         echo "'$1' is not a valid file"
     fi
 }
+
+
+# Useful CMDs
+#
+# --> sed  -i "s/auth.TWithRole/user.TWithRole/" `find ./invoices -name "*.go"`
+# `-i` in_place or apply it on the files. Nit: use without `-i` to see the changes.
+# "s/regex_to_find/string_for_subst/"
+# **/*.go == `find . -name "*.go"`
 
 
 
