@@ -1,0 +1,15 @@
+# !/bin/bash
+newBranch=$1
+
+echo Creating branch $newBranch
+if [ -z "$newBranch" ]
+  then
+    echo "No branch name supplied"
+    exit 2
+fi
+
+git checkout master
+git pull
+git branch $newBranch
+git push -u origin $newBranch
+git checkout $newBranch
