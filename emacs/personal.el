@@ -20,18 +20,11 @@
 ;; (go-guru-hl-identifier-mode) or highlight the occurrence when cursor is on.
 (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
 
-;; Set global env for emacs
-(add-to-list ' exec-path "/home/vanjiii/go/bin")
-
 ;; emacs-go-tag configuration
 ;; snakecase: BaseDomain -> base_domain
 ;; camelcase: BaseDomain -> baseDomain
 ;; lispcase: BaseDomain -> base-domain
 (setq go-tag-args (list "-transform" "snakecase"))
-;; check if exists go-tag and install it if necessary
-(unless (package-installed-p 'go-tag)
-  (package-refresh-contents)
-  (package-install 'go-tag))
 
 ;; install neotree
 (unless (package-installed-p 'neotree)
@@ -48,7 +41,6 @@
 (unless (package-installed-p 'ag)
   (package-refresh-contents)
   (package-install 'ag))
-;; install graphql-mode
 
 
 ;; bind the sugegstion window to keybind and stops autosuggestion
@@ -61,22 +53,6 @@
 ;; git.yatrusanalytics.com/yatrus/sunshine/...,-git.yatrusanalytics.com/yatrus/sunshine/vendor/...
 
 (global-set-key (kbd "C-c C-c y") 'debug-print)
-(global-set-key (kbd "C-c C-c e") 'check-error)
-
-;; add condition if statement is not nil
-
-(defun check-error()
-  "Insert err check under marked word."
-  (interactive)
-  (move-end-of-line 1)
-  (newline-and-indent)
-  (insert "if err != nil {")
-  (newline-and-indent)
-  (insert "return err ")
-  (newline-and-indent)
-  (insert "}")
-  (indent-for-tab-command))
-
 
 (defun debug-print ()
   "Insert Printing snippet."
@@ -97,7 +73,7 @@
 
 
 (defun toggle-window-split ()
-  "Vertical split shows more of each line, horizontal split shows more lines.
+  "Vertical split show more of each line, horizontal split show more lines.
 This code toggles between them.
 It only works for frames with exactly two windows.
 The top window goes to the left or vice-versa."
@@ -129,15 +105,10 @@ The top window goes to the left or vice-versa."
 
 (setq-default fill-column 79)
 
-;; (load-theme 'nord t1)
-
 (global-set-key (kbd "C-x m") 'ansi-term)
 
 (setq max-specpdl-size 650)
 (setq max-lisp-eval-depth 400)
-
-;; (setenv "GO111MODULE" "on")
-(setenv "SUNSHINE_ENV" "dev")
 
 ;; wrap lines in the read-only buffers like Go-fmt etc.
 (global-visual-line-mode t)
@@ -158,22 +129,17 @@ The top window goes to the left or vice-versa."
 ;; Passing command line argument to `go test' using `--' -> `-- -c ./config/dev.toml'.
 ;; dlv test stageai.tech/zzzax/pay/calendar/ -- -c ./config/dev.toml -test.run TestListEvents
 
-;; (add-to-list 'default-frame-alist
-;;              '(font . "Monoid-10"))
-
 (add-to-list 'default-frame-alist
-             '(font . "Fira Code Retina-11"))
-
-(doom-modeline-mode 1)
-(doom-themes-neotree-config)
+             '(font . "Ubuntu Mono-13"))
 
 (global-set-key (kbd "C-<f8>") 'helm-semantic-or-imenu)
 (global-set-key (kbd "M-<f8>") 'minimap-mode)
 
-;; (add-hook 'after-save-hook #'projectile-regenerate-tags)
-;;(package-install 'ctags-update)
-;; (ctags-global-auto-update-mode)
-;; (setq ctags-update-prompt-create-tags nil);you need manually create TAGS in your project
+(defun sudo-save ()
+  (interactive)
+  (if (not buffer-file-name)
+      (write-file (concat "/sudo:root@localhost:" (ido-read-file-name "File:")))
+    (write-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 (provide 'personal)
 ;;; personal.el ends here
