@@ -1,6 +1,6 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Personal Emacs  configuration to be used in conjunction with prelude   ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; package --- Summary
+;;; Commentary:
+;;; Personal Emacs  configuration to be used in conjunction with prelude   ;;
 
 ;;; Code:
 ;;; In Scratch M-x eval-buffer - executes the lisp in the current buffer.
@@ -41,7 +41,6 @@
 (unless (package-installed-p 'ag)
   (package-refresh-contents)
   (package-install 'ag))
-
 
 ;; bind the sugegstion window to keybind and stops autosuggestion
 (global-set-key (kbd "C-x C-o") 'company-complete)
@@ -130,7 +129,7 @@ The top window goes to the left or vice-versa."
 ;; dlv test stageai.tech/zzzax/pay/calendar/ -- -c ./config/dev.toml -test.run TestListEvents
 
 (add-to-list 'default-frame-alist
-             '(font . "Ubuntu Mono-13"))
+             '(font . "Fira Code-11"))
 
 (global-set-key (kbd "C-<f8>") 'helm-semantic-or-imenu)
 (global-set-key (kbd "M-<f8>") 'minimap-mode)
