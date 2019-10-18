@@ -5,11 +5,19 @@
 ;;; Code:
 ;;; In Scratch M-x eval-buffer - executes the lisp in the current buffer.
 
+(disable-theme 'zenburn)
+(load-theme 'eink t)
+
+(custom-theme-set-faces
+ `eink
+ `(go-guru-hl-identifier-face ((t (:weight bold)))))
+
 ;; Add line numbers
 (global-linum-mode t)
 
 ;; Disable whitespace-mode
 (setq prelude-whitespace nil)
+(setq whitespace-line-column 250)
 
 ;; Attempt to reload the buffers when they are edited outside emacs
 (global-auto-revert-mode t)
@@ -102,7 +110,7 @@ The top window goes to the left or vice-versa."
 
 (global-set-key (kbd "C-x |") 'toggle-window-split)
 
-(setq-default fill-column 79)
+;; (setq-default fill-column 79)
 
 (global-set-key (kbd "C-x m") 'ansi-term)
 
@@ -135,10 +143,23 @@ The top window goes to the left or vice-versa."
 (global-set-key (kbd "M-<f8>") 'minimap-mode)
 
 (defun sudo-save ()
+  "Execute sudo save for files that user do not own."
   (interactive)
   (if (not buffer-file-name)
       (write-file (concat "/sudo:root@localhost:" (ido-read-file-name "File:")))
     (write-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
+(require 'diminish)
+(diminish 'guru-mode)
+(diminish 'ivy-mode)
+(diminish 'company-mode)
+(diminish 'projectile-mode)
+(diminish 'super-save-mode)
+(diminish 'editorconfig-mode)
+(diminish 'flycheck-mode)
+(diminish 'flyspell-mode)
+(diminish 'whitespace-mode)
+(diminish 'which-key-mode)
 
 (provide 'personal)
 ;;; personal.el ends here
