@@ -17,3 +17,6 @@
 
 [url "git@gitlab.com:"]
 	insteadOf = https://gitlab.com
+
+[pager]
+	branch = false
