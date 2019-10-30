@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+<head>
+<title>Feed Subscriptions</title>
+</head>
+<body>
+      <outline text="blog.golang.org - Atom Feed" title="blog.golang.org - Atom Feed" type="rss" 
+            xmlUrl="https://blog.golang.org/feed.atom"/>
+      <outline text="ProtonMail Blog » Feed" title="ProtonMail Blog » Feed" type="rss" 
+            xmlUrl="https://protonmail.com/blog/feed/" htmlUrl="https://protonmail.com/blog"/>
+      <outline text="research!rsc - Atom" title="research!rsc - Atom" type="rss" 
+            xmlUrl="http://research.swtch.com/feed.atom"/>
+      <outline text="The Clean Code Blog" title="The Clean Code Blog" type="rss" 
+            xmlUrl="http://blog.cleancoder.com/atom.xml"/>
+      <outline text="Личен блог на Иван Ванков » Хранилка" title="Личен блог на Иван Ванков » Хранилка" type="rss" 
+            xmlUrl="http://gatakka.eu/?feed=rss2" htmlUrl="http://gatakka.eu"/>
+      <outline text="Quanta Magazine" title="Quanta Magazine" type="rss" 
+            xmlUrl="https://www.quantamagazine.org//feed" htmlUrl="https://www.quantamagazine.org"/>
+</body>
+</opml>
