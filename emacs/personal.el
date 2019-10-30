@@ -5,6 +5,11 @@
 ;;; Code:
 ;;; In Scratch M-x eval-buffer - executes the lisp in the current buffer.
 
+(projectile-register-project-type 'go '("go.mod")
+                                  :compile "make clean build"
+                                  :test "make clean build test"
+                                  :test-suffix "_test")
+
 (disable-theme 'zenburn)
 (load-theme 'eink t)
 
@@ -150,7 +155,6 @@ The top window goes to the left or vice-versa."
     (write-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 (require 'diminish)
-(diminish 'guru-mode)
 (diminish 'ivy-mode)
 (diminish 'company-mode)
 (diminish 'projectile-mode)
@@ -160,6 +164,9 @@ The top window goes to the left or vice-versa."
 (diminish 'flyspell-mode)
 (diminish 'whitespace-mode)
 (diminish 'which-key-mode)
+(diminish 'guru-mode)
+(diminish 'guru-global-mode)
+(diminish 'guru-mode)
 
 (provide 'personal)
 ;;; personal.el ends here

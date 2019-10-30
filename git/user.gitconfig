@@ -1,7 +1,6 @@
 [user]
 	name = Ivan V. Dimitrov
-	email = i.dimitrov@yatrusanalytics.com
-	signingkey = DF7D3759B513F908
+	email = ivan@stageai.tech
 
 [push]
 	default = simple
@@ -11,9 +10,6 @@
 
 [pull]
         rebase = true
-        
-[commit]
-	gpgsign = true
 
 [url "git@gitlab.com:"]
 	insteadOf = https://gitlab.com
