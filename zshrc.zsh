@@ -43,8 +43,6 @@ alias e='emacsclient -n'
 
 alias gl=git log --oneline --all --graph --decorate  $*
 
-alias e.="nautilus ."
-
 alias cp='cp -iv'                         # confirm before overwriting something
 alias mv='mv -iv'
 alias df='df -h'                          # human-readable sizes
@@ -53,10 +51,6 @@ alias free='free -m'                      # show sizes in MB
 alias l='pwd && ls -lah --color=tty --group-directories-first'
 
 alias gb='git --no-pager branch'
-
-HISTFILE=~/.zsh_history
-SAVEHIST=10000
-HISTSIZE=10000
 
 update-go-tools(){
     go get -u -v github.com/nsf/gocode &&

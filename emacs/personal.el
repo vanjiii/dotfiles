@@ -10,15 +10,12 @@
                                   :test "make clean build test"
                                   :test-suffix "_test")
 
-(disable-theme 'zenburn)
-(load-theme 'eink t)
-
-(custom-theme-set-faces
- `eink
- `(go-guru-hl-identifier-face ((t (:weight bold)))))
+(set-face-attribute 'mode-line nil :font "Fira Code-9")
 
 ;; Add line numbers
 (global-linum-mode t)
+(setq linum-format "%4d ")
+;; (setq linum-format "%4d \u2502 ")
 
 ;; Disable whitespace-mode
 (setq prelude-whitespace nil)
