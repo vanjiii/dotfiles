@@ -3,7 +3,6 @@
 ;;; Personal Emacs  configuration to be used in conjunction with prelude   ;;
 
 ;;; Code:
-;;; In Scratch M-x eval-buffer - executes the lisp in the current buffer.
 
 (projectile-register-project-type 'go '("go.mod")
                                   :compile "make clean build"
@@ -148,60 +147,80 @@ The top window goes to the left or vice-versa."
       (write-file (concat "/sudo:root@localhost:" (ido-read-file-name "File:")))
     (write-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
+
+(defun mode-line-fill (face reserve)
+  "Return empty space using FACE and leaving RESERVE space on the right."
+  (when
+      (and window-system (eq 'right (get-scroll-bar-mode)))
+    (setq reserve (- reserve 3)))
+  (propertize " "
+              'display
+              `((space :align-to (- (+ right right-fringe right-margin) ,reserve)))
+              'face face
+              )
+  )
+
 ;; mode line
 (setq-default mode-line-format
-   (list
+              (list
 
-   ;; line and column
-   " (" ;; '%02' to set to 2 chars at least; prevents flickering
-   (propertize "%02l" 'face 'font-lock-type-face) ":"
-   (propertize "%02c" 'face 'font-lock-type-face)
-   ") "
+               ;; line and column
+               " " ;; '%02' to set to 2 chars at least; prevents flickering
+               (propertize "Row:%02l " 'face 'font-lock-type-face)
+               (propertize "Col:%02c" 'face 'font-lock-type-face)
+               "  "
 
-    ;; the buffer name; the file name as a tool tip
-    '(:eval (propertize " %b " 'face 'font-lock-keyword-face
-        'help-echo (buffer-file-name)))
+               ;; the buffer name; the file name as a tool tip
+               '(:eval (propertize " %b " 'face 'font-lock-keyword-face
+                                   'help-echo (buffer-file-name)))
 
-    ;; relative position, size of file
-    "["
-    (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
-    "/"
-    (propertize "%I" 'face 'font-lock-constant-face) ;; size
-    "] "
+               ;; relative position, size of file
+               "["
+               (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
+               "/"
+               (propertize "%I" 'face 'font-lock-constant-face) ;; size
+               "] "
 
-    ;; the current major mode for the buffer.
-    "["
+               ;; the current major mode for the buffer.
+               "["
 
-    '(:eval (propertize "%m" 'face 'font-lock-string-face
-              'help-echo "The current major mode for the buffer"))
-    "] "
+               '(:eval (propertize "%m" 'face 'font-lock-string-face
+                                   'help-echo "The current major mode for the buffer"))
+               "] "
 
 
-    "[" ;; insert vs overwrite mode, input-method in a tooltip
-    '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
-              'face 'font-lock-preprocessor-face
-              'help-echo (concat "Buffer is in "
-                           (if overwrite-mode "overwrite" "insert") " mode")))
+               "[" ;; insert vs overwrite mode, input-method in a tooltip
+               '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
+                                   'face 'font-lock-preprocessor-face
+                                   'help-echo (concat "Buffer is in "
+                                                      (if overwrite-mode "overwrite" "insert") " mode")))
 
-    ;; was this buffer modified since the last save?
-    '(:eval (when (buffer-modified-p)
-              (concat ","  (propertize "Mod"
-                             'face 'font-lock-warning-face
-                             'help-echo "Buffer has been modified"))))
+               ;; was this buffer modified since the last save?
+               '(:eval (when (buffer-modified-p)
+                         (concat ","  (propertize "Mod"
+                                                  'face 'font-lock-warning-face
+                                                  'help-echo "Buffer has been modified"))))
 
-    ;; is this buffer read-only?
-    '(:eval (when buffer-read-only
-              (concat ","  (propertize "RO"
-                             'face 'font-lock-type-face
-                             'help-echo "Buffer is read-only"))))
-    "] "
+               ;; is this buffer read-only?
+               '(:eval (when buffer-read-only
+                         (concat ","  (propertize "RO"
+                                                  'face 'font-lock-type-face
+                                                  'help-echo "Buffer is read-only"))))
+               "] "
 
-    ;; add the time, with the date and the emacs uptime in the tooltip
-    '(:eval (propertize (format-time-string "%H:%M")
-              'help-echo
-              (concat (format-time-string "%c; ")
-                      (emacs-uptime "Uptime:%hh"))))
-    ))
+               '(vc-mode vc-mode)
+
+               ;; right align
+               (mode-line-fill 'mode-line 20)
+
+               '(:eval (propertize (emacs-uptime "Uptime: %hh ")))
+    
+               ;; add the time, with the date and the emacs uptime in the tooltip
+               '(:eval (propertize (format-time-string "%H:%M")
+                                   'help-echo
+                                   (concat (format-time-string "%c; ")
+                                           (emacs-uptime "Uptime:%hh"))))
+               ))
 
 (provide 'personal)
 ;;; personal.el ends here
