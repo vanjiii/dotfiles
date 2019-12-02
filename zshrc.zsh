@@ -87,7 +87,7 @@ ex ()
     fi
 }
 
-
+RPROMPT=%*
 # Useful CMDs
 #
 # --> sed  -i "s/auth.TWithRole/user.TWithRole/" `find ./invoices -name "*.go"`

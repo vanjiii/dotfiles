@@ -12,4 +12,7 @@ export SUNSHINE_ENV
 
 export PATH="$GOPATH/bin:$PATH"
 
+GOBIN=$GOPATH/bin
+export GOBIN
+
 export LESS='-F -r'
