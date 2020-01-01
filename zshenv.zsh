@@ -16,3 +16,6 @@ GOBIN=$GOPATH/bin
 export GOBIN
 
 export LESS='-F -r'
+
+GTK_USE_PORTAL=1
+export GTK_USE_PORTAL

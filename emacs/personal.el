@@ -108,8 +108,6 @@ The top window goes to the left or vice-versa."
 
 (global-set-key (kbd "C-x |") 'toggle-window-split)
 
-;; (setq-default fill-column 79)
-
 (global-set-key (kbd "C-x m") 'ansi-term)
 
 (setq max-specpdl-size 650)
@@ -146,7 +144,6 @@ The top window goes to the left or vice-versa."
   (if (not buffer-file-name)
       (write-file (concat "/sudo:root@localhost:" (ido-read-file-name "File:")))
     (write-file (concat "/sudo:root@localhost:" buffer-file-name))))
-
 
 (defun mode-line-fill (face reserve)
   "Return empty space using FACE and leaving RESERVE space on the right."
@@ -214,7 +211,7 @@ The top window goes to the left or vice-versa."
                (mode-line-fill 'mode-line 20)
 
                '(:eval (propertize (emacs-uptime "Uptime: %hh ")))
-    
+
                ;; add the time, with the date and the emacs uptime in the tooltip
                '(:eval (propertize (format-time-string "%H:%M")
                                    'help-echo
