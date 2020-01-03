@@ -219,5 +219,7 @@ The top window goes to the left or vice-versa."
                                            (emacs-uptime "Uptime:%hh"))))
                ))
 
+(global-set-key (kbd "C-c p s h") 'helm-ag)
+
 (provide 'personal)
 ;;; personal.el ends here
