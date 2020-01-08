@@ -9,8 +9,8 @@
                                   :test "make clean build test"
                                   :test-suffix "_test")
 
-;; Add line numbers
-(global-linum-mode t)
+;; Add line numbers on programming modes only.
+(add-hook 'prog-mode-hook 'linum-mode)
 (setq linum-format "%4d ")
 
 ;; Disable whitespace-mode
