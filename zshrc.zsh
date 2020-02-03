@@ -17,6 +17,7 @@ plugins=(
     git
     archlinux
     golang
+    pass
 )
 
 source $ZSH/oh-my-zsh.sh

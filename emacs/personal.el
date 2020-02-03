@@ -219,7 +219,9 @@ The top window goes to the left or vice-versa."
                                            (emacs-uptime "Uptime:%hh"))))
                ))
 
-(global-set-key (kbd "C-c p s h") 'helm-do-ag)
+;; make scroll mouse nicer
+(setq mouse-wheel-progressive-speed nil)
+(setq mouse-wheel-scroll-amount '(0.07))
 
 (provide 'personal)
 ;;; personal.el ends here
