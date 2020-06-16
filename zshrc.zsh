@@ -60,7 +60,7 @@ update-go-tools(){
     go get -u -v golang.org/x/tools/cmd/guru &&
     go get -u -v golang.org/x/tools/cmd/goimports &&
     rm -f /tmp/gocode-daemon.vanjiii &&
-    gocode close   
+    gocode close
 }
 
 #
@@ -88,6 +88,17 @@ ex ()
     fi
 }
 
+# randpw - a random password generator
+randpw ()
+{
+    length=32
+    if [ "$1" != "" ]
+    then
+        length=$1
+    fi
+    </dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c$length; echo ""
+}
+
 RPROMPT=%*
 # Useful CMDs
 #
@@ -95,6 +106,3 @@ RPROMPT=%*
 # `-i` in_place or apply it on the files. Nit: use without `-i` to see the changes.
 # "s/regex_to_find/string_for_subst/"
 # **/*.go == `find . -name "*.go"`
-
-
-
