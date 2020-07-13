@@ -4,6 +4,8 @@
 
 ;;; Code:
 
+(setq inhibit-x-resources 't)
+
 (projectile-register-project-type 'go '("go.mod")
                                   :compile "make clean build"
                                   :test "make clean build test"
@@ -48,15 +50,6 @@
   (package-refresh-contents)
   (package-install 'ag))
 
-;; bind the sugegstion window to keybind and stops autosuggestion
-(global-set-key (kbd "C-x C-o") 'company-complete)
-(setq company-idle-delay nil)
-
-;; Add scopes for go guru examples
-;; After adding GOPATH to emacs add the package
-;; The first is the project package, the second is the packages to ignore
-;; git.yatrusanalytics.com/yatrus/sunshine/...,-git.yatrusanalytics.com/yatrus/sunshine/vendor/...
-
 (global-set-key (kbd "C-c C-c y") 'debug-print)
 
 (defun debug-print ()
@@ -75,7 +68,6 @@
 (eval-after-load "grep"
   '(progn
      (add-to-list 'grep-find-ignored-directories "vendor")))
-
 
 (defun toggle-window-split ()
   "Vertical split show more of each line, horizontal split show more lines.
@@ -135,9 +127,6 @@ The top window goes to the left or vice-versa."
 (add-to-list 'default-frame-alist
              '(font . "Fira Code-11"))
 
-(global-set-key (kbd "C-<f8>") 'helm-semantic-or-imenu)
-(global-set-key (kbd "M-<f8>") 'minimap-mode)
-
 (defun sudo-save ()
   "Execute sudo save for files that user do not own."
   (interactive)
@@ -157,13 +146,59 @@ The top window goes to the left or vice-versa."
               )
   )
 
+(setq lsp-gopls-staticcheck t)
+(setq lsp-eldoc-render-all t)
+(setq lsp-gopls-complete-unimported t)
+
+(use-package lsp-mode
+  :ensure t
+  :commands (lsp lsp-deferred)
+  :hook (go-mode . lsp-deferred))
+
+;; Set up before-save hooks to format buffer and add/delete imports.
+;; Make sure you don't have other gofmt/goimports hooks enabled.
+(defun lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+
+;; Optional - provides fancier overlays.
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :config
+  :init
+  (setq lsp-enable-symbol-highlighting nil)
+  (setq lsp-ui-doc-enable nil)
+  )
+
+;; Company mode is a standard completion package that works well with lsp-mode.
+(use-package company
+  :ensure t
+  :config ( progn
+            (setq company-idle-delay nil)
+            (setq company-selection-wrap-around nil)
+            (setq company-tooltip-align-annotations nil)
+           )
+  )
+
+(use-package company-box
+  :after company
+  :hook (company-mode . company-box-mode))
+
+(global-set-key (kbd "C-x C-o") 'company-complete)
+
+(setq lsp-ui-peek-enable t
+      lsp-ui-sideline-enable t
+      lsp-ui-imenu-enable t)
+
 ;; mode line
 (setq-default mode-line-format
               (list
 
                ;; line and column
                " " ;; '%02' to set to 2 chars at least; prevents flickering
-               (propertize "Row:%02l " 'face 'font-lock-type-face)
+               (propertize "Ln:%02l " 'face 'font-lock-type-face)
                (propertize "Col:%02c" 'face 'font-lock-type-face)
                "  "
 
@@ -207,7 +242,11 @@ The top window goes to the left or vice-versa."
 
                '(vc-mode vc-mode)
 
-               ;; right align
+		"  "
+
+                '(:eval (symbol-name buffer-file-coding-system))
+
+		;; right align
                (mode-line-fill 'mode-line 20)
 
                '(:eval (propertize (emacs-uptime "Uptime: %hh ")))

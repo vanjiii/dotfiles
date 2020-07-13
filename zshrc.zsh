@@ -38,9 +38,9 @@ source $ZSH/oh-my-zsh.sh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # User defined aliases
-alias em='emacsclient -t'
+alias et='emacsclient -t'
 alias ec='emacsclient -c'
-alias e='emacsclient -n'
+alias e='emacsclient -t'
 
 alias gl=git log --oneline --all --graph --decorate  $*
 
@@ -53,12 +53,18 @@ alias l='pwd && ls -lah --color=tty --group-directories-first'
 
 alias gb='git --no-pager branch'
 
+alias kubectl.stage='kubectl --kubeconfig=$HOME/dev/src/scripts/finergodom-cluster-kubeconfig.yaml'
+alias cryfs.mega='cryfs ~/MEGA/private.enc ~/Vaults/MegaCloud --unmount-idle 5'
+alias cryfs.umega='cryfs-unmount "/home/vanjiii/Vaults/MegaCloud"'
+
+
 update-go-tools(){
-    go get -u -v github.com/nsf/gocode &&
+    go get -u -v github.com/mdempsky/gocode &&
     go get -u -v github.com/rogpeppe/godef &&
     go get -u -v golang.org/x/tools/cmd/gorename &&
     go get -u -v golang.org/x/tools/cmd/guru &&
     go get -u -v golang.org/x/tools/cmd/goimports &&
+    go get -u -v golang.org/x/tools/gopls &&
     rm -f /tmp/gocode-daemon.vanjiii &&
     gocode close
 }
