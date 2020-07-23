@@ -4,7 +4,10 @@
 
 ;;; Code:
 
-(setq inhibit-x-resources 't)
+(setq user-full-name "Ivan V. Dimitrov"
+      user-mail-address "ivan.v.dimitrov@pm.me")
+
+(load-theme 'nord t)
 
 (projectile-register-project-type 'go '("go.mod")
                                   :compile "make clean build"
@@ -160,6 +163,7 @@ The top window goes to the left or vice-versa."
 (defun lsp-go-install-save-hooks ()
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t))
+;; enable the hooks
 (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
 ;; Optional - provides fancier overlays.
@@ -167,9 +171,20 @@ The top window goes to the left or vice-versa."
   :ensure t
   :commands lsp-ui-mode
   :config
+  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
   :init
+  ;; highlight occurence
   (setq lsp-enable-symbol-highlighting nil)
+  ;; disable to pop-up the doc by default (only by keymap)
   (setq lsp-ui-doc-enable nil)
+  ;; minibuffer description for type at cursor.
+  ;; for example shows types members
+  (setq lsp-ui-peek-enable nil)
+  (setq lsp-ui-sideline-enable t)
+  (setq lsp-ui-imenu-enable t)
+  ;; minibuferr errors (which are annoying as hell)
+  ;;(setq lsp-eldoc-hook nil)
   )
 
 ;; Company mode is a standard completion package that works well with lsp-mode.
@@ -187,10 +202,6 @@ The top window goes to the left or vice-versa."
   :hook (company-mode . company-box-mode))
 
 (global-set-key (kbd "C-x C-o") 'company-complete)
-
-(setq lsp-ui-peek-enable t
-      lsp-ui-sideline-enable t
-      lsp-ui-imenu-enable t)
 
 ;; mode line
 (setq-default mode-line-format
@@ -261,6 +272,10 @@ The top window goes to the left or vice-versa."
 ;; make scroll mouse nicer
 (setq mouse-wheel-progressive-speed nil)
 (setq mouse-wheel-scroll-amount '(0.07))
+
+;; transperancy background
+(set-frame-parameter (selected-frame) 'alpha '(95))
+(add-to-list 'default-frame-alist '(alpha . (95)))
 
 (provide 'personal)
 ;;; personal.el ends here
