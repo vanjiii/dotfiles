@@ -1,14 +1,23 @@
 # !/bin/bash
-newBranch=$1
 
-if [ -z "$newBranch" ]
-  then
-    echo "No branch name supplied"
+# Check weather there is not staged files.
+files=$(git diff --name-only)
+if [[ $files ]]; then
+    # Files found
+    echo "Not staged files found! Exiting.."
     exit 2
 fi
 
+# Check wethear there is provided branch name
+newBranch=$1
+if [ -z "$newBranch" ]
+  then
+    echo "No branch name supplied! Exiting.."
+    exit 2
+fi
 echo Creating branch $newBranch
 
+# Some manual work here.
 git checkout master
 git pull
 git branch $newBranch
