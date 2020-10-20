@@ -16,5 +16,7 @@
             xmlUrl="http://gatakka.eu/?feed=rss2" htmlUrl="http://gatakka.eu"/>
       <outline text="Quanta Magazine" title="Quanta Magazine" type="rss" 
             xmlUrl="https://www.quantamagazine.org//feed" htmlUrl="https://www.quantamagazine.org"/>
+      <outline text="RSS" title="RSS" type="rss" 
+            xmlUrl="https://batsov.com/atom.xml" htmlUrl="https://batsov.com/"/>
 </body>
 </opml>
