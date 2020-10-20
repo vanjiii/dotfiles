@@ -7,16 +7,15 @@
 (setq user-full-name "Ivan V. Dimitrov"
       user-mail-address "ivan.v.dimitrov@pm.me")
 
-(load-theme 'nord t)
+(load-theme 'nordless t)
 
 (projectile-register-project-type 'go '("go.mod")
                                   :compile "make clean build"
                                   :test "make clean build test"
                                   :test-suffix "_test")
 
-;; Add line numbers on programming modes only.
-(add-hook 'prog-mode-hook 'linum-mode)
-(setq linum-format "%4d ")
+;; Remove the useless menu bar by default.
+(menu-bar-mode -1)
 
 ;; Disable whitespace-mode
 (setq prelude-whitespace nil)
@@ -25,28 +24,25 @@
 ;; Attempt to reload the buffers when they are edited outside emacs
 (global-auto-revert-mode t)
 
-;; bind 'f8' to neo tree toggle
-(global-set-key [f8] 'neotree-toggle)
-
 ;; (go-guru-hl-identifier-mode) or highlight the occurrence when cursor is on.
 (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
-
-;; emacs-go-tag configuration
-;; snakecase: BaseDomain -> base_domain
-;; camelcase: BaseDomain -> baseDomain
-;; lispcase: BaseDomain -> base-domain
-(setq go-tag-args (list "-transform" "snakecase"))
 
 ;; install neotree
 (unless (package-installed-p 'neotree)
   (package-refresh-contents)
   (package-install 'neotree))
 
-;; s package for test manipulation
-;; https://github.com/magnars/s.el
-(unless (package-installed-p 's)
-  (package-refresh-contents)
-  (package-install 's))
+;; neotree config
+;; bind 'f8' to neo tree toggle
+(global-set-key [f8] 'neotree-toggle)
+;; wrap long lines within neotree
+(add-hook 'neo-after-create-hook
+          #'(lambda (_)
+              (with-current-buffer (get-buffer neo-buffer-name)
+                (setq truncate-lines t)
+                (setq word-wrap nil)
+                (make-local-variable 'auto-hscroll-mode)
+                (setq auto-hscroll-mode nil))))
 
 ;; install ag or ack or the_silver_searcher package in OS
 (unless (package-installed-p 'ag)
@@ -65,7 +61,7 @@
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent)
-  (insert "fmt.Printf(\"\\n debugging: %#v \\n\", )"))
+  (insert "fmt.Printf(\"\\n ====== debug ======: %#v \\n\", )"))
 
 ;; ignore directories in the grep search
 (eval-after-load "grep"
@@ -100,7 +96,6 @@ The top window goes to the left or vice-versa."
 	  (set-window-buffer (next-window) next-win-buffer)
 	  (select-window first-win)
 	  (if this-win-2nd (other-window 1))))))
-
 (global-set-key (kbd "C-x |") 'toggle-window-split)
 
 (global-set-key (kbd "C-x m") 'ansi-term)
@@ -120,6 +115,7 @@ The top window goes to the left or vice-versa."
 (global-set-key (kbd "C-i") 'insert-tab-char) ; same as Ctrl+i
 
 (global-set-key (kbd "C-:") 'avy-goto-char)
+(global-set-key (kbd "C-;") 'avy-goto-char-timer)
 (global-set-key (kbd "C-'") 'avy-goto-char-2)
 (global-set-key (kbd "M-g f") 'avy-goto-line)
 (global-set-key (kbd "M-g w") 'avy-goto-word-1)
@@ -149,53 +145,26 @@ The top window goes to the left or vice-versa."
               )
   )
 
-(setq lsp-gopls-staticcheck t)
-(setq lsp-eldoc-render-all t)
-(setq lsp-gopls-complete-unimported t)
+;; use lsp server by default for go development.
+(add-hook 'go-mode-hook 'lsp-deferred)
 
-(use-package lsp-mode
-  :ensure t
-  :commands (lsp lsp-deferred)
-  :hook (go-mode . lsp-deferred))
+;; increase the amount of data that emacs read from server.
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
 
-;; Set up before-save hooks to format buffer and add/delete imports.
-;; Make sure you don't have other gofmt/goimports hooks enabled.
-(defun lsp-go-install-save-hooks ()
-  (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t))
-;; enable the hooks
-(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+;; disable ui doc frame and bind it ot keybind
+(setq lsp-ui-doc-enable nil)
 
-;; Optional - provides fancier overlays.
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode
-  :config
-  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
-  :init
-  ;; highlight occurence
-  (setq lsp-enable-symbol-highlighting nil)
-  ;; disable to pop-up the doc by default (only by keymap)
-  (setq lsp-ui-doc-enable nil)
-  ;; minibuffer description for type at cursor.
-  ;; for example shows types members
-  (setq lsp-ui-peek-enable nil)
-  (setq lsp-ui-sideline-enable t)
-  (setq lsp-ui-imenu-enable t)
-  ;; minibuferr errors (which are annoying as hell)
-  ;;(setq lsp-eldoc-hook nil)
-  )
+;; usefull lsp keybinds
+(global-set-key (kbd "C-c C-l ,") 'lsp-ui-doc-show)
+(global-set-key (kbd "C-c C-l r") 'lsp-rename)
+(global-set-key (kbd "C-c C-l d") 'lsp-describe-thing-at-point)
+(global-set-key (kbd "C-c C-l x") 'lsp-restart-workspace)
 
-;; Company mode is a standard completion package that works well with lsp-mode.
-(use-package company
-  :ensure t
-  :config ( progn
-            (setq company-idle-delay nil)
-            (setq company-selection-wrap-around nil)
-            (setq company-tooltip-align-annotations nil)
-           )
-  )
+(setq lsp-ui-sideline-show-diagnostics nil)
+(setq lsp-ui-sideline-show-hover nil)
+(setq lsp-ui-sideline-show-code-actions nil)
+(setq lsp-ui-sideline-update-mode nil)
+(setq lsp-ui-sideline-delay nil)
 
 (use-package company-box
   :after company
@@ -209,12 +178,12 @@ The top window goes to the left or vice-versa."
 
                ;; line and column
                " " ;; '%02' to set to 2 chars at least; prevents flickering
-               (propertize "Ln:%02l " 'face 'font-lock-type-face)
-               (propertize "Col:%02c" 'face 'font-lock-type-face)
+               (propertize "Ln:%02l " 'face 'font-lock-constant-face)
+               (propertize "Col:%02c" 'face 'font-lock-constant-face)
                "  "
 
                ;; the buffer name; the file name as a tool tip
-               '(:eval (propertize " %b " 'face 'font-lock-keyword-face
+               '(:eval (propertize " %b " 'face 'font-lock-constant-face
                                    'help-echo (buffer-file-name)))
 
                ;; relative position, size of file
@@ -227,35 +196,31 @@ The top window goes to the left or vice-versa."
                ;; the current major mode for the buffer.
                "["
 
-               '(:eval (propertize "%m" 'face 'font-lock-string-face
+               '(:eval (propertize "%m" 'face 'font-lock-constant-face
                                    'help-echo "The current major mode for the buffer"))
                "] "
 
 
                "[" ;; insert vs overwrite mode, input-method in a tooltip
                '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
-                                   'face 'font-lock-preprocessor-face
+                                   'face 'font-lock-constant-face
                                    'help-echo (concat "Buffer is in "
                                                       (if overwrite-mode "overwrite" "insert") " mode")))
 
                ;; was this buffer modified since the last save?
                '(:eval (when (buffer-modified-p)
                          (concat ","  (propertize "Mod"
-                                                  'face 'font-lock-warning-face
+                                                  'face 'magit-diff-removed-highlight
                                                   'help-echo "Buffer has been modified"))))
 
                ;; is this buffer read-only?
                '(:eval (when buffer-read-only
                          (concat ","  (propertize "RO"
-                                                  'face 'font-lock-type-face
+                                                  'face 'font-lock-keyword-face
                                                   'help-echo "Buffer is read-only"))))
                "] "
 
                '(vc-mode vc-mode)
-
-		"  "
-
-                '(:eval (symbol-name buffer-file-coding-system))
 
 		;; right align
                (mode-line-fill 'mode-line 20)
@@ -276,6 +241,10 @@ The top window goes to the left or vice-versa."
 ;; transperancy background
 (set-frame-parameter (selected-frame) 'alpha '(95))
 (add-to-list 'default-frame-alist '(alpha . (95)))
+
+;; change color of modeline
+(set-face-background 'mode-line "#4C566A")
+(set-face-background 'mode-line-inactive "#4C566A")
 
 (provide 'personal)
 ;;; personal.el ends here
