@@ -238,10 +238,6 @@ The top window goes to the left or vice-versa."
 (setq mouse-wheel-progressive-speed nil)
 (setq mouse-wheel-scroll-amount '(0.07))
 
-;; transperancy background
-(set-frame-parameter (selected-frame) 'alpha '(95))
-(add-to-list 'default-frame-alist '(alpha . (95)))
-
 ;; change color of modeline
 (set-face-background 'mode-line "#4C566A")
 (set-face-background 'mode-line-inactive "#4C566A")
