@@ -19,3 +19,5 @@ export LESS='-F -r'
 
 GTK_USE_PORTAL=1
 export GTK_USE_PORTAL
+
+export TERM=xterm-256color
