@@ -17,8 +17,8 @@
 ;; Remove the useless menu bar by default.
 (menu-bar-mode -1)
 
-;; Disable whitespace-mode
-(setq prelude-whitespace nil)
+;; set white space vertical colorization to be triggered after 250
+;; symbol
 (setq whitespace-line-column 250)
 
 ;; Attempt to reload the buffers when they are edited outside emacs
@@ -114,8 +114,8 @@ The top window goes to the left or vice-versa."
 
 (global-set-key (kbd "C-i") 'insert-tab-char) ; same as Ctrl+i
 
+(key-chord-define-global "jj" 'avy-goto-char-timer)
 (global-set-key (kbd "C-:") 'avy-goto-char)
-(global-set-key (kbd "C-;") 'avy-goto-char-timer)
 (global-set-key (kbd "C-'") 'avy-goto-char-2)
 (global-set-key (kbd "M-g f") 'avy-goto-line)
 (global-set-key (kbd "M-g w") 'avy-goto-word-1)
@@ -171,6 +171,10 @@ The top window goes to the left or vice-versa."
   :hook (company-mode . company-box-mode))
 
 (global-set-key (kbd "C-x C-o") 'company-complete)
+;; suggest previously used words in the buffer
+(delete 'company-dabbrev company-backends)
+;; disable autocompletion when typing
+(setq company-idle-delay nil)
 
 ;; mode line
 (setq-default mode-line-format
@@ -241,6 +245,10 @@ The top window goes to the left or vice-versa."
 ;; change color of modeline
 (set-face-background 'mode-line "#4C566A")
 (set-face-background 'mode-line-inactive "#4C566A")
+
+(defun my-gql-mode-hook ()
+  (setq tab-width 2 indent-tabs-mode 1))
+(add-hook 'graphql-mode-hook 'my-gql-mode-hook)
 
 (provide 'personal)
 ;;; personal.el ends here
