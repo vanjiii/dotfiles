@@ -16,6 +16,11 @@
 
 ;; Remove the useless menu bar by default.
 (menu-bar-mode -1)
+(global-nlinum-mode -1)
+
+;; Add line numbers on programming modes only.
+(add-hook 'prog-mode-hook 'linum-mode)
+(setq linum-format "%4d ")
 
 ;; set white space vertical colorization to be triggered after 250
 ;; symbol
@@ -249,6 +254,9 @@ The top window goes to the left or vice-versa."
 (defun my-gql-mode-hook ()
   (setq tab-width 2 indent-tabs-mode 1))
 (add-hook 'graphql-mode-hook 'my-gql-mode-hook)
+
+;; visible flash
+(setq visible-bell t)
 
 (provide 'personal)
 ;;; personal.el ends here
