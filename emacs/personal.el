@@ -255,8 +255,22 @@ The top window goes to the left or vice-versa."
   (setq tab-width 2 indent-tabs-mode 1))
 (add-hook 'graphql-mode-hook 'my-gql-mode-hook)
 
-;; visible flash
-(setq visible-bell t)
+;; fix scrollers (((
+(defun scroll-other-window-up-half ()
+  (interactive)
+  (scroll-other-window (window-half-height)))
+
+(defun scroll-other-window-down-half ()
+  (interactive)
+  (scroll-other-window-down (window-half-height)))
+
+
+(defun window-half-height ()
+  (max 1 (/ (1- (window-height (selected-window))) 2)))
+
+(global-set-key (kbd "<M-next>") 'scroll-other-window-up-half)
+(global-set-key (kbd "<M-prior>") 'scroll-other-window-down-half)
+;; )))
 
 (provide 'personal)
 ;;; personal.el ends here
