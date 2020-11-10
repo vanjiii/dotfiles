@@ -266,7 +266,7 @@ The top window goes to the left or vice-versa."
 
 
 (defun window-half-height ()
-  (max 1 (/ (1- (window-height (selected-window))) 2)))
+  (max 1 (/ (1- (window-height (selected-window))) 3)))
 
 (global-set-key (kbd "<M-next>") 'scroll-other-window-up-half)
 (global-set-key (kbd "<M-prior>") 'scroll-other-window-down-half)
