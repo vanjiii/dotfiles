@@ -111,14 +111,6 @@ The top window goes to the left or vice-versa."
 ;; wrap lines in the read-only buffers like Go-fmt etc.
 (global-visual-line-mode t)
 
-;; example of a function that just insert a tab char
-(defun insert-tab-char ()
-  "Insert a tab char. (ASCII 9, \t)."
-  (interactive)
-  (insert "\t"))
-
-(global-set-key (kbd "C-i") 'insert-tab-char) ; same as Ctrl+i
-
 (key-chord-define-global "jj" 'avy-goto-char-timer)
 (global-set-key (kbd "C-:") 'avy-goto-char)
 (global-set-key (kbd "C-'") 'avy-goto-char-2)
@@ -181,81 +173,19 @@ The top window goes to the left or vice-versa."
 ;; disable autocompletion when typing
 (setq company-idle-delay nil)
 
-;; mode line
-(setq-default mode-line-format
-              (list
-
-               ;; line and column
-               " " ;; '%02' to set to 2 chars at least; prevents flickering
-               (propertize "Ln:%02l " 'face 'font-lock-constant-face)
-               (propertize "Col:%02c" 'face 'font-lock-constant-face)
-               "  "
-
-               ;; the buffer name; the file name as a tool tip
-               '(:eval (propertize " %b " 'face 'font-lock-constant-face
-                                   'help-echo (buffer-file-name)))
-
-               ;; relative position, size of file
-               "["
-               (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
-               "/"
-               (propertize "%I" 'face 'font-lock-constant-face) ;; size
-               "] "
-
-               ;; the current major mode for the buffer.
-               "["
-
-               '(:eval (propertize "%m" 'face 'font-lock-constant-face
-                                   'help-echo "The current major mode for the buffer"))
-               "] "
-
-
-               "[" ;; insert vs overwrite mode, input-method in a tooltip
-               '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
-                                   'face 'font-lock-constant-face
-                                   'help-echo (concat "Buffer is in "
-                                                      (if overwrite-mode "overwrite" "insert") " mode")))
-
-               ;; was this buffer modified since the last save?
-               '(:eval (when (buffer-modified-p)
-                         (concat ","  (propertize "Mod"
-                                                  'face 'magit-diff-removed-highlight
-                                                  'help-echo "Buffer has been modified"))))
-
-               ;; is this buffer read-only?
-               '(:eval (when buffer-read-only
-                         (concat ","  (propertize "RO"
-                                                  'face 'font-lock-keyword-face
-                                                  'help-echo "Buffer is read-only"))))
-               "] "
-
-               '(vc-mode vc-mode)
-
-		;; right align
-               (mode-line-fill 'mode-line 20)
-
-               '(:eval (propertize (emacs-uptime "Uptime: %hh ")))
-
-               ;; add the time, with the date and the emacs uptime in the tooltip
-               '(:eval (propertize (format-time-string "%H:%M")
-                                   'help-echo
-                                   (concat (format-time-string "%c; ")
-                                           (emacs-uptime "Uptime:%hh"))))
-               ))
+;; TODO test that
+;; company-tooltip-align-annotations t
 
 ;; make scroll mouse nicer
 (setq mouse-wheel-progressive-speed nil)
 (setq mouse-wheel-scroll-amount '(0.07))
 
-;; change color of modeline
-(set-face-background 'mode-line "#4C566A")
-(set-face-background 'mode-line-inactive "#4C566A")
-
+;; define GQL tab width
 (defun my-gql-mode-hook ()
   (setq tab-width 2 indent-tabs-mode 1))
 (add-hook 'graphql-mode-hook 'my-gql-mode-hook)
 
-;; fix scrollers (((
+;;; ((( improve scrollers on other buffers.
 (defun scroll-other-window-up-half ()
   (interactive)
   (scroll-other-window (window-half-height)))
@@ -270,7 +200,102 @@ The top window goes to the left or vice-versa."
 
 (global-set-key (kbd "<M-next>") 'scroll-other-window-up-half)
 (global-set-key (kbd "<M-prior>") 'scroll-other-window-down-half)
-;; )))
+;;; )))
+
+;;; ((( mode line format
+(setq-default mode-line-format
+              '((:eval (simple-mode-line-render
+                        ;; left alighnment
+                        (format-mode-line
+                         (list
+                          ;; line and column
+                          " " ;; '%02' to set to 2 chars at least; prevents flickering
+                          (propertize "Ln:%02l ")
+                          (propertize "Col:%02c")
+                          "  "
+
+                          ;; the buffer name; the file name as a tool tip
+                          '(:eval (propertize (propertize "%b") 'face '(:weight bold)))
+
+                          "  "
+
+                          ;; relative position, size of file
+                          "("
+                          (propertize "%p") ;; % above top
+                          "/"
+                          (propertize "%I") ;; size
+                          ")"
+
+                          "  "
+
+                          ;; the current major mode for the buffer.
+                          "("
+                          '(:eval (propertize "%m" 'help-echo "The current major mode for the buffer"))
+                          ")"
+
+                          "  "
+
+                          "(" ;; insert vs overwrite mode, input-method in a tooltip
+                          '(:eval (propertize (if overwrite-mode
+                                                  (propertize "Ovr" 'face '(:foreground  "#bf616a"))
+                                                  (propertize "Ins"))
+                                              'help-echo (concat "Buffer is in "
+                                                                 (if overwrite-mode "overwrite" "insert") " mode")))
+
+                          ;; was this buffer modified since the last save?
+                          '(:eval (when (buffer-modified-p)
+                                    (concat ","  (propertize "Mod"
+                                                             ;; 'face 'magit-diff-removed-highlight
+                                                             'face '(:foreground "#8fbcbb")
+                                                             'help-echo "Buffer has been modified"))))
+
+                          ;; is this buffer read-only?
+                          '(:eval (when buffer-read-only
+                                    (concat ","  (propertize "RO"
+                                                             'face 'font-lock-keyword-face
+                                                             'help-echo "Buffer is read-only"))))
+                          ")"
+
+                          "  "
+
+                          ;; version control
+                          '(:eval (propertize (substring vc-mode 5)))
+
+                          ))
+
+                        ;; right alignment
+                        (format-mode-line
+                         (list
+                          ;; current buffer file encoding
+                          '(:eval (symbol-name buffer-file-coding-system))
+
+                          "  "
+
+                          ;; emacs uptime in hours
+                          '(:eval (propertize (emacs-uptime "Uptime: %hh")))
+
+                          )))))
+              )
+
+(defun simple-mode-line-render (left right)
+  "Return a string of `window-width' length containing LEFT, and RIGHT
+ aligned respectively."
+  (let* ((available-width (- (window-width) (length left) 2)))
+    (format (format " %%s %%%ds " available-width) left right)))
+
+(set-face-attribute 'mode-line nil
+                    :background "#4C566A"
+                    :foreground "#eceff4"
+                    :overline nil
+                    :underline nil)
+
+(set-face-attribute 'mode-line-inactive nil
+                    :background "#4C566A"
+                    :foreground "#81a1c1"
+                    :overline nil
+                    :underline nil)
+
+;;; )))
 
 (provide 'personal)
 ;;; personal.el ends here
