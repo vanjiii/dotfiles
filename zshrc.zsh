@@ -17,7 +17,6 @@ plugins=(
     git
     archlinux
     golang
-    pass
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -94,8 +93,11 @@ ex ()
     fi
 }
 
-# randpw - a random password generator
-randpw ()
+
+# pwrand - a random password generator
+# if not specify it will generate 32 char long password
+# usage: randpw [Optional N]
+pwrand ()
 {
     length=32
     if [ "$1" != "" ]
