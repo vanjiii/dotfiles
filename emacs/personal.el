@@ -7,6 +7,7 @@
 (setq user-full-name "Ivan V. Dimitrov"
       user-mail-address "ivan.v.dimitrov@pm.me")
 
+;; TODO check if nordless is install.
 (load-theme 'nordless t)
 
 (projectile-register-project-type 'go '("go.mod")
@@ -66,7 +67,7 @@
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent)
-  (insert "fmt.Printf(\"\\n ====== debug ======: %#v \\n\", )"))
+  (insert "fmt.Printf(\"\\n ====== debug ======: %+v \\n\", )"))
 
 ;; ignore directories in the grep search
 (eval-after-load "grep"
@@ -162,10 +163,6 @@ The top window goes to the left or vice-versa."
 (setq lsp-ui-sideline-show-code-actions nil)
 (setq lsp-ui-sideline-update-mode nil)
 (setq lsp-ui-sideline-delay nil)
-
-(use-package company-box
-  :after company
-  :hook (company-mode . company-box-mode))
 
 (global-set-key (kbd "C-x C-o") 'company-complete)
 ;; suggest previously used words in the buffer
@@ -284,14 +281,14 @@ The top window goes to the left or vice-versa."
     (format (format " %%s %%%ds " available-width) left right)))
 
 (set-face-attribute 'mode-line nil
-                    :background "#4C566A"
-                    :foreground "#eceff4"
+                    :background "#eceff4"
+                    :foreground "#4C566A"
                     :overline nil
                     :underline nil)
 
 (set-face-attribute 'mode-line-inactive nil
                     :background "#4C566A"
-                    :foreground "#81a1c1"
+                    :foreground "#eceff4"
                     :overline nil
                     :underline nil)
 
