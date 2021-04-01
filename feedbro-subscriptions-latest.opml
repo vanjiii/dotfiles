@@ -4,29 +4,31 @@
 <title>Feed Subscriptions</title>
 </head>
 <body>
-      <outline text="blog.golang.org - Atom Feed" title="blog.golang.org - Atom Feed" type="rss"
+      <outline text="blog.golang.org - Atom Feed" title="blog.golang.org - Atom Feed" type="rss" 
             xmlUrl="https://blog.golang.org/feed.atom"/>
-      <outline text="ProtonMail Blog » Feed" title="ProtonMail Blog » Feed" type="rss"
+      <outline text="ProtonMail Blog » Feed" title="ProtonMail Blog » Feed" type="rss" 
             xmlUrl="https://protonmail.com/blog/feed/" htmlUrl="https://protonmail.com/blog"/>
-      <outline text="research!rsc - Atom" title="research!rsc - Atom" type="rss"
+      <outline text="research!rsc - Atom" title="research!rsc - Atom" type="rss" 
             xmlUrl="http://research.swtch.com/feed.atom"/>
-      <outline text="The Clean Code Blog" title="The Clean Code Blog" type="rss"
+      <outline text="The Clean Code Blog" title="The Clean Code Blog" type="rss" 
             xmlUrl="http://blog.cleancoder.com/atom.xml"/>
-      <outline text="Личен блог на Иван Ванков » Хранилка" title="Личен блог на Иван Ванков » Хранилка" type="rss"
+      <outline text="Личен блог на Иван Ванков » Хранилка" title="Личен блог на Иван Ванков » Хранилка" type="rss" 
             xmlUrl="http://gatakka.eu/?feed=rss2" htmlUrl="http://gatakka.eu"/>
-      <outline text="Batsov.com" title="RSS" type="rss"
+      <outline text="Batsov.com" title="RSS" type="rss" 
             xmlUrl="https://batsov.com/atom.xml" htmlUrl="https://batsov.com/"/>
-      <outline text="With-Emacs" title="RSS" type="rss"
+      <outline text="With-Emacs" title="RSS" type="rss" 
             xmlUrl="https://with-emacs.com/rss.xml" htmlUrl="https://www.with-emacs.com/"/>
-      <outline text="Pragmatic Emacs » Feed" title="Pragmatic Emacs » Feed" type="rss"
+      <outline text="Pragmatic Emacs » Feed" title="Pragmatic Emacs » Feed" type="rss" 
             xmlUrl="http://pragmaticemacs.com/feed/" htmlUrl="http://pragmaticemacs.com"/>
-      <outline text="Happy assassin" title="Happy assassin" type="rss"
+      <outline text="Happy assassin" title="Happy assassin" type="rss" 
             xmlUrl="https://www.happyassassin.net/rss.xml" htmlUrl="https://www.happyassassin.net/"/>
-      <outline text="Peter Norvig" title="Peter Norvig" type="rss"
+      <outline text="Peter Norvig" title="Peter Norvig" type="rss" 
             xmlUrl="http://www.norvig.com/rss-feed.xml" htmlUrl="http://www.norvig.com"/>
-      <outline text="Preslav Mihaylov » Feed" title="Preslav Mihaylov » Feed" type="rss"
+      <outline text="Preslav Mihaylov » Feed" title="Preslav Mihaylov » Feed" type="rss" 
             xmlUrl="https://pmihaylov.com/feed/" htmlUrl="https://pmihaylov.com"/>
-      <outline text="eatonphil" title="eatonphil" type="rss"
+      <outline text="eatonphil" title="eatonphil" type="rss" 
             xmlUrl="https://notes.eatonphil.com/rss.xml" htmlUrl="http://notes.eatonphil.com/"/>
+      <outline text="The Pragmatic Engineer" title="The Pragmatic Engineer" type="rss" 
+            xmlUrl="https://blog.pragmaticengineer.com/rss/" htmlUrl="https://blog.pragmaticengineer.com/"/>
 </body>
 </opml>
