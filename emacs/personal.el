@@ -4,6 +4,8 @@
 
 ;;; Code:
 
+(blink-cursor-mode 1)
+
 (setq user-full-name "Ivan V. Dimitrov"
       user-mail-address "ivan.v.dimitrov@pm.me")
 
