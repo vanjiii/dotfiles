@@ -1,56 +1,51 @@
 ;;; package --- Summary
 ;;; Commentary:
-;;; Personal Emacs  configuration to be used in conjunction with prelude   ;;
-
+;;; Personal Emacs configuration to be used in conjunction with prelude
+;;
 ;;; Code:
-
-(blink-cursor-mode 1)
-
 (setq user-full-name "Ivan V. Dimitrov"
       user-mail-address "ivan.v.dimitrov@pm.me")
-
-;; TODO check if nordless is install.
-(load-theme 'nordless t)
 
 (projectile-register-project-type 'go '("go.mod")
                                   :compile "make clean build"
                                   :test "make clean build test"
                                   :test-suffix "_test")
 
+;; Make the cursor blinking.
+(blink-cursor-mode 1)
+
 ;; Remove the useless menu bar by default.
 (menu-bar-mode -1)
-(global-nlinum-mode -1)
 
-;; Add line numbers on programming modes only.
-(add-hook 'prog-mode-hook 'linum-mode)
-(setq linum-format "%4d ")
-
-;; set white space vertical colorization to be triggered after 250
-;; symbol
+;; Set white space vertical colorization to be triggered after 250
+;; symbol.
 (setq whitespace-line-column 250)
 
-;; Attempt to reload the buffers when they are edited outside emacs
+;; Attempt to reload the buffers when they are edited outside emacs.
 (global-auto-revert-mode t)
 
-;; (go-guru-hl-identifier-mode) or highlight the occurrence when cursor is on.
+;;; ((( Golang specific configurations.
+;; Highlight the occurrence when cursor is on.
 (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
+
+;;; )))
 
 ;; install neotree
 (unless (package-installed-p 'neotree)
-  (package-refresh-contents)
-  (package-install 'neotree))
+ (package-refresh-contents)
+ (package-install 'neotree))
 
 ;; neotree config
 ;; bind 'f8' to neo tree toggle
-(global-set-key [f8] 'neotree-toggle)
+; (global-set-key [f8] 'neotree-toggle)
 ;; wrap long lines within neotree
-(add-hook 'neo-after-create-hook
-          #'(lambda (_)
-              (with-current-buffer (get-buffer neo-buffer-name)
-                (setq truncate-lines t)
-                (setq word-wrap nil)
-                (make-local-variable 'auto-hscroll-mode)
-                (setq auto-hscroll-mode nil))))
+;(add-hook 'neo-after-create-hook
+;          #'(lambda (_)
+;              (with-current-buffer (get-buffer neo-buffer-name)
+;                (setq truncate-lines t)
+;                (setq word-wrap nil)
+;                (make-local-variable 'auto-hscroll-mode)
+;                (setq auto-hscroll-mode nil))))
 
 ;; install ag or ack or the_silver_searcher package in OS
 (unless (package-installed-p 'ag)
