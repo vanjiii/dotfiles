@@ -1,6 +1,6 @@
 [user]
 	name = Ivan V. Dimitrov
-	email = ivan@stageai.tech
+	email = ivan.v.dimitrov@pm.me
 
 [push]
 	default = simple
@@ -16,5 +16,22 @@
 
 [pager]
 	branch = false
+
 [commit]
 	gpgsign = true
+
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+
+[delta]
+    plus-style = "syntax #012800"
+    minus-style = "syntax #340001"
+    syntax-theme = Monokai Extended
+    navigate = true
+    side-by-side = true
+
+[interactive]
+    diffFilter = delta --color-only
