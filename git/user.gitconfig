@@ -17,6 +17,9 @@
 [pager]
 	branch = false
 
+[core]
+    pager = less -FR
+
 [commit]
 	gpgsign = true
 

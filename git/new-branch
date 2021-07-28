@@ -1,6 +1,6 @@
 # !/bin/bash
 
-# Check weather there is not staged files.
+# Check whether there is not staged files.
 files=$(git diff --name-only)
 if [[ $files ]]; then
     # Files found
@@ -8,7 +8,7 @@ if [[ $files ]]; then
     exit 2
 fi
 
-# Check wethear there is provided branch name
+# Check whether there is provided branch name
 newBranch=$1
 if [ -z "$newBranch" ]
   then
