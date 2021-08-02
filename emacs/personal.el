@@ -6,6 +6,12 @@
 (setq user-full-name "Ivan V. Dimitrov"
       user-mail-address "ivan.v.dimitrov@pm.me")
 
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-verbose t)
+
 (projectile-register-project-type 'go '("go.mod")
                                   :compile "make clean build"
                                   :test "make clean build test"
@@ -17,12 +23,48 @@
 ;; Remove the useless menu bar by default.
 (menu-bar-mode -1)
 
+;; Attempt to reload the buffers when they are edited outside emacs.
+(global-auto-revert-mode t)
+
 ;; Set white space vertical colorization to be triggered after 250
 ;; symbol.
 (setq whitespace-line-column 250)
 
-;; Attempt to reload the buffers when they are edited outside emacs.
-(global-auto-revert-mode t)
+;; Package with cool icons used by neotree.
+(use-package all-the-icons
+  :ensure t)
+
+(use-package neotree
+  :ensure t
+  :config
+  (setq neo-theme (if (display-graphic-p) 'icons))
+  ;; Disable line-numbers minor mode for neotree
+  (add-hook 'neo-after-create-hook
+            (lambda (&rest _) (display-line-numbers-mode -1)))
+  (add-hook 'neo-after-create-hook
+            #'(lambda (_)
+                (with-current-buffer (get-buffer neo-buffer-name)
+                  (setq truncate-lines t)
+                  (setq word-wrap nil)
+                  (make-local-variable 'auto-hscroll-mode)
+                  (setq auto-hscroll-mode nil))))
+  :bind ([f8] . neotree-toggle))
+
+;; (use-package dap-mode
+;;   :ensure t)
+
+;; (require 'dap-go)
+
+;; (add-hook 'dap-stopped-hook
+;;           (lambda (arg) (call-interactively #'dap-hydra)))
+
+;; install ag or ack or the_silver_searcher package in OS
+(use-package ag
+  :ensure t)
+
+;; smex is package that saves history of commands (in M-x for example).
+(use-package smex
+  :ensure t)
 
 ;;; ((( Golang specific configurations.
 ;; Highlight the occurrence when cursor is on.
@@ -30,47 +72,22 @@
 
 ;;; )))
 
-;; install neotree
-(unless (package-installed-p 'neotree)
- (package-refresh-contents)
- (package-install 'neotree))
-
-;; neotree config
-;; bind 'f8' to neo tree toggle
-; (global-set-key [f8] 'neotree-toggle)
-;; wrap long lines within neotree
-;(add-hook 'neo-after-create-hook
-;          #'(lambda (_)
-;              (with-current-buffer (get-buffer neo-buffer-name)
-;                (setq truncate-lines t)
-;                (setq word-wrap nil)
-;                (make-local-variable 'auto-hscroll-mode)
-;                (setq auto-hscroll-mode nil))))
-
-;; install ag or ack or the_silver_searcher package in OS
-(unless (package-installed-p 'ag)
-  (package-refresh-contents)
-  (package-install 'ag))
-
-(global-set-key (kbd "C-c C-c y") 'debug-print)
-
-(defun debug-print ()
+;;; ((( Custom printing snippets
+(global-set-key (kbd "C-c C-c y") 'debug-print-golang)
+(defun debug-print-golang ()
   "Insert Printing snippet."
-  (interactive)
-  (insert-print))
-
-(defun insert-print ()
-    "Insert marking print."
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent)
-  (insert "fmt.Printf(\"\\n ====== debug ======: %+v \\n\", )"))
+  (insert "fmt.Printf(\"\\n ====== debug ======: %+v \", )"))
+;;; )))
 
 ;; ignore directories in the grep search
 (eval-after-load "grep"
   '(progn
      (add-to-list 'grep-find-ignored-directories "vendor")))
 
+(global-set-key (kbd "C-x |") 'toggle-window-split)
 (defun toggle-window-split ()
   "Vertical split show more of each line, horizontal split show more lines.
 This code toggles between them.
@@ -79,32 +96,26 @@ The top window goes to the left or vice-versa."
   (interactive)
   (if (= (count-windows) 2)
       (let* ((this-win-buffer (window-buffer))
-	     (next-win-buffer (window-buffer (next-window)))
-	     (this-win-edges (window-edges (selected-window)))
-	     (next-win-edges (window-edges (next-window)))
-	     (this-win-2nd (not (and (<= (car this-win-edges)
-					 (car next-win-edges))
-				     (<= (cadr this-win-edges)
-					 (cadr next-win-edges)))))
-	     (splitter
-	      (if (= (car this-win-edges)
-		     (car (window-edges (next-window))))
-		  'split-window-horizontally
-		'split-window-vertically)))
-	(delete-other-windows)
-	(let ((first-win (selected-window)))
-	  (funcall splitter)
-	  (if this-win-2nd (other-window 1))
-	  (set-window-buffer (selected-window) this-win-buffer)
-	  (set-window-buffer (next-window) next-win-buffer)
-	  (select-window first-win)
-	  (if this-win-2nd (other-window 1))))))
-(global-set-key (kbd "C-x |") 'toggle-window-split)
-
-(global-set-key (kbd "C-x m") 'ansi-term)
-
-(setq max-specpdl-size 650)
-(setq max-lisp-eval-depth 400)
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
 
 ;; wrap lines in the read-only buffers like Go-fmt etc.
 (global-visual-line-mode t)
@@ -118,8 +129,8 @@ The top window goes to the left or vice-versa."
 ;; Passing command line argument to `go test' using `--' -> `-- -c ./config/dev.toml'.
 ;; dlv test stageai.tech/zzzax/pay/calendar/ -- -c ./config/dev.toml -test.run TestListEvents
 
-(add-to-list 'default-frame-alist
-             '(font . "Fira Code-11"))
+;; (add-to-list 'default-frame-alist
+             ;; '(font . "Fira Code-11"))
 
 (defun sudo-save ()
   "Execute sudo save for files that user do not own."
@@ -174,11 +185,6 @@ The top window goes to the left or vice-versa."
 (setq mouse-wheel-progressive-speed nil)
 (setq mouse-wheel-scroll-amount '(0.07))
 
-;; define GQL tab width
-(defun my-gql-mode-hook ()
-  (setq tab-width 2 indent-tabs-mode 1))
-(add-hook 'graphql-mode-hook 'my-gql-mode-hook)
-
 ;;; ((( improve scrollers on other buffers.
 (defun scroll-other-window-up-half ()
   (interactive)
@@ -196,100 +202,55 @@ The top window goes to the left or vice-versa."
 (global-set-key (kbd "<M-prior>") 'scroll-other-window-down-half)
 ;;; )))
 
-;;; ((( mode line format
-(setq-default mode-line-format
-              '((:eval (simple-mode-line-render
-                        ;; left alighnment
-                        (format-mode-line
-                         (list
-                          ;; line and column
-                          " " ;; '%02' to set to 2 chars at least; prevents flickering
-                          (propertize "Ln:%02l ")
-                          (propertize "Col:%02c")
-                          "  "
+;; Ugly workaround of the emacs-mac version which have that weird bug
+;; that the GUI application looses focus when change spaces.
+(dotimes (n 2)
+  (toggle-frame-fullscreen))
 
-                          ;; the buffer name; the file name as a tool tip
-                          '(:eval (propertize (propertize "%b") 'face '(:weight bold)))
+;; markdown-mode custom command need any generating tool.
+;;
+;; For pandoc is good enough.
+(custom-set-variables
+ '(markdown-command "/usr/local/bin/pandoc"))
 
-                          "  "
+;; Fully-fledged terminal emulator
+(use-package vterm
+  :ensure t)
 
-                          ;; relative position, size of file
-                          "("
-                          (propertize "%p") ;; % above top
-                          "/"
-                          (propertize "%I") ;; size
-                          ")"
+(use-package vterm-toggle
+  :ensure t
+  :bind ("C-x m" . vterm-toggle))
 
-                          "  "
+(defun base64-decode-utf8-region (start end)
+  (interactive "r")
+  (save-restriction
+    (narrow-to-region start end)
+    (base64-decode-region (point-min) (point-max))
+    (decode-coding-region (point-min) (point-max) 'utf-8)))
 
-                          ;; the current major mode for the buffer.
-                          "("
-                          '(:eval (propertize "%m" 'help-echo "The current major mode for the buffer"))
-                          ")"
+(defun base64-encode-utf8-region (start end)
+  (interactive "r")
+  (save-restriction
+    (narrow-to-region start end)
+    (encode-coding-region (point-min) (point-max) 'utf-8)
+    (base64-encode-region (point-min) (point-max))))
 
-                          "  "
+(global-set-key (kbd "C-c C-c e") 'base64-encode-utf8-region)
+(global-set-key (kbd "C-c C-c d") 'base64-decode-utf8-region)
 
-                          "(" ;; insert vs overwrite mode, input-method in a tooltip
-                          '(:eval (propertize (if overwrite-mode
-                                                  (propertize "Ovr" 'face '(:foreground  "#bf616a"))
-                                                  (propertize "Ins"))
-                                              'help-echo (concat "Buffer is in "
-                                                                 (if overwrite-mode "overwrite" "insert") " mode")))
+(with-eval-after-load 'lsp-mode
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\vendor\\'")
+  ;; or
+  ;;(add-to-list 'lsp-file-watch-ignored-files "[/\\\\]\\.my-files\\'")
+  )
 
-                          ;; was this buffer modified since the last save?
-                          '(:eval (when (buffer-modified-p)
-                                    (concat ","  (propertize "Mod"
-                                                             ;; 'face 'magit-diff-removed-highlight
-                                                             'face '(:foreground "#8fbcbb")
-                                                             'help-echo "Buffer has been modified"))))
+;; Ignore folders from being processed by projectile.
+;; Changing to 'native is somehow necessary to successfully ignore folders.
+(setq projectile-indexing-method 'native)
+(add-to-list 'projectile-globally-ignored-directories "vendor")
+(add-to-list 'projectile-globally-ignored-directories ".ci")
 
-                          ;; is this buffer read-only?
-                          '(:eval (when buffer-read-only
-                                    (concat ","  (propertize "RO"
-                                                             'face 'font-lock-keyword-face
-                                                             'help-echo "Buffer is read-only"))))
-                          ")"
-
-                          "  "
-
-                          ;; version control
-                          '(:eval (propertize (substring vc-mode 5)))
-
-                          ))
-
-                        ;; right alignment
-                        (format-mode-line
-                         (list
-                          ;; current buffer file encoding
-                          '(:eval (symbol-name buffer-file-coding-system))
-
-                          "  "
-
-                          ;; emacs uptime in hours
-                          '(:eval (propertize (emacs-uptime "Uptime: %hh")))
-
-                          )))))
-              )
-
-(defun simple-mode-line-render (left right)
-  "Return a string of `window-width' length containing LEFT, and RIGHT
- aligned respectively."
-  (let* ((available-width (- (window-width) (length left) 2)))
-    (format (format " %%s %%%ds " available-width) left right)))
-
-(set-face-attribute 'mode-line nil
-                    :background "#eceff4"
-                    :foreground "#4C566A"
-                    :overline nil
-                    :underline nil)
-
-(set-face-attribute 'mode-line-inactive nil
-                    :background "#4C566A"
-                    :foreground "#eceff4"
-                    :overline nil
-                    :underline nil)
-
-;;; )))
+(setq prelude-whitespace nil)
 
 (provide 'personal)
 ;;; personal.el ends here
