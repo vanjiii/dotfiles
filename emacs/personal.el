@@ -66,12 +66,6 @@
 (use-package smex
   :ensure t)
 
-;;; ((( Golang specific configurations.
-;; Highlight the occurrence when cursor is on.
-(add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
-
-;;; )))
-
 ;;; ((( Custom printing snippets
 (global-set-key (kbd "C-c C-c y") 'debug-print-golang)
 (defun debug-print-golang ()
@@ -86,6 +80,9 @@
 (eval-after-load "grep"
   '(progn
      (add-to-list 'grep-find-ignored-directories "vendor")))
+
+(global-set-key (kbd "C-M-{") 'shrink-window-horizontally)
+(global-set-key (kbd "C-M-}") 'enlarge-window-horizontally)
 
 (global-set-key (kbd "C-x |") 'toggle-window-split)
 (defun toggle-window-split ()
