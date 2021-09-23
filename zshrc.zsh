@@ -6,6 +6,13 @@ export ZSH=$HOME/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
+# slow git repos
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Duplicate rows
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 # Disable the Xon/Xoff so the C-s to work and be able to cycle forward.
 stty -ixon
 
@@ -15,8 +22,6 @@ stty -ixon
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
-    archlinux
-    golang
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -24,10 +29,6 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # User defined aliases
-alias et='emacsclient -t'
-alias ec='emacsclient -c'
-alias e='emacsclient -t'
-
 alias gl=git log --oneline --all --graph --decorate  $*
 
 alias cp='cp -iv'                         # confirm before overwriting something
@@ -35,25 +36,14 @@ alias mv='mv -iv'
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 
-alias l='pwd && ls -lah --color=tty --group-directories-first'
+alias l='ls -l | fzf --preview="echo user={3} when={-4..-2}; cat {-1}" --header-lines=1'
 
-alias gb='git --no-pager branch'
+alias k='kubectl'
+alias g='gardenctl'
+alias kl='kubectl --kubeconfig=/Users/I547893/go/src/github.com/gardener/gardener/hack/local-development/local-garden/kubeconfigs/default-admin.conf -n garden-i547893'
 
-alias kubectl.stage='kubectl --kubeconfig=$HOME/dev/src/scripts/finergodom-cluster-kubeconfig.yaml'
 alias cryfs.mega='cryfs ~/MEGA/private.enc ~/Vaults/MegaCloud --unmount-idle 5'
 alias cryfs.umega='cryfs-unmount "/home/vanjiii/Vaults/MegaCloud"'
-
-
-update-go-tools(){
-    go get -u -v github.com/mdempsky/gocode &&
-    go get -u -v github.com/rogpeppe/godef &&
-    go get -u -v golang.org/x/tools/cmd/gorename &&
-    go get -u -v golang.org/x/tools/cmd/guru &&
-    go get -u -v golang.org/x/tools/cmd/goimports &&
-    go get -u -v golang.org/x/tools/gopls &&
-    rm -f /tmp/gocode-daemon.vanjiii &&
-    gocode close
-}
 
 #
 # # ex - archive extractor
@@ -65,7 +55,7 @@ ex ()
             *.tar.bz2)   tar xjf $1   ;;
             *.tar.gz)    tar xzf $1   ;;
             *.bz2)       bunzip2 $1   ;;
-            *.rar)       unrar x $1     ;;
+            *.rar)       unrar x $1   ;;
             *.gz)        gunzip $1    ;;
             *.tar)       tar xf $1    ;;
             *.tbz2)      tar xjf $1   ;;
@@ -82,6 +72,7 @@ ex ()
 
 
 # pwrand - a random password generator
+#
 # if not specify it will generate 32 char long password
 # usage: randpw [Optional N]
 pwrand ()
@@ -94,7 +85,14 @@ pwrand ()
     </dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c$length; echo ""
 }
 
-RPROMPT=%*
+# gardener specific shit
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+
+eval "$(zoxide init zsh)"
+
 # Useful CMDs
 #
 # --> sed  -i "s/auth.TWithRole/user.TWithRole/" `find ./invoices -name "*.go"`
