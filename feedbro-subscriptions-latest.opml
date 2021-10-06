@@ -34,5 +34,7 @@
             xmlUrl="https://lethain.com/feeds.xml" htmlUrl="https://lethain.com/"/>
       <outline text="Matt Nakama" title="Matt Nakama" type="rss" 
             xmlUrl="https://mattnakama.com/blog/index.xml" htmlUrl="https://mattnakama.com/blog/"/>
+      <outline text="tychoish" title="tychoish" type="rss" 
+            xmlUrl="https://tychoish.com/index.xml" htmlUrl="https://tychoish.com/"/>
 </body>
 </opml>
