@@ -1,18 +1,25 @@
 let &runtimepath=&runtimepath . ',' . expand("<sfile>:p:h")
 
 " load plugins with plug-vim
-"
 runtime! plugs.vim
 
 " respect neovim theme rather terminal one
 set termguicolors
-colorscheme acme
+set background=light
+colo two-firewatch
 
-set number
+" syntax is on except for golang files
 syntax on
+autocmd FileType go setlocal syntax=OFF
+
+" show line numbers
+set number
 
 " yank will also copy to the system clipboard
 set clipboard+=unnamedplus
+
+" automatically removing all trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
 
 " Plugin specific settings
 
@@ -36,7 +43,7 @@ map <Leader>N :NERDTreeFind<CR>
 " vim-go
 nnoremap <leader>gh  :GoSameIdsToggle<CR>
 nnoremap <leader>gt  :GoAlternate<CR>
-nnoremap <leader>gr  :GoRename<CR>
+nnoremap <leader>r          :GoRename<CR>
 nnoremap <leader>gd  :GoInfo<CR>
 nnoremap <leader>gi  :GoImplements<CR>
 nnoremap <leader>gr  :GoReferrers<CR>
