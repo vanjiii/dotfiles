@@ -8,5 +8,9 @@ bootstrap-git: ## Bootstrap global git configs and some scripts
 	ln -fs $(PWD)/git/new-branch $(HOME)/dev/bin/git-new-branch
 	chmod +x $(HOME)/dev/bin/git-new-branch
 
+bootstrap-cheat: ## Bootstrap cheat config file
+	mkdir -p $(HOME)/.config/cheat
+	ln -sf $(PWD)/cheat/conf.yaml $(HOME)/.config/cheat/conf.yml
+
 help:  ## Display this help screen
 	@grep -h -E '^[\.a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
