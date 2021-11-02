@@ -1,11 +1,3 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
-
 # slow git repos
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
@@ -26,8 +18,6 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
 # User defined aliases
 alias gl=git log --oneline --all --graph --decorate  $*
 
@@ -35,12 +25,6 @@ alias cp='cp -iv'                         # confirm before overwriting something
 alias mv='mv -iv'
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
-
-alias l='ls -l | fzf --preview="echo user={3} when={-4..-2}; cat {-1}" --header-lines=1'
-
-alias k='kubectl'
-alias g='gardenctl'
-alias kl='kubectl --kubeconfig=/Users/I547893/go/src/github.com/gardener/gardener/hack/local-development/local-garden/kubeconfigs/default-admin.conf -n garden-i547893'
 
 alias cryfs.mega='cryfs ~/MEGA/private.enc ~/Vaults/MegaCloud --unmount-idle 5'
 alias cryfs.umega='cryfs-unmount "/home/vanjiii/Vaults/MegaCloud"'
@@ -70,7 +54,6 @@ ex ()
     fi
 }
 
-
 # pwrand - a random password generator
 #
 # if not specify it will generate 32 char long password
@@ -85,17 +68,5 @@ pwrand ()
     </dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c$length; echo ""
 }
 
-# gardener specific shit
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
-
 eval "$(zoxide init zsh)"
 
-# Useful CMDs
-#
-# --> sed  -i "s/auth.TWithRole/user.TWithRole/" `find ./invoices -name "*.go"`
-# `-i` in_place or apply it on the files. Nit: use without `-i` to see the changes.
-# "s/regex_to_find/string_for_subst/"
-# **/*.go == `find . -name "*.go"`
