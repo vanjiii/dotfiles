@@ -12,5 +12,9 @@ bootstrap-cheat: ## Bootstrap cheat config file
 	mkdir -p $(HOME)/.config/cheat
 	ln -sf $(PWD)/cheat/conf.yaml $(HOME)/.config/cheat/conf.yml
 
+bootstrap-zsh: ## Bootstrap zsh config files
+	ln -sf $(PWD)/zsh/zshenv.zsh $(HOME)/.zshenv
+	ln -sf $(PWD)/zsh/zshrc.zsh $(HOME)/.zshrc
+
 help:  ## Display this help screen
 	@grep -h -E '^[\.a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
