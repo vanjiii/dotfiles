@@ -29,6 +29,9 @@ alias free='free -m'                      # show sizes in MB
 alias cryfs.mega='cryfs ~/MEGA/private.enc ~/Vaults/MegaCloud --unmount-idle 5'
 alias cryfs.umega='cryfs-unmount "/home/vanjiii/Vaults/MegaCloud"'
 
+alias open='xdg-open 2>/dev/null'
+alias o='xdg-open 2>/dev/null'
+
 #
 # # ex - archive extractor
 # # usage: ex <file>
