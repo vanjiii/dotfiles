@@ -1,0 +1,44 @@
+*vnj.txt* My notes on my own Vim usage
+
+Hello! Welcome to my Vim!
+
+My own custom mappings, that I tend to use quite often.
+
+1. General purpose				|vnj-genpurp|
+2. Golang					|vnj-golang|
+3. File Navigation				|vnj-fzf|
+
+==============================================================================
+1. General purpose						*vnj-genpurp*
+
+<F1>			Show this help.
+
+za			Toggle fold at cursor.
+zO 			Opens all folds at the cursor.
+zM 			Closes all open folds.
+zz, zt, zb		Center screen center, top, bottom.
+
+gqq 			Hard wraps of long lines.
+
+==============================================================================
+2. Golang							*vnj-golang*
+
+<leader> gh		Toggle highlight occurences.
+<leader> gt		Switch between implementation and tes file.
+<leader> r		Rename resource.
+<leader> gd		Show type info about the resource.
+<leader> gi		Which interfaces implements the resource.
+<leader> gr		Show object referrers.
+
+==============================================================================
+3. File Navigation						*vnj-fzf*
+
+gp			List all files under :pwd.
+<leader>p		List all files in the git repo.
+<leader>s		Lines (search) in the current buffer.
+<leader>f		Global lines (search) in :pwd.
+
+F3 			Toggle NerdTree.
+<leader> F3		Open NerdTree and locate the current file.
+
+vim:norl:modifiable:noreadonly:ft=help tw=78 ts=8

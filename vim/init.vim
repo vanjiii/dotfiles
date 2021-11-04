@@ -6,11 +6,11 @@ runtime! plugs.vim
 " respect neovim theme rather terminal one
 set termguicolors
 set background=light
-colo two-firewatch
+colo iceberg
 
 " syntax is on except for golang files
 syntax on
-autocmd FileType go setlocal syntax=OFF
+" autocmd FileType go setlocal syntax=OFF
 
 " show line numbers
 set number
@@ -25,25 +25,35 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " Nerdtree hack
 let g:NERDTreeNodeDelimiter = "\u00a0"
+let g:NERDTreeChDirMode = 2
+
+lua << EOF
+  require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
 
 " Mapping selecting mapping
-
 let mapleader = ","
 
+map <F1> :help vnj.txt <CR>
+
 " FZF
-nnoremap gp         :Files<CR>
-nnoremap <leader>p  :GFiles<CR>
-nnoremap <leader>s  :BLines<CR>
-nnoremap <leader>f  :Ag<CR>
+nnoremap gp         	:Files<CR>
+nnoremap <Leader>p  	:GFiles<CR>
+nnoremap <Leader>s  	:BLines<CR>
+nnoremap <Leader>f  	:Ag<CR>
 
 " NERDTree
-map <Leader>n :NERDTreeToggle<CR>
-map <Leader>N :NERDTreeFind<CR>
+map <F3> 		:NERDTreeToggle<CR>
+map <Leader><F3> 	:NERDTreeFind<CR>
 
 " vim-go
-nnoremap <leader>gh  :GoSameIdsToggle<CR>
-nnoremap <leader>gt  :GoAlternate<CR>
-nnoremap <leader>r          :GoRename<CR>
-nnoremap <leader>gd  :GoInfo<CR>
-nnoremap <leader>gi  :GoImplements<CR>
-nnoremap <leader>gr  :GoReferrers<CR>
+nnoremap <Leader>gh  	:GoSameIdsToggle<CR>
+nnoremap <Leader>gt  	:GoAlternate<CR>
+nnoremap <Leader>r   	:GoRename<CR>
+nnoremap <Leader>gd  	:GoInfo<CR>
+nnoremap <Leader>gi  	:GoImplements<CR>
+nnoremap <Leader>gr  	:GoReferrers<CR>
