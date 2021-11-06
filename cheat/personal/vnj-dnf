@@ -1,0 +1,29 @@
+# List dependencies of an installed package.
+dnf repoquery --installed --whatrequires <package>
+
+# List dependencies of a package.
+dnf repoquery --alldeps --whatrequires <package>
+
+# Get list of packages that uses the given package.
+dnf repoquery --requires --resolve <package>
+
+# List oaa available repos showing which are enabled.
+dnf repolist all
+
+# Check for a full system update.
+dnf check-update
+
+# Show all available packages from repositories.
+dnf list available | less
+
+# Show all installed packages.
+dnf list installed
+
+# Show which packages provides the given command/file.
+dnf provides <command>/<path/to/file>
+
+# Show package details.
+dnf info <package>
+
+# Remove orphan packages.
+dnf autoremove
