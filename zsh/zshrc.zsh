@@ -32,6 +32,11 @@ alias cryfs.umega='cryfs-unmount "/home/vanjiii/Vaults/MegaCloud"'
 alias open='xdg-open 2>/dev/null'
 alias o='xdg-open 2>/dev/null'
 
+alias xcopy='xclip -selection clipboard'
+alias xpaste='xclip -selection clipboard -o'
+
+alias k='kubectl'
+
 #
 # # ex - archive extractor
 # # usage: ex <file>

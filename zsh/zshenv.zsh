@@ -23,4 +23,4 @@ export GOBIN
 export PATH=$GOPATH/bin:$PATH
 
 # Shit to make work GPG again under MacOS.
-export GPG_TTY=$(tty)
+# export GPG_TTY=$(tty)
