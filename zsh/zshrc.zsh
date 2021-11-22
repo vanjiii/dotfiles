@@ -36,6 +36,9 @@ alias xcopy='xclip -selection clipboard'
 alias xpaste='xclip -selection clipboard -o'
 
 alias k='kubectl'
+alias kp='kubectl -n payments-self-service'
+
+alias delta='delta --light --line-numbers --side-by-side'
 
 #
 # # ex - archive extractor
