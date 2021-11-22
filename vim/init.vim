@@ -8,6 +8,9 @@ set termguicolors
 set background=light
 colo iceberg
 
+" enable mouse by default
+set mouse=a
+
 " syntax is on except for golang files
 syntax on
 " autocmd FileType go setlocal syntax=OFF
@@ -26,6 +29,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Nerdtree hack
 let g:NERDTreeNodeDelimiter = "\u00a0"
 let g:NERDTreeChDirMode = 2
+let NERDTreeShowHidden=1
 
 lua << EOF
   require("which-key").setup {
@@ -39,6 +43,8 @@ EOF
 let mapleader = ","
 
 map <F1> :help vnj.txt <CR>
+
+map <F9> :noh <CR>
 
 " FZF
 nnoremap gp         	:Files<CR>
