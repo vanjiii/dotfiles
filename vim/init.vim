@@ -46,6 +46,8 @@ map <F1> :help vnj.txt <CR>
 
 map <F9> :noh <CR>
 
+map <F6> :Scratch <CR>
+
 " FZF
 nnoremap gp         	:Files<CR>
 nnoremap <Leader>p  	:GFiles<CR>

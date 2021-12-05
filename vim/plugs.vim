@@ -18,6 +18,13 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'preservim/nerdtree'
 
+" helper window which shows available keybindings available of a key
 Plug 'folke/which-key.nvim'
+
+" comment stuff out
+Plug 'tpope/vim-commentary'
+
+" emacs like scratch buffer
+Plug 'vim-scripts/scratch.vim'
 
 call plug#end()
