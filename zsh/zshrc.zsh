@@ -40,6 +40,11 @@ alias kp='kubectl -n payments-self-service'
 
 alias delta='delta --light --line-numbers --side-by-side'
 
+alias e='dolphin . &'
+alias tree='tree --dirsfirst'
+
+alias lz='lazygit'
+
 #
 # # ex - archive extractor
 # # usage: ex <file>
