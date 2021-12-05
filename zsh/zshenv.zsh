@@ -25,4 +25,4 @@ export PATH=$GOPATH/bin:$PATH
 export KUBECONFIG=~/.kube/contexts/kubeconfig-theta.yaml
 
 # Shit to make work GPG again under MacOS.
-# export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)

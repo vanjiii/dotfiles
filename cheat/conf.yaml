@@ -46,9 +46,14 @@ cheatpaths:
   #
   # Once downloaded, ensure that 'path' below points to the location at which
   # you downloaded the community cheatsheets.
-  - name: community
+  - name: community-arch
+    path: /usr/share/cheat/cheatsheets/community
+    tags: [ archlinux ]
+    readonly: true
+
+  - name: community-fedora
     path: /usr/share/cheat
-    tags: [ community ]
+    tags: [ fedora ]
     readonly: true
 
   # If you have personalized cheatsheets, list them last. They will take
