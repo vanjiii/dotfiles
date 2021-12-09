@@ -30,4 +30,10 @@ Plug 'vim-scripts/scratch.vim'
 " Buffer explorer plugin
 Plug 'jlanzarotta/bufexplorer'
 
+" git diff in the sign column
+Plug 'mhinz/vim-signify'
+
+" Smart and easy pairs
+Plug 'jiangmiao/auto-pairs'
+
 call plug#end()
