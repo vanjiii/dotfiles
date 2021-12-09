@@ -18,7 +18,8 @@
 	branch = false
 
 [core]
-    pager = less -FR
+	pager = less -FR
+	editor = vi
 
 [commit]
 	gpgsign = true
