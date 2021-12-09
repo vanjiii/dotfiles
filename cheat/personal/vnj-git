@@ -1,0 +1,4 @@
+# git diff for COMMIT with its parent.
+git diff COMMIT^!
+git log -p COMMIT
+git show COMMIT
