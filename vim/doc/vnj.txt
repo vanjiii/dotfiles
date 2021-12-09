@@ -38,6 +38,11 @@ gqq 			Hard wraps of long lines.
 <leader> b		Build project.
 <leader> r		Run project.
 
+<C-x><C-o>		Start omnifunc.
+  <C-O>			Choose next selection.
+  <C-P>			Choose previous selection.
+  <C-Y>			Choose the selected option.
+
 ==============================================================================
 3. File Navigation						*vnj-fzf*
 

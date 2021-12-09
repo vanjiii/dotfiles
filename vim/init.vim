@@ -27,10 +27,12 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Plugin specific settings
 
 " vim-go {{{
-"
+
 " Status line types/signatures
 let g:go_auto_type_info = 1
 
+" when option is choosen help window is closed automatically
+autocmd CompleteDone * pclose
 " }}}
 
 " Nerdtree hack
