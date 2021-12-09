@@ -43,10 +43,8 @@ EOF
 let mapleader = ","
 
 map <F1> :help vnj.txt <CR>
-
-map <F9> :noh <CR>
-
 map <F6> :Scratch <CR>
+map <F9> :noh <CR>
 
 " FZF
 nnoremap gp         	:Files<CR>
@@ -65,3 +63,11 @@ nnoremap <Leader>r   	:GoRename<CR>
 nnoremap <Leader>gd  	:GoInfo<CR>
 nnoremap <Leader>gi  	:GoImplements<CR>
 nnoremap <Leader>gr  	:GoReferrers<CR>
+
+map 	 <C-n> :cnext<CR>
+map 	 <C-m> :cprevious<CR>
+
+nnoremap <leader>a :cclose<CR>
+
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)

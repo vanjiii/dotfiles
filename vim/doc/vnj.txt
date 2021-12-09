@@ -6,12 +6,14 @@ My own custom mappings, that I tend to use quite often.
 
 1. General purpose				|vnj-genpurp|
 2. Golang					|vnj-golang|
-3. File Navigation				|vnj-fzf|
+3. File navigation				|vnj-fzf|
+4. Other plugins				|vnj-other|
 
 ==============================================================================
 1. General purpose						*vnj-genpurp*
 
 <F1>			Show this help.
+<F9>			Disables hihglights if any.
 
 za			Toggle fold at cursor.
 zO 			Opens all folds at the cursor.
@@ -30,6 +32,12 @@ gqq 			Hard wraps of long lines.
 <leader> gi		Which interfaces implements the resource.
 <leader> gr		Show object referrers.
 
+<C-n>			Jump on next error.
+<C-m>			Jump on previous error.
+<leader> a 		Close the quickfix window.
+<leader> b		Build project.
+<leader> r		Run project.
+
 ==============================================================================
 3. File Navigation						*vnj-fzf*
 
@@ -40,5 +48,15 @@ gp			List all files under :pwd.
 
 F3 			Toggle NerdTree.
 <leader> F3		Open NerdTree and locate the current file.
+
+==============================================================================
+4. Other plugins						vnj-other
+
+<leader> be		Opens buffer explorer.
+<leader> bt		Toggle buffer explorer.
+<leader> bs		Opens buffer explorer in horizontal split.
+<leader> bv		Opens buffer explorer in vertical split.
+
+<F6> 			Opens Scratch buffer.
 
 vim:norl:modifiable:noreadonly:ft=help tw=78 ts=8

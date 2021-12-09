@@ -27,4 +27,7 @@ Plug 'tpope/vim-commentary'
 " emacs like scratch buffer
 Plug 'vim-scripts/scratch.vim'
 
+" Buffer explorer plugin
+Plug 'jlanzarotta/bufexplorer'
+
 call plug#end()
