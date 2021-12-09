@@ -52,6 +52,7 @@ EOF
 let mapleader = ","
 
 map <F1> :help vnj.txt <CR>
+map <F4> :ToggleBufExplorer <CR>
 map <F6> :Scratch <CR>
 map <F9> :noh <CR>
 

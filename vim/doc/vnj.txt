@@ -68,4 +68,6 @@ F3 			Toggle NerdTree.
 <M-e>			Fast Wrap (g:AutoPairsShortcutFastWrap)
 <M-n>			Jump to next closed pair (g:AutoPairsShortcutJump)
 
+F4			Toggle Buffer Explorer.
+
 vim:norl:modifiable:noreadonly:ft=help tw=78 ts=8
