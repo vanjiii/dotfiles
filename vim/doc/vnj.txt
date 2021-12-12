@@ -14,6 +14,15 @@ My own custom mappings, that I tend to use quite often.
 
 <F1>			Show this help.
 <F9>			Disables hihglights if any.
+<f12>			Toggle Fullscreen (neovide).
+
+<Leader> lp		Quick list previous item.
+<Leader> ln		Quick list next item.
+<Leader> lc		Close quick list.
+
+<Leader> cp		Location list previous item.
+<Leader> cn		Location list next item.
+<Leader> cc		Close Location list.
 
 za			Toggle fold at cursor.
 zO 			Opens all folds at the cursor.
@@ -25,12 +34,18 @@ gqq 			Hard wraps of long lines.
 ==============================================================================
 2. Golang							*vnj-golang*
 
+<C-]>			Jump to definition.
+<C-t>			Jump back to previous definition.
+<leader> ds		Go to definition in split.
+<leader> dv		Go to definition in vertical split.
+
 <leader> gh		Toggle highlight occurences.
 <leader> gt		Switch between implementation and tes file.
 <leader> r		Rename resource.
 <leader> gd		Show type info about the resource.
 <leader> gi		Which interfaces implements the resource.
 <leader> gr		Show object referrers.
+K			Show doc string for type.
 
 <C-n>			Jump on next error.
 <C-m>			Jump on previous error.
