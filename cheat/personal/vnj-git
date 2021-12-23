@@ -2,3 +2,12 @@
 git diff COMMIT^!
 git log -p COMMIT
 git show COMMIT
+
+# Stage block by block
+git add  -p
+# it is alias to
+git add -i
+  # p(atch) \
+  # 1       \
+  # enter
+  # y
