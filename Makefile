@@ -10,7 +10,7 @@ bootstrap-git: ## Bootstrap global git configs and some scripts
 
 bootstrap-cheat: ## Bootstrap cheat config file
 	mkdir -p $(HOME)/.config/cheat
-	ln -sf $(PWD)/cheat/conf.yaml $(HOME)/.config/cheat/conf.yml
+	cp -vf $(PWD)/cheat/conf.yaml.example $(HOME)/.config/cheat/conf.yml
 
 bootstrap-zsh: ## Bootstrap zsh config files
 	ln -sf $(PWD)/zsh/zshenv.zsh $(HOME)/.zshenv
