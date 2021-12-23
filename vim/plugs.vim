@@ -36,4 +36,10 @@ Plug 'mhinz/vim-signify'
 " Smart and easy pairs
 Plug 'jiangmiao/auto-pairs'
 
+" Add fancy start screen
+Plug 'mhinz/vim-startify'
+
+" Easy navigating around the buffer
+Plug 'easymotion/vim-easymotion'
+
 call plug#end()

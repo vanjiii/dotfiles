@@ -31,6 +31,10 @@ zz, zt, zb		Center screen center, top, bottom.
 
 gqq 			Hard wraps of long lines.
 
+z=			Suggest spell correction.
+zg			Mark word as good under cursor to local dictionary.
+zw			Mark word as bad under cursor to local dictionary.
+
 ==============================================================================
 2. Golang							*vnj-golang*
 
@@ -66,8 +70,8 @@ gp			List all files under :pwd.
 <leader>s		Lines (search) in the current buffer.
 <leader>f		Global lines (search) in :pwd.
 
-F3 			Toggle NerdTree.
-<leader> F3		Open NerdTree and locate the current file.
+<F3> 			Toggle NerdTree.
+<leader> <F3>		Open NerdTree and locate the current file.
 
 ==============================================================================
 4. Other plugins						vnj-other
@@ -77,12 +81,16 @@ F3 			Toggle NerdTree.
 <leader> bs		Opens buffer explorer in horizontal split.
 <leader> bv		Opens buffer explorer in vertical split.
 
-<F6> 			Opens Scratch buffer.
-
 <M-p> 			Toggle Autopairs (g:AutoPairsShortcutToggle)
 <M-e>			Fast Wrap (g:AutoPairsShortcutFastWrap)
 <M-n>			Jump to next closed pair (g:AutoPairsShortcutJump)
 
-F4			Toggle Buffer Explorer.
+<F4>			Toggle Buffer Explorer.
+<F5> 			Toggle Startify.
+<F6> 			Opens Scratch buffer.
+
+<Space> <2_symbols>	Turn on easymotion.
+<Leader>j		Line below easymotion.
+<Leader>k		Line above easymotion.
 
 vim:norl:modifiable:noreadonly:ft=help tw=78 ts=8
