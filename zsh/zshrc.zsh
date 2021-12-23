@@ -14,6 +14,8 @@ stty -ixon
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
+    pass
+    docker
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -44,6 +46,8 @@ alias e='dolphin . &'
 alias tree='tree --dirsfirst'
 
 alias lz='lazygit'
+
+alias magic='automatic-receipts'
 
 #
 # # ex - archive extractor
