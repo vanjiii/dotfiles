@@ -121,6 +121,7 @@ nnoremap gp         	:Files<CR>
 nnoremap <Leader>p  	:GFiles<CR>
 nnoremap <Leader>s  	:BLines<CR>
 nnoremap <Leader>f  	:Ag<CR>
+nnoremap <Leader><F4>	:Buffers <CR>
 
 " NERDTree
 map <F3> 		:NERDTreeToggle<CR>
@@ -129,13 +130,13 @@ map <Leader><F3> 	:NERDTreeFind<CR>
 " vim-go
 nnoremap <Leader>gh  	:GoSameIdsToggle<CR>
 nnoremap <Leader>gt  	:GoAlternate<CR>
-nnoremap <Leader>r   	:GoRename<CR>
+nnoremap <Leader>gr   	:GoRename<CR>
 nnoremap <Leader>gd  	:GoInfo<CR>
 nnoremap <Leader>gi  	:GoImplements<CR>
-nnoremap <Leader>gr  	:GoReferrers<CR>
+nnoremap <Leader>gf  	:GoReferrers<CR>
 
-autocmd FileType go nmap <Leader>b  <Plug>(go-build)
-autocmd FileType go nmap <Leader>r  <Plug>(go-run)
+autocmd FileType go nmap <Leader>gb  <Plug>(go-build)
+autocmd FileType go nmap <Leader>gs  <Plug>(go-run)
 
 autocmd FileType go nmap <Leader>ds <Plug>(go-def-split)
 autocmd FileType go nmap <Leader>dv <Plug>(go-def-vertical)
