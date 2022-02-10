@@ -1,7 +1,7 @@
 # git diff for COMMIT with its parent.
+git show COMMIT # preferred
 git diff COMMIT^!
 git log -p COMMIT
-git show COMMIT
 
 # Stage block by block
 git add  -p
@@ -11,3 +11,9 @@ git add -i
   # 1       \
   # enter
   # y
+
+# squash commits (the last 3 for example)
+git rebase -i HEAD~3
+# into the opening window use `squash` for the commit that you want to sqaush
+# with the *previous* commit (obviously you cannot do that for the first one)
+git push -f
