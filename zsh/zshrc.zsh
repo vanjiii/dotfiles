@@ -44,10 +44,13 @@ alias delta='delta --light --line-numbers --side-by-side'
 
 alias e='dolphin . &'
 alias tree='tree --dirsfirst'
+alias tr1='tree --dirsfirst -L 1'
+alias tr2='tree --dirsfirst -L 2'
+alias tr3='tree --dirsfirst -L 3'
 
 alias lz='lazygit'
 
-alias magic='automatic-receipts'
+alias go='go1.18'
 
 #
 # # ex - archive extractor
@@ -90,3 +93,7 @@ pwrand ()
 
 eval "$(zoxide init zsh)"
 
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
