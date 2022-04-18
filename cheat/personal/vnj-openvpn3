@@ -1,0 +1,20 @@
+# For complete doc: https://github.com/OpenVPN/openvpn3-linux/
+
+## Manage configs
+
+# Import ovpn file
+openvpn3 config-import --config my-vpn-config.ovpn
+
+# List all available imports
+openvpn3 configs-list
+
+## Manage sessions
+
+# Start session (get config-path from configs)
+$ openvpn3 session-start --config-path /net/openvpn/v3/configuration/d45d4263x42b8x4669xa8b2x583bcac770b2
+
+# List all sessions
+openvpn3 sessions-list
+
+# Restart service (--pause, --resume, and --disconnect.)
+openvpn3 session-manage --path /net/openvpn/v3/sessions/46fff369sd155s41e5sb97fsbb9d54738124 --restart

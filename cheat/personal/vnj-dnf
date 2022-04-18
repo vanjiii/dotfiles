@@ -7,7 +7,7 @@ dnf repoquery --alldeps --whatrequires <package>
 # Get list of packages that uses the given package.
 dnf repoquery --requires --resolve <package>
 
-# List oaa available repos showing which are enabled.
+# List all available repos showing which are enabled.
 dnf repolist all
 
 # Check for a full system update.
