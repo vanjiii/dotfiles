@@ -22,12 +22,12 @@ v <C-g>			Enter in Select mode
 <F9>			Disables hihglights if any.
 <f12>			Toggle Fullscreen (neovide).
 
-<Leader> lp		Quick list previous item.
-<Leader> ln		Quick list next item.
+[l			Quick list previous item.
+]l			Quick list next item.
 <Leader> lc		Close quick list.
 
-<Leader> cp		Location list previous item.
-<Leader> cn		Location list next item.
+[c			Location list previous item.
+]c			Location list next item.
 <Leader> cc		Close Location list.
 
 za			Toggle fold at cursor.

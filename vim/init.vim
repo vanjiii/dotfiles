@@ -16,12 +16,24 @@ set noswapfile
 
 " drop old-time vi compatibility
 set nocompatible
+filetype plugin on
+
+" Activate builtin plugin matchit. It enhances the % command (e.g. can jump
+" between html tags or ruby if-end blocks).
+runtime macros/matchit.vim
 
 " create undo file by default
 set undofile
 
-" case insensitive search
-set ignorecase
+" Case insensitive search.
+" This also affects the text autocompletion.
+" set ignorecase
+set smartcase
+
+" those are on by default on Neovim but off on Vim.
+set incsearch
+set hlsearch
+set wrapscan
 
 " syntax is ON except for golang files
 syntax on
@@ -30,11 +42,17 @@ autocmd FileType go setlocal syntax=OFF
 " show line numbers
 set number
 
-" yank will also copy to the system clipboard
-set clipboard+=unnamedplus
+" Explicitly set autoindent to true.
+set autoindent
+
+" set OS clipboard paste available in insert mode.
+set pastetoggle=<f10>
 
 " automatically removing all trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
+
+" set tab width equal to 2 spaces for markdown files.
+autocmd Filetype markdown setlocal shiftwidth=2
 
 " ===========================
 " Plugin specific settings
@@ -49,6 +67,10 @@ let g:go_auto_type_info = 1
 
 " when option is chosen help window is closed automatically
 autocmd CompleteDone * pclose
+
+" make golangci-lint default linter => :GoMetaLinter will run it.
+let g:go_metalinter_enabled = []
+let g:go_metalinter_command = 'golangci-lint'
 " }}}
 
 " => Nerdtree {{{
@@ -61,24 +83,8 @@ lua << EOF
   require("which-key").setup {
     -- your configuration comes here
     -- or leave it empty to use the default settings
-    -- refer to the configuration section below
   }
 EOF
-
-" => vim gui/neovide configs {{{
-set guifont=Fira\ Code:h10
-let g:neovide_refresh_rate=60
-let g:neovide_fullscreen=v:false
-let g:neovide_cursor_antialiasing=v:true
-" }}}
-
-function! FullscreenToggle()
-    if g:neovide_fullscreen
-	let g:neovide_fullscreen=v:false
-    else
-	let g:neovide_fullscreen=v:true
-    endif
-endfunction
 
 " => startify {{{
 let g:startify_change_to_dir=0
@@ -86,42 +92,58 @@ let g:startify_change_to_vcs_root = 1
 let g:startify_bookmarks = [
 			\ {'d': '~/dev/src/github.com/vanjiii/dotfiles'},
 			\ {'w': '~/dev/src/github.com/sumup/automatic-receipts'},
+			\ {'r': '~/dev/src/github.com/sumup/receipt-data-collector'},
+			\ {'n': '~/notes/tasks.md'},
 			\ ]
 " }}}
 
 " => easymotion {{{
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 " }}}
+"
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 " ===========================
 " Local mappings
 " ===========================
 
-" Mapping selecting leader key
-let mapleader = ","
-
 map <F1> :help vnj.txt 			<CR>
-map <F4> :ToggleBufExplorer 		<CR>
 map <F5> :Startify 			<CR>
 map <F6> :Scratch 			<CR>
 map <F9> :noh 				<CR>
-map <F12> :call FullscreenToggle()	<CR>
 
 " Quicklist and Location list windows
-nnoremap <Leader>lp	:lprevious	<CR>
-nnoremap <Leader>ln	:lnext		<CR>
+nnoremap [l		:lprevious	<CR>
+nnoremap ]l		:lnext		<CR>
 nnoremap <Leader>lc	:lclose		<CR>
 
-nnoremap <Leader>cp	:cprevious	<CR>
-nnoremap <Leader>cn	:cnext		<CR>
+nnoremap [c		:cprevious	<CR>
+nnoremap ]c		:cnext		<CR>
 nnoremap <Leader>cc	:cclose		<CR>
 
 " FZF
-nnoremap gp         	:Files<CR>
-nnoremap <Leader>p  	:GFiles<CR>
+nnoremap <Leader><Leader> :Files<CR>
+nnoremap <C-p> :Files<CR>
+nnoremap <Leader>pp  	:GFiles<CR>
+nnoremap <Leader>pg  	:GFiles?<CR>
 nnoremap <Leader>s  	:BLines<CR>
-nnoremap <Leader>f  	:Ag<CR>
-nnoremap <Leader><F4>	:Buffers <CR>
+nnoremap <Leader>pf  	:Ag<CR>
+nnoremap <F4>		:Buffers <CR>
 
 " NERDTree
 map <F3> 		:NERDTreeToggle<CR>
@@ -135,8 +157,8 @@ nnoremap <Leader>gd  	:GoInfo<CR>
 nnoremap <Leader>gi  	:GoImplements<CR>
 nnoremap <Leader>gf  	:GoReferrers<CR>
 
-autocmd FileType go nmap <Leader>gb  <Plug>(go-build)
-autocmd FileType go nmap <Leader>gs  <Plug>(go-run)
+autocmd FileType go nmap <Leader>gb <Plug>(go-build)
+autocmd FileType go nmap <Leader>gs <Plug>(go-run)
 
 autocmd FileType go nmap <Leader>ds <Plug>(go-def-split)
 autocmd FileType go nmap <Leader>dv <Plug>(go-def-vertical)

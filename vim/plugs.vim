@@ -27,9 +27,6 @@ Plug 'tpope/vim-commentary'
 " emacs like scratch buffer
 Plug 'vim-scripts/scratch.vim'
 
-" Buffer explorer plugin
-Plug 'jlanzarotta/bufexplorer'
-
 " git diff in the sign column
 Plug 'mhinz/vim-signify'
 
@@ -41,5 +38,12 @@ Plug 'mhinz/vim-startify'
 
 " Easy navigating around the buffer
 Plug 'easymotion/vim-easymotion'
+
+" Protobuff highlighter
+" It is fork with google updates.
+Plug 'vanjiii/vim-protobuf'
+
+" Another auto pairs plugin with nice (cs) prefix.
+Plug 'tpope/vim-surround'
 
 call plug#end()
