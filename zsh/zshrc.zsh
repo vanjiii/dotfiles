@@ -50,7 +50,14 @@ alias tr3='tree --dirsfirst -L 3'
 
 alias lz='lazygit'
 
-alias go='go1.18'
+# used in kitty so open hyperlinks can work
+alias ls='ls --hyperlink=auto --color=auto'
+
+# open images in terminal (need ImageMagick)
+alias img='kitty +kitten icat'
+alias icat='kitty +kitten icat'
+
+alias speedtest=speedtest-cli
 
 #
 # # ex - archive extractor
@@ -77,11 +84,11 @@ ex ()
     fi
 }
 
-# pwrand - a random password generator
+# pw - a random password generator
 #
 # if not specify it will generate 32 char long password
 # usage: randpw [Optional N]
-pwrand ()
+pw ()
 {
     length=32
     if [ "$1" != "" ]
@@ -93,7 +100,7 @@ pwrand ()
 
 eval "$(zoxide init zsh)"
 
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)

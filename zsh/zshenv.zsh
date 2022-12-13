@@ -19,8 +19,6 @@ GOBIN=$HOME/go/bin
 export GOBIN
 export PATH=$GOBIN:$PATH
 
-export KUBECONFIG=$HOME/.kube/contexts/kubeconfig-theta.yaml
-
 # Shit to make work GPG again under MacOS.
 export GPG_TTY=$(tty)
 
