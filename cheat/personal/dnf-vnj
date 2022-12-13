@@ -10,6 +10,10 @@ dnf repoquery --requires --resolve <package>
 # List all available repos showing which are enabled.
 dnf repolist all
 
+# Enable or disable repo
+dnf config-manager --set-disabled repository
+dnf config-manager --set-enabled repository
+
 # Check for a full system update.
 dnf check-update
 

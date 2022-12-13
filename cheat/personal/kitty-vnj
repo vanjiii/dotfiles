@@ -1,0 +1,34 @@
+# kitty_mod
+ctrl+shift
+
+# Get the latest command output and put it in the less
+kitty_mod + g
+
+# Get all screen in less
+kitty_mod + mouse_right
+
+# Open file from ls
+# note: `ls --hyperlink` need to be passed
+# note: from output of `ls` you can mouse_left click and open file
+kitty_mod + p>y
+
+# Open image into the terminal
+kitty +kitten icat spotify.png
+# or use alias
+img
+icat
+
+# Go to split
+kitty_mod num
+
+# Display split current number
+kitty_mod f7
+
+# Go to kitty shell
+kitty_mod esc
+
+# Select themes
+kitty +kitten themes
+
+# Resize splits
+kitty_mod r
