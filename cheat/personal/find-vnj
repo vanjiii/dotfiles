@@ -1,0 +1,12 @@
+# To be read as
+# - find all golang files in current dir (or deep)
+# - exec grep to search for PATTERN in the content of the file(s)
+# - exec (open with nvim) all files that are found
+# - -name is useful to exclude dirs and files like .git and other shit
+find . -name "*.go" -exec grep "API" {} \; -exec nvim {} \;
+
+# - not -path excludes files in that dir
+# - grep -n shown line num
+# - grep -H shows the file name
+# - -name is useful to exclude dirs and files like .git and other shit
+find . -name "*.rb" -not -path "./db/migrate/*" -exec grep -nH "_STATUS" {} \;
