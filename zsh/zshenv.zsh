@@ -19,9 +19,13 @@ GOBIN=$HOME/go/bin
 export GOBIN
 export PATH=$GOBIN:$PATH
 
+DOTFILES=$HOME/dev/src/github.com/me/dotfiles
+
 # Shit to make work GPG again under MacOS.
 export GPG_TTY=$(tty)
 
 # Sets bat theme.
 # Also used in fzf.vim preview window (for better colorscheme).
 export BAT_THEME="GitHub"
+
+export PAGER='less -F -S -R -M -i'
