@@ -87,7 +87,7 @@ ex ()
 # pw - a random password generator
 #
 # if not specify it will generate 32 char long password
-# usage: randpw [Optional N]
+# usage: pw [Optional N]
 pw ()
 {
     length=32
