@@ -23,6 +23,7 @@
 
 [commit]
 	gpgsign = true
+
 [alias]
 	co = checkout
 	br = branch
@@ -30,3 +31,6 @@
 	st = status
 	unstage = reset HEAD --
 	sw = switch
+	lg = log --oneline --all --graph --decorate
+	h = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	pf = !git push --set-upstream origin $(git branch --show)
