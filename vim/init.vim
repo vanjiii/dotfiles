@@ -30,7 +30,7 @@ set undofile
 
 " Case insensitive search.
 " This also affects the text autocompletion.
-" set ignorecase
+set ignorecase
 set smartcase
 
 " those are on by default on Neovim but off on Vim.
