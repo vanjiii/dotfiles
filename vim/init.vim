@@ -8,6 +8,9 @@ set termguicolors
 set background=light
 colo iceberg
 
+" Proposed by neovim#healthcheck
+let g:python3_host_prog = '/usr/bin/python'
+
 " enable mouse by default
 set mouse=a
 
