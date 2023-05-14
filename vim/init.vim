@@ -89,17 +89,6 @@ lua << EOF
   }
 EOF
 
-" => startify {{{
-let g:startify_change_to_dir=0
-let g:startify_change_to_vcs_root = 1
-let g:startify_bookmarks = [
-			\ {'d': '~/dev/src/github.com/vanjiii/dotfiles'},
-			\ {'w': '~/dev/src/github.com/sumup/automatic-receipts'},
-			\ {'r': '~/dev/src/github.com/sumup/receipt-data-collector'},
-			\ {'n': '~/notes/tasks.md'},
-			\ ]
-" }}}
-
 " => easymotion {{{
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 " }}}
@@ -126,7 +115,6 @@ let g:fzf_colors =
 " ===========================
 
 map <F1> :help vnj.txt 			<CR>
-map <F5> :Startify 			<CR>
 map <F6> :Scratch 			<CR>
 map <F9> :noh 				<CR>
 

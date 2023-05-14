@@ -10,6 +10,7 @@ Plug 'rakr/vim-two-firewatch'
 Plug 'rakr/vim-one'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'cocopon/iceberg.vim'
+Plug 'jeffkreeftmeijer/vim-dim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -29,12 +30,6 @@ Plug 'vim-scripts/scratch.vim'
 
 " git diff in the sign column
 Plug 'mhinz/vim-signify'
-
-" Smart and easy pairs
-Plug 'jiangmiao/auto-pairs'
-
-" Add fancy start screen
-Plug 'mhinz/vim-startify'
 
 " Easy navigating around the buffer
 Plug 'easymotion/vim-easymotion'
