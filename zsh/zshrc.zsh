@@ -14,39 +14,31 @@ stty -ixon
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
-    pass
-    docker
 )
 
 source $ZSH/oh-my-zsh.sh
 
 # User defined aliases
-alias gl=git log --oneline --all --graph --decorate  $*
-
 alias cp='cp -iv'                         # confirm before overwriting something
 alias mv='mv -iv'
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 
-alias cryfs.mega='cryfs ~/MEGA/private.enc ~/Vaults/MegaCloud --unmount-idle 5'
-alias cryfs.umega='cryfs-unmount "/home/vanjiii/Vaults/MegaCloud"'
+alias cryfs.mega='cryfs ~/MEGA/private.enc ~/Vaults/mega --unmount-idle 5'
+alias cryfs.umega='cryfs-unmount "/home/vnj/Vaults/mega"'
 
 alias open='xdg-open 2>/dev/null'
 alias o='xdg-open 2>/dev/null'
 
-alias xcopy='xclip -selection clipboard'
-alias xpaste='xclip -selection clipboard -o'
-
 alias k='kubectl'
-alias kp='kubectl -n payments-self-service'
 
 alias delta='delta --light --line-numbers --side-by-side'
 
-alias e='dolphin . &'
+alias e='nautilius . &'
 alias tree='tree --dirsfirst'
-alias tr1='tree --dirsfirst -L 1'
-alias tr2='tree --dirsfirst -L 2'
-alias tr3='tree --dirsfirst -L 3'
+alias tr1='tree --dirsfirst -L 1 -a'
+alias tr2='tree --dirsfirst -L 2 -a '
+alias tr3='tree --dirsfirst -L 3 -a'
 
 alias lz='lazygit'
 
@@ -58,6 +50,12 @@ alias img='kitty +kitten icat'
 alias icat='kitty +kitten icat'
 
 alias speedtest=speedtest-cli
+
+alias fuck='sudo $(fc -ln -1)'
+
+alias la_tassa='podman run --rm -it -v "$(pwd)":/app:z ruby:2.4.9 /app/scripts/gen_migration.rb /app/scripts/tmp/{a,b}'
+
+alias bwu='export BW_SESSION="$(bw unlock --raw)"'
 
 #
 # # ex - archive extractor
@@ -99,8 +97,4 @@ pw ()
 }
 
 eval "$(zoxide init zsh)"
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+source <(kubectl completion zsh)
