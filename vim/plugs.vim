@@ -6,11 +6,10 @@ endif
 
 call plug#begin()
 
-Plug 'rakr/vim-two-firewatch'
 Plug 'rakr/vim-one'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'cocopon/iceberg.vim'
-Plug 'jeffkreeftmeijer/vim-dim'
+Plug 'rmehri01/onenord.nvim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
