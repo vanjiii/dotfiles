@@ -1,0 +1,73 @@
+https://github.com/notabugwontfix/public-obsidian-vault/blob/master/Fedora%2036%20Workstation%20Setup.md
+
+=== dnf ===
+echo 'max_parallel_downloads=10' | sudo tee -a /etc/dnf/dnf.conf
+
+=== btrfs ===
+- ssd: use SSD specific options for optimal use on SSD and NVME
+- noatime: prevent frequent disk writes by instructing the Linux kernel not to store the last access time of files and folders
+- space_cache: allows btrfs to store free space cache on the disk to make caching of a block group much quicker
+- commit=120: time interval in which data is written to the filesystem (value of 120 is taken from Manjaro’s minimal iso)
+- compress=zstd: allows to specify the compression algorithm which we want to use. btrfs provides lzo, zstd and zlib compression algorithms. Based on some Phoronix test cases, zstd seems to be the better performing candidate.
+- discard=async: Btrfs Async Discard Support Looks To Be Ready For Linux 5.6
+
+=== flatpak ===
+- Add Flathub repository: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+- Disable default Fedora Flathub repository: sudo flatpak remote-modify --disable fedora
+- Install Flatseal to control Flatpak apps permissions: flatpak install flathub com.github.tchx84.Flatseal
+
+Fix themes/icons/fonts in Flatpak apps:
+
+sudo flatpak override --filesystem=$HOME/.themes
+sudo flatpak override --filesystem=$HOME/.icons
+sudo flatpak override --filesystem=$HOME/.fonts
+sudo flatpak override --filesystem=xdg-config/gtk-3.0
+sudo flatpak override --filesystem=xdg-config/gtk-4.0
+
+Review your Flatpak overrides: sudo flatpak override --show
+
+=== codecs ===
+https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/
+dnf/flatpak vlc
+
+=== Fix thumbnails ===
+
+    Install ffmpegthumbnailer: sudo dnf install ffmpegthumbnailer
+    Close nautilus and clear thumnails cache:
+
+	nautilus -q
+	rm -r ~/.cache/thumbnails/*
+
+=== fonts ===
+install a bunch
+sudo dnf install \
+    fira-code-fonts \
+    google-noto-sans-fonts \
+    google-noto-serif-fonts \
+    google-noto-sans-mono-fonts \
+    'google-roboto*fonts' \
+    'google-droid*fonts' \
+    'mozilla-fira*fonts' \
+    'adobe*pro-fonts' \
+    'dejavu-sans*fonts' \
+    'dejavu-serif*fonts' \
+    fontawesome-fonts \
+    levien-inconsolata-fonts \
+    jetbrains-mono-fonts-all \
+    ibm-plex-fonts-all \
+    pt-sans-fonts \
+    open-sans-fonts
+
+
+
+MS Fonts
+
+Install dependencies and fonts:
+
+sudo dnf install cabextract xorg-x11-font-utils
+sudo rpm -i https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
+
+More info at http://mscorefonts2.sourceforge.net/.
+
+https://copr.fedorainfracloud.org/coprs/dawid/better_fonts/
+
