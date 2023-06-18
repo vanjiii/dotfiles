@@ -57,9 +57,8 @@ alias la_tassa='podman run --rm -it -v "$(pwd)":/app:z ruby:2.4.9 /app/scripts/g
 
 alias bwu='export BW_SESSION="$(bw unlock --raw)"'
 
-#
-# # ex - archive extractor
-# # usage: ex <file>
+# ex - archive extractor
+# usage: ex <file>
 ex ()
 {
     if [ -f $1 ] ; then
