@@ -7,6 +7,6 @@
 - feedbro
 - kitty
 - Makefile
-- psqlrc
+- [x] psqlrc
 - README
 - stow
