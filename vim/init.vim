@@ -6,7 +6,7 @@ runtime! plugs.vim
 " respect neovim theme rather terminal one
 set termguicolors
 set background=light
-colo iceberg
+colo onenord-light
 
 " Proposed by neovim#healthcheck
 let g:python3_host_prog = '/usr/bin/python'
@@ -119,22 +119,22 @@ map <F6> :Scratch 			<CR>
 map <F9> :noh 				<CR>
 
 " Quicklist and Location list windows
-nnoremap [l		:lprevious	<CR>
-nnoremap ]l		:lnext		<CR>
+nnoremap <Leader>l[	:lprevious	<CR>
+nnoremap <Leader>l]	:lnext		<CR>
 nnoremap <Leader>lc	:lclose		<CR>
 
-nnoremap [c		:cprevious	<CR>
-nnoremap ]c		:cnext		<CR>
+nnoremap <Leader>c[	:cprevious	<CR>
+nnoremap <Leader>c]	:cnext		<CR>
 nnoremap <Leader>cc	:cclose		<CR>
 
 " FZF
-nnoremap <Leader><Leader> :Files<CR>
-nnoremap <C-p> :Files<CR>
-nnoremap <Leader>pp  	:GFiles<CR>
-nnoremap <Leader>pg  	:GFiles?<CR>
-nnoremap <Leader>s  	:BLines<CR>
-nnoremap <Leader>pf  	:Ag<CR>
-nnoremap <F4>		:Buffers <CR>
+nnoremap <Leader><Leader> 	:Files<CR>
+nnoremap <C-p> 			:Files<CR>
+nnoremap <Leader>pg  		:GFiles?<CR>
+nnoremap <Leader>s  		:BLines<CR>
+nnoremap <Leader>pf  		:Ag<CR>
+nnoremap <silent> <Leader>pF 	:Ag <C-R><C-W><CR>
+nnoremap <F4>			:Buffers <CR>
 
 " NERDTree
 map <F3> 		:NERDTreeToggle<CR>
@@ -153,6 +153,8 @@ autocmd FileType go nmap <Leader>gs <Plug>(go-run)
 
 autocmd FileType go nmap <Leader>ds <Plug>(go-def-split)
 autocmd FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+
+autocmd FileType go nmap <Leader>gg :call go#lsp#Restart()<CR>
 
 " easymotion
 
