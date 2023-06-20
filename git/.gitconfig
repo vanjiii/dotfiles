@@ -43,3 +43,4 @@
 	lg = log --oneline --all --graph --decorate
 	h = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	pf = !git push --set-upstream origin $(git branch --show)
+	amend = commit --amend --no-edit
