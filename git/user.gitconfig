@@ -29,6 +29,7 @@
 	gpgsign = true
 
 [alias]
+	swb = ! git switch "$(git branch | fzf| tr -d '[:space:]')"
 	co = checkout
 	br = branch
 	ci = commit
