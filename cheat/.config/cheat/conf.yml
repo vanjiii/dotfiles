@@ -51,15 +51,15 @@ cheatpaths:
   #   tags: [ archlinux ]
   #   readonly: true
 
-  # - name: community-fedora
-  #   path: /usr/share/cheat
-  #   tags: [ fedora ]
-  #   readonly: true
+  - name: community-fedora
+    path: /usr/share/cheat
+    tags: [ fedora ]
+    readonly: true
 
   # If you have personalized cheatsheets, list them last. They will take
   # precedence over the more global cheatsheets.
   - name: personal
-    path: /path/to/dotfiles/personal
+    path: ~/.config/cheat/personal
     tags: [ personal ]
     readonly: false
 
