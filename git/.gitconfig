@@ -28,10 +28,6 @@
 [commit]
 	gpgsign = true
 
-[filter "signingkey_filter"]
-	clean = awk '!(/signingkey\\s=/)'
-	smudge = cat
-
 [alias]
 	swb = ! git switch "$(git branch | fzf| tr -d '[:space:]')"
 	co = checkout
