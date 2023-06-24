@@ -1,0 +1,6 @@
+# All arguments for test are passed with `-test`
+# `-run` would be translated as ` `-test.run`
+dlv test ./internal/http/server -- -test.run TestReceivables/201
+
+# is equivalent to `go run . serve`
+dlv debug main.go -- serve
