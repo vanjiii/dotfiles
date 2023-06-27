@@ -54,8 +54,9 @@ require("lazy").setup(
 		{'hrsh7th/cmp-nvim-lsp'}, -- Required
 		{'L3MON4D3/LuaSnip'},     -- Required
 	},
+},
 
-}
+{'nvim-tree/nvim-tree.lua'}
 
 	-- "folke/which-key.nvim",
 	-- { "folke/neoconf.nvim", cmd = "Neoconf" },
