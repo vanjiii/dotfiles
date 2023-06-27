@@ -10,4 +10,6 @@ require('rose-pine').setup({
       disable_italics = false,
 })
 
+vim.g.termguicolors = true
+vim.opt.background = "light"
 vim.cmd('colorscheme rose-pine')

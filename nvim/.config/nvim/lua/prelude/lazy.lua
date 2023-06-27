@@ -15,11 +15,17 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(
 -- Plugins
 {
-	{ 
-		'rose-pine/neovim', 
+	{
+		'rose-pine/neovim',
 		name = 'rose-pine',
 		lazy = false,
 		priority = 1000,
+	},
+
+	{
+		'rmehri01/onenord.nvim',
+		lazy = false,
+		priority = 999,
 	},
 
 	{'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' } ,
@@ -54,7 +60,7 @@ require("lazy").setup(
 	-- "folke/which-key.nvim",
 	-- { "folke/neoconf.nvim", cmd = "Neoconf" },
 	-- "folke/neodev.nvim",
-}, 
+},
 -- Lazy options
 {
 	root = vim.fn.stdpath("data") .. "/lazy", -- directory where plugins will be installed
@@ -92,7 +98,7 @@ require("lazy").setup(
 		-- install missing plugins on startup. This doesn't increase startup time.
 		missing = true,
 		-- try to load one of these colorschemes when starting an installation during startup
-		colorscheme = { "habamax" },
+		colorscheme = { "morning" },
 	},
 	ui = {
 		-- a number <1 is a percentage., >1 is a fixed size
@@ -109,7 +115,6 @@ require("lazy").setup(
 			ft = "📂",
 			init = "⚙",
 			keys = "🗝",
-			lazy = "󰒲 ",
 			loaded = "●",
 			not_loaded = "○",
 			plugin = "🔌",
