@@ -1,1 +1,2 @@
-require("theprimeagen")
+require("prelude.lazy")
+require("prelude.remap")
