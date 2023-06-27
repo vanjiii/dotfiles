@@ -12,4 +12,4 @@ require('rose-pine').setup({
 
 vim.g.termguicolors = true
 vim.opt.background = "light"
-vim.cmd('colorscheme rose-pine')
+vim.cmd('colorscheme onenord-light')
