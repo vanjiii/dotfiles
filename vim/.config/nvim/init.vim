@@ -11,6 +11,8 @@ colo onenord-light
 " Proposed by neovim#healthcheck
 let g:python3_host_prog = '/usr/bin/python'
 
+set nowrap
+
 " enable mouse by default
 set mouse=a
 
