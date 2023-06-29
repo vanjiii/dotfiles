@@ -10,7 +10,19 @@ require('lspconfig').lua_ls.setup({
 	on_attach = function(client, bufnr)
 		-- autoformat
 		lsp.async_autoformat(client, bufnr)
-	end
+	end,
+	settings = {
+		Lua = {
+			diagnostics = {
+				-- Get the language server to recognize the `vim` global
+				globals = { 'vim' },
+			},
+			workspace = {
+				-- Make the server aware of Neovim runtime files
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+		},
+	},
 })
 
 -- Configure gopls language server
@@ -18,6 +30,16 @@ require('lspconfig').gopls.setup({
 	on_attach = function(client, bufnr)
 		-- autoformat
 		lsp.async_autoformat(client, bufnr)
+
+		local opts = { buffer = bufnr }
+		local bind = vim.keymap.set
+
+		bind("n", "<leader>rn", vim.lsp.buf.rename, opts)
+		bind("n", "<leader>gh", vim.lsp.buf.document_highlight, opts)
+		bind("n", "<leader><F9>", function()
+			vim.cmd.noh()
+			vim.lsp.buf.clear_references()
+		end)
 	end,
 	settings = {
 		gopls = {
