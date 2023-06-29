@@ -1,0 +1,18 @@
+# healthcheck
+grpcurl \
+  -use-reflection=false \
+  -proto=internal/grpcx/server/health.proto \
+  -plaintext \
+  -d '{"service":"Sender"}' \
+  localhost:50051 \
+  grpc.health.v1.Health.Check
+
+# Sample request
+#
+# Nit: `-d "$(~/tmp/resp.json)"`
+grpcurl \
+  -use-reflection=false \
+  -proto=internal/grpc/server/renderer/v1/pr_renderer.proto \
+  -plaintext 
+  -d '{"date":"2020-07-30T00:00:00Z","locale":"en-GB","merchantCode":"MCF7Q4ZS","businessName":"Pmnt self service squad","country":"DE","city":"dsgsdggds","postCode":"22222","address":"fsdgdsgsgd","payouts":[{"timestamp":"2020-07-30T12:00:00Z","rpn":"2","description":"SUMUP PID15704","grossAmount":"1200","netAmount":"1170","destinationType":"CARD","destinationRef":"00******73"},{"timestamp":"2020-07-30T12:00:00Z","rpn":"3","description":"SUMUP PID15705","grossAmount":"450","netAmount":"412","destinationType":"CARD","destinationRef":"00******73"},{"timestamp":"2020-07-30T12:00:00Z","rpn":"4","description":"SUMUP PID15706","grossAmount":"1700","netAmount":"1625","destinationType":"CARD","destinationRef":"00******73"}],"blendedFees":[{"cardScheme":"mastercard","tpv":"3350","serviceCharge":"143"}],"transactions_link":"baba"}' \
+  localhost:50051 payout_reports.renderer.v1.ReportRenderer.RenderHTML
