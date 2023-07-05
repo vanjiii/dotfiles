@@ -22,8 +22,9 @@ local opts = function(desc)
 	}
 end
 
-vim.keymap.set('n', '<leader>pf', builtin.find_files, opts('find files'))
-vim.keymap.set('n', '<leader>pg', builtin.live_grep, opts('live grep'))
+vim.keymap.set('n', '<leader><leader>', builtin.find_files, opts('find files'))
+vim.keymap.set('n', '<leader>pf', builtin.live_grep, opts('live grep'))
+vim.keymap.set('n', '<leader>pg', builtin.git_status, opts('grep git status'))
 vim.keymap.set('n', '<leader>pb', builtin.buffers, opts('list buffers'))
 vim.keymap.set('n', '<leader>ph', builtin.help_tags, opts('help tags'))
 vim.keymap.set('n', '<leader>ps', function()
