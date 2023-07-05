@@ -1,3 +1,16 @@
+require('telescope').setup {
+	pickers = {
+		find_files = {
+			hidden = true
+		}
+	},
+	defaults = {
+		file_ignore_patterns = {
+			".git"
+		}
+	}
+}
+
 local builtin = require('telescope.builtin')
 
 local opts = function(desc)
