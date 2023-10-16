@@ -1,0 +1,20 @@
+# Search only in those files
+grep 'div' styles.css Makefile
+
+# Ignore the alias
+\grep 'div' styles.css Makefile
+
+# Use Perl based regular expressions
+#
+# Get all words that start with 'd', and end with anything with one or more
+# chars in between.
+grep -P '^d.*$' styles.css
+
+# Count lines
+grep -c "div" Makefile
+# equal to
+grep "div" Makefile | wc -l
+
+# search in all files (found by 'find') but exclude/include 'Make*'
+grep 'div' --exclude='Make*' $(find . -type f)
+grep 'div' --include='*.css' $(find . -type f)
