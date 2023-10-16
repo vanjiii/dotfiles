@@ -1,15 +1,3 @@
--- require('rose-pine').setup({
---     --- @usage 'auto'|'main'|'moon'|'dawn'
---     variant = 'dawn',
---     --- @usage 'main'|'moon'|'dawn'
---     dark_variant = 'dawn',
---     bold_vert_split = false,
---     dim_nc_background = false,
---     disable_background = false,
---     disable_float_background = false,
---     disable_italics = false,
--- })
-
 vim.g.termguicolors = true
 
 require('onenord').setup({
@@ -25,21 +13,22 @@ require('onenord').setup({
 	-- 	variables = "NONE",
 	-- 	diagnostics = "underline",
 	-- },
-	-- disable = {
-	-- 	background = false, -- Disable setting the background color
-	-- 	cursorline = false, -- Disable the cursorline
-	-- 	eob_lines = true, -- Hide the end-of-buffer lines
-	-- },
+	disable = {
+		-- 	background = false, -- Disable setting the background color
+		cursorline = false, -- Disable the cursorline
+		-- 	eob_lines = true, -- Hide the end-of-buffer lines
+	},
 	-- Inverse highlight for different groups
 	-- inverse = {
 	-- 	match_paren = false,
 	-- },
 	custom_highlights = {
 		-- ["@constructor"] = { fg = colors.dark_blue },
+		CursorLine = { bg = "#EAEBED" },
+		NvimTreeCursorLine = { bg = "#EAEBED" },
 		LspReferenceText = { style = "underline,bold" }
 	}, -- Overwrite default highlight groups
 	-- custom_colors = {},  -- Overwrite default colors
 })
-
 
 vim.cmd('colorscheme onenord-light')
