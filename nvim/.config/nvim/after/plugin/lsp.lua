@@ -1,4 +1,5 @@
 -- Global mappings.
+-- :Mason for UI config of the servers.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
@@ -73,7 +74,7 @@ require('lspconfig').lua_ls.setup({
 })
 
 -- ruby lsp server
-require('lspconfig').sorbet.setup({})
+require('lspconfig').solargraph.setup({})
 
 -- Configure gopls language server
 require('lspconfig').gopls.setup({
