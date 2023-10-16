@@ -2,7 +2,7 @@ vim.opt.cursorline = true
 
 -- set numbers
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- show existing tabs with 4 spaces
 vim.opt.tabstop = 4
