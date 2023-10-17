@@ -1,0 +1,37 @@
+# Read basic file
+jq '.' tmp.json
+
+# Read field with name "status"
+jq '.status' tmp.json
+
+# Read multiple fields
+jq '.status, .headers' tmp.json
+
+# Read field with name "status" and alias it
+jq '{"status": .status}' tmp.json
+
+# Read all values from array
+jq '.body.hits.hits[]._score' tmp.json
+
+# Get the array "hits"
+# select only elements where "_source.type" == "SALE"
+# show "_id" field
+jq '.body.hits.hits[] | [select(._source.type == "SALE")] | .[]._id' tmp.json
+
+# Count the elements of an array
+jq '.body.hits.hits |  length' tmp.json
+
+# Get all elements from array ".body.hits.hits"
+# map it (using -s) into array
+# filter by unique elements only
+# length
+jq -s 'map(.body.hits.hits[]._source.type) | unique | length' tmp.json
+
+# Get array of the json (.body.hits.hits is array)
+# get "_index" from each element and map it into array ('["index":"foo", ...]')
+# filter by "index" only equals to value
+#
+# map(...) let’s you unwrap an array, apply a filter and then rewrap the
+# results back into an array. You can think of it as a shorthand for [ .[] |
+# ... ]
+jq '.body.hits.hits | map({index: ._index }) | map(select(.index == "transactions-v6-2022-06"))' tmp.json
