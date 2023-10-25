@@ -1,4 +1,9 @@
+-- for some reason `nvim` and `nvim .` render different colors
+-- (for examples focus and not-on-focus split are with the same bg).
+
 vim.g.termguicolors = true
+
+local color = require("onenord.colors")
 
 require('onenord').setup({
 	theme = "light", -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
@@ -23,10 +28,9 @@ require('onenord').setup({
 	-- 	match_paren = false,
 	-- },
 	custom_highlights = {
-		-- ["@constructor"] = { fg = colors.dark_blue },
-		CursorLine = { bg = "#EAEBED" },
-		NvimTreeCursorLine = { bg = "#EAEBED" },
-		LspReferenceText = { style = "underline,bold" }
+		LspReferenceText = { style = "underline,bold" },
+		Visual = { bg = "#EAEBED" },
+		VisualNOS = { bg = "#EAEBED" }
 	}, -- Overwrite default highlight groups
 	-- custom_colors = {},  -- Overwrite default colors
 })
