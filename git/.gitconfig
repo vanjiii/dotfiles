@@ -37,6 +37,7 @@
 	unstage = reset HEAD --
 	sw = switch
 	lg = log --oneline --all --graph --decorate
+	ll = ! git log --no-merges --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit "$(git symbolic-ref refs/remotes/origin/HEAD --short)"..
 	h = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	pf = !git push --set-upstream origin $(git branch --show)
 	amend = commit --amend --no-edit
