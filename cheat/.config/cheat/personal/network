@@ -1,0 +1,59 @@
+# More feature rich tool for ping-like tasks
+#    -i = interval in seconds;
+mtr domain.example.com -i 0.3
+
+# Scan for open ports on 'localhost'
+nmap localhost
+
+#
+#    -Pn(no ping) to disable host discovery;
+#    -F to scan fast (limited port);
+nmap -Pn -F dockerhost
+
+# Check if port is in use
+sudo lsof -i -P -n
+
+# same but different (ports in use)
+#
+#    -l = only services which are listening on some port
+#    -n = show port number, don't try to resolve the service name
+#    -t = tcp ports
+#    -u = udp ports
+#    -p = name of the program
+netstat -lntu
+
+# shows different hops it does to resoulve google.com;
+# different gateways along the road.
+traceroute google.com
+
+# try to connect to host via telnet
+# useful when checking whether port is open
+telnet 10.0.0.1:80
+curl -v telnet://10.0.0.1:80
+
+hostname # give me my hostname
+hostname -i # give me my IP address
+
+#
+# tcpdump
+#
+# inspect ARP packets, verbose, show numbers instead of dns
+tcpdump -i wlp0 -v -n (arp|icmp)
+tcpdump -i wlp0 -v -n src 1.1.1.1 or dst 1.1.1.1 and port 80
+
+#
+# nc
+#
+# send msg to udp srv
+nc -u 127.0.0.1 5500 \ hi
+
+#
+# DNS resolve
+#
+nslookup example.com
+dig example.com
+dig +short example.com
+# hey 8.8.8.8 what's the IP for that IP
+nslookup example.com 8.8.8.8
+# get text record
+dig example.com txt
