@@ -17,3 +17,39 @@ git rebase -i HEAD~3
 # into the opening window use `squash` for the commit that you want to sqaush
 # with the *previous* commit (obviously you cannot do that for the first one)
 git push -f
+
+#
+# fixup previous commit
+#
+(dev) git add featureA
+(dev) git commit -m "Feature A is done"
+[dev fb2f677] Feature A is done
+(dev) git add featureB
+(dev) git commit -m "Feature B is done"
+[dev 733e2ff] Feature B is done
+
+# Your work is in progress and you find minor mistakes in Feature A : it's time to use --fixup option !
+(dev) git add featureA                # you've removed a pdb : shameful commit
+(dev) git commit --fixup fb2f677
+[dev c5069d5] fixup! Feature A is done
+
+Here, you see that GIT automatically retrieved featureA commit message prefixed by fixup!.
+All work is done, let's see the log:
+(dev) git log --oneline
+c5069d5 fixup! Feature A is done
+733e2ff Feature B is done
+fb2f677 Feature A is done
+ac5db87 Previous commit
+
+Now, you want to clean your branch before merging it : it's time to use --autosquash option !
+(dev) git rebase -i --autosquash ac5db87
+pick fb2f677 Feature A is done
+fixup c5069d5 fixup! Feature A is done
+fixup c9e138f fixup! Feature A is done
+pick 733e2ff Feature B is done
+
+This command has opened your editor with lines above. Just save & quit and ... :
+(dev) git log --oneline
+ff4de2a Feature B is done
+5478cee Feature A is done
+ac5db87 Previous commit
