@@ -3,8 +3,6 @@
 
 vim.g.termguicolors = true
 
-local color = require("onenord.colors")
-
 require('onenord').setup({
 	theme = "light", -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
 	borders = true, -- Split window borders
@@ -35,4 +33,4 @@ require('onenord').setup({
 	-- custom_colors = {},  -- Overwrite default colors
 })
 
-vim.cmd('colorscheme onenord-light')
+vim.cmd('colorscheme catppuccin-latte')

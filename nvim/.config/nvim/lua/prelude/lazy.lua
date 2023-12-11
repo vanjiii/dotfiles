@@ -16,23 +16,17 @@ require("lazy").setup(
 -- Plugins
 	{
 		{
-			'rose-pine/neovim',
-			name = 'rose-pine',
-			lazy = false,
-			priority = 1000,
-		},
-
-		{
 			'rmehri01/onenord.nvim',
 			lazy = false,
 			priority = 999,
 		},
 
+		{ "catppuccin/nvim",                 name = "catppuccin", priority = 1000 },
 		{ 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
 
 		{
 			'nvim-telescope/telescope.nvim',
-			tag = '0.1.1',
+			tag = '0.1.4',
 			dependencies = { 'nvim-lua/plenary.nvim' }
 		},
 
@@ -59,7 +53,7 @@ require("lazy").setup(
 
 		{ 'nvim-tree/nvim-tree.lua' },
 
-		{ 'phaazon/hop.nvim',                branch = 'v2' },
+		{ 'phaazon/hop.nvim',       branch = 'v2' },
 
 		{
 			'terrortylor/nvim-comment',
@@ -90,6 +84,10 @@ require("lazy").setup(
 			end,
 		},
 
+		{
+			"cappyzawa/trim.nvim",
+			opts = {}
+		},
 	},
 	--
 	-- Lazy options
