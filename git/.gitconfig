@@ -24,12 +24,14 @@
 [core]
 	pager = less -FR
 	editor = vi
+	hooksPath = ~/.gitcfg/hooks
 
 [commit]
 	gpgsign = true
 
 [alias]
 	swb = ! git switch "$(git branch | fzf| tr -d '[:space:]')"
+	swr = ! git switch "$(git fetch; git branch -r | fzf | cut -d '/' -f2 | tr -d '[:space:]')"
 	co = checkout
 	br = branch
 	ci = commit
@@ -42,3 +44,4 @@
 	pf = !git push --set-upstream origin $(git branch --show)
 	amend = commit --amend --no-edit
 	rename = commit --amend
+	fixup = ! git log --oneline -n 20 | fzf | cut -d ' ' -f1 | xargs git commit --no-verify --fixup

@@ -1,0 +1,49 @@
+#!/usr/bin/sh
+
+# Check for merge conflicts
+#
+# Simple check for merge conflics
+# conflicts=`git diff --cached --name-only -G "<<<<<|=====|>>>>>"`
+conflicts=`grep -irlE '^<<<<<<<|^=======$|^>>>>>>>'`
+
+#
+# Found merge conflicts left-overs
+# aborting...
+if [[ -n "$conflicts" ]]; then
+    echo
+    echo "Unresolved merge conflicts in these files:"
+
+    for conflict in $conflicts; do
+        echo $conflict
+    done;
+
+    exit 1;
+fi
+
+#
+# Found trailing spaces.
+# Print the files.
+# Does not abort the commit.
+# trailing_spaces=`find . ! -iwholename '*.git*' ! -name '*.png' -type f -exec grep -lE " +$" {} \;`
+trailing_spaces=`find . -type f -exec grep -lE " +$" {} \; | grep -vE ".*\.git*|.*.png|.*bin|.*cache"`
+if [[ -n "$trailing_spaces" ]]; then
+    echo
+    echo "There are files with trailing spaces."
+
+	for file in $trailing_spaces; do
+        echo $file
+    done;
+fi
+
+#
+# Found empty lines at the end of the files.
+# Ignore '.git' folder.
+# Does not abort the commit.
+# empty_lines=`find . ! -iwholename '*.git*' -type f -exec tac {} + | awk 'NF{exit};END{print NR?NR-1:0}'`
+empty_lines=`find . ! -wholename '*.git*' -type f -exec sh -c '[ -z "$(sed -n "\$p" "$1")" ]' _ {} \; -print`
+if [[ "$empty_lines" == 0 ]]; then
+    echo
+    echo "There are files with empty lines."
+fi
+
+exit 0
