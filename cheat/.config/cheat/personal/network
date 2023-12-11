@@ -40,6 +40,10 @@ hostname -i # give me my IP address
 # inspect ARP packets, verbose, show numbers instead of dns
 tcpdump -i wlp0 -v -n (arp|icmp)
 tcpdump -i wlp0 -v -n src 1.1.1.1 or dst 1.1.1.1 and port 80
+# localhost.
+sudo tcpdump -i lo
+# List available interfaces.
+sudo tcpdump -D
 
 #
 # nc
