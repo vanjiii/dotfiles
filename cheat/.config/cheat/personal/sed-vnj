@@ -1,8 +1,7 @@
 # Replace str with ostr for all go-files in dir.
 #
-# `-i` in_place or apply it on the files. 
+# `-i` in_place or apply it on the files.
 # Nit: use without `-i` to see the changes.
 # "s/regex_to_find/string_for_subst/"
 # **/*.go == `find . -name "*.go"`
 sed  -i "s/auth.TWithRole/user.TWithRole/" `find ./invoices -name "*.go"`
-

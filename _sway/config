@@ -75,7 +75,7 @@ exec swayidle -w \
 #
     # Start a terminal
     bindsym $mod+Return exec $term
-    
+
     # Kill focused window
     bindsym $mod+Shift+q kill
 
@@ -94,7 +94,7 @@ exec swayidle -w \
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-    
+
     # input "1:1:AT_Translated_Set_2_keyboard" {
     #     xkb_layout us,bg(phonetic)
     #     xkb_options grp:win_space_toggle,caps:ctrl_modifier
