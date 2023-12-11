@@ -1,2 +1,5 @@
 # ignore vim temp files - usually cause on windows systems
 *.swp
+
+# ignore zsh profile RCs
+zsh/.zsh/profiles/work.zsh

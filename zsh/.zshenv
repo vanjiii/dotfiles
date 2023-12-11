@@ -1,6 +1,8 @@
 # This (due to mirroring) also keeps the entries in PATH unique.
 typeset -U PATH path
 
+VISUAL=vi
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -19,6 +21,9 @@ GOBIN=$HOME/go/bin
 export GOBIN
 export PATH=$GOBIN:$PATH
 
+export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+
 # Shit to make work GPG again under MacOS.
 export GPG_TTY=$(tty)
 
@@ -27,3 +32,5 @@ export GPG_TTY=$(tty)
 export BAT_THEME="GitHub"
 
 export PAGER='less -F -S -R -M -i'
+
+source "$HOME/.zsh/profiles/work.zsh"

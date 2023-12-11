@@ -34,7 +34,6 @@ alias k='kubectl'
 
 alias delta='delta --light --line-numbers --side-by-side'
 
-alias e='nautilius . &'
 alias tree='tree --dirsfirst'
 alias tr1='tree --dirsfirst -L 1 -a'
 alias tr2='tree --dirsfirst -L 2 -a '
@@ -53,9 +52,27 @@ alias speedtest=speedtest-cli
 
 alias fuck='sudo $(fc -ln -1)'
 
-alias la_tassa='podman run --rm -it -v "$(pwd)":/app:z ruby:2.4.9 /app/scripts/gen_migration.rb /app/scripts/tmp/{a,b}'
-
 alias bwu='export BW_SESSION="$(bw unlock --raw)"'
+
+# fzf history - repeat history
+fhistory() {
+  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
+}
+
+# fkill - kill processes - list only the ones you can kill. Modified the earlier script.
+fkill() {
+    local pid
+    if [ "$UID" != "0" ]; then
+        pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+    else
+        pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    fi
+
+    if [ "x$pid" != "x" ]
+    then
+        echo $pid | xargs kill -${1:-9}
+    fi
+}
 
 # ex - archive extractor
 # usage: ex <file>
@@ -97,3 +114,9 @@ pw ()
 
 eval "$(zoxide init zsh)"
 source <(kubectl completion zsh)
+
+. "$HOME/.asdf/asdf.sh"
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
