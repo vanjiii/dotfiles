@@ -3,34 +3,83 @@
 
 vim.g.termguicolors = true
 
-require('onenord').setup({
-	theme = "light", -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
-	borders = true, -- Split window borders
-	fade_nc = true, -- Fade non-current windows, making them more distinguishable
-	-- Style that is applied to various groups: see `highlight-args` for options
-	-- styles = {
-	-- 	comments = "NONE",
-	-- 	strings = "NONE",
-	-- 	keywords = "NONE",
-	-- 	functions = "NONE",
-	-- 	variables = "NONE",
-	-- 	diagnostics = "underline",
-	-- },
-	disable = {
-		-- 	background = false, -- Disable setting the background color
-		cursorline = false, -- Disable the cursorline
-		-- 	eob_lines = true, -- Hide the end-of-buffer lines
+local background = '#fffff8'
+local text = 'text' -- for Tufte css'#111111'
+
+require('rose-pine').setup({
+	--- @usage 'auto'|'main'|'moon'|'dawn'
+	variant = 'dawn',
+	--- @usage 'main'|'moon'|'dawn'
+	dark_variant = 'dawn',
+	bold_vert_split = false,
+	dim_nc_background = false,
+	disable_background = false,
+	disable_float_background = false,
+	disable_italics = true,
+
+	--- @usage string hex value or named color from rosepinetheme.com/palette
+	groups = {
+		background = background,
+		background_nc = '_experimental_nc',
+		panel = 'surface',
+		panel_nc = 'base',
+		border = 'highlight_med',
+		comment = 'muted',
+		link = 'iris',
+		punctuation = 'subtle',
+
+		error = 'love',
+		hint = 'iris',
+		info = 'foam',
+		warn = 'gold',
+
+		headings = {
+			h1 = 'iris',
+			h2 = 'foam',
+			h3 = 'rose',
+			h4 = 'gold',
+			h5 = 'pine',
+			h6 = 'foam',
+		}
+		-- or set all headings at once
+		-- headings = 'subtle'
 	},
-	-- Inverse highlight for different groups
-	-- inverse = {
-	-- 	match_paren = false,
-	-- },
-	custom_highlights = {
-		LspReferenceText = { style = "underline,bold" },
-		Visual = { bg = "#EAEBED" },
-		VisualNOS = { bg = "#EAEBED" }
-	}, -- Overwrite default highlight groups
-	-- custom_colors = {},  -- Overwrite default colors
+
+	-- Change specific vim highlight groups
+	-- https://github.com/rose-pine/neovim/wiki/Recipes
+	highlight_groups = {
+		ColorColumn = { bg = 'rose' },
+
+		-- Blend colours against the "base" background
+		CursorLine = { bg = 'foam', blend = 10 },
+		StatusLine = { fg = 'highlight_low', bg = 'muted' },
+		StatusLineNC = { fg = 'highlight_high', bg = 'overlay' },
+
+		-- Treesitter
+		Boolean = { fg = text },
+		Function = { fg = text },
+		String = { fg = text },
+		Constant = { fg = text },
+		Number = { fg = text },
+		Identitfier = { fg = text },
+		Type = { fg = text },
+		Label = { fg = text },
+		-- Keyword = { bold = true, inherit = true },
+		Include = { fg = text }, -- namespace
+		['@method'] = { fg = text },
+		['@property'] = { fg = text },
+
+		-- language specific shit
+		-- ruby
+		['@symbol.ruby'] = { fg = text },
+		-- lua
+		['@constructor.lua'] = { fg = text },
+
+		-- By default each group adds to the existing config.
+		-- If you only want to set what is written in this config exactly,
+		-- you can set the inherit option:
+		-- Search = { bg = 'gold', inherit = false },
+	}
 })
 
-vim.cmd('colorscheme catppuccin-latte')
+vim.cmd('colorscheme rose-pine')

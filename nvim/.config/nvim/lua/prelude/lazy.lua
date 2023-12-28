@@ -15,13 +15,10 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(
 -- Plugins
 	{
-		{
-			'rmehri01/onenord.nvim',
-			lazy = false,
-			priority = 999,
-		},
+		{ 'rose-pine/neovim',                name = 'rose-pine', lazy = false, priority = 53 },
+		-- { "catppuccin/nvim",                 name = "catppuccin", priority = 52 },
+		-- { 'rmehri01/onenord.nvim',           lazy = false,        priority = 51, },
 
-		{ "catppuccin/nvim",                 name = "catppuccin", priority = 1000 },
 		{ 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
 
 		{
