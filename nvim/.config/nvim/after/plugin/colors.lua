@@ -41,8 +41,6 @@ require('rose-pine').setup({
 			h5 = 'pine',
 			h6 = 'foam',
 		}
-		-- or set all headings at once
-		-- headings = 'subtle'
 	},
 
 	-- Change specific vim highlight groups
@@ -54,31 +52,6 @@ require('rose-pine').setup({
 		CursorLine = { bg = 'foam', blend = 10 },
 		StatusLine = { fg = 'highlight_low', bg = 'muted' },
 		StatusLineNC = { fg = 'highlight_high', bg = 'overlay' },
-
-		-- Treesitter
-		Boolean = { fg = text },
-		Function = { fg = text },
-		String = { fg = text },
-		Constant = { fg = text },
-		Number = { fg = text },
-		Identitfier = { fg = text },
-		Type = { fg = text },
-		Label = { fg = text },
-		-- Keyword = { bold = true, inherit = true },
-		Include = { fg = text }, -- namespace
-		['@method'] = { fg = text },
-		['@property'] = { fg = text },
-
-		-- language specific shit
-		-- ruby
-		['@symbol.ruby'] = { fg = text },
-		-- lua
-		['@constructor.lua'] = { fg = text },
-
-		-- By default each group adds to the existing config.
-		-- If you only want to set what is written in this config exactly,
-		-- you can set the inherit option:
-		-- Search = { bg = 'gold', inherit = false },
 	}
 })
 
