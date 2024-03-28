@@ -30,16 +30,21 @@
 	gpgsign = true
 
 [alias]
-	swb = ! git switch "$(git branch | fzf| tr -d '[:space:]')"
+	; git switch to local branch
+	swb = ! git switch "$(git branch | fzf | tr -d '[:space:]')"
+	; git switch to remote branch
 	swr = ! git switch "$(git fetch; git branch -r | fzf | cut -d '/' -f2 | tr -d '[:space:]')"
 	co = checkout
 	br = branch
-	ci = commit
+	cm = commit
 	st = status
 	unstage = reset HEAD --
 	sw = switch
-	lg = log --oneline --all --graph --decorate
+	; git log with fzf
+	flog = ! git log --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | fzf --ansi --reverse --no-sort --preview='git show --color {1}'
+	; git log only for current branch
 	ll = ! git log --no-merges --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit "$(git symbolic-ref refs/remotes/origin/HEAD --short)"..
+	; git pretty log
 	h = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	pf = !git push --set-upstream origin $(git branch --show)
 	amend = commit --amend --no-edit
