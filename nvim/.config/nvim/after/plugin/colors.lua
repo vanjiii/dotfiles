@@ -4,7 +4,6 @@
 vim.g.termguicolors = true
 
 local background = '#fffff8'
-local text = 'text' -- for Tufte css'#111111'
 
 require('rose-pine').setup({
 	--- @usage 'auto'|'main'|'moon'|'dawn'
