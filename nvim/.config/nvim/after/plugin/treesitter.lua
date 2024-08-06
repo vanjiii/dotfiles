@@ -3,7 +3,16 @@ vim.cmd("syntax off")
 
 require 'nvim-treesitter.configs'.setup {
 	-- A list of parser names, or "all" (the five listed parsers should always be installed)
-	ensure_installed = { "lua", "vim", "vimdoc", "go", "sql", "ruby", "json" },
+	ensure_installed = {
+		"dockerfile",
+		"go",
+		"json",
+		"lua",
+		"ruby",
+		"sql",
+		"vim",
+		"vimdoc",
+	},
 
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
@@ -13,7 +22,7 @@ require 'nvim-treesitter.configs'.setup {
 	auto_install = true,
 
 	-- List of parsers to ignore installing (for "all")
-	-- ignore_install = { "javascript" },
+	ignore_install = { "javascript" },
 
 	highlight = {
 		enable = true,
