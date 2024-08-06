@@ -1,0 +1,12 @@
+# PMNTSS's crendetilas
+K_API=<secret>
+K_SECRET=<secret>
+
+BROKER=<broker_url>
+SCHEMA_REGISTRY_URL=<schema_registry_url>
+
+kcat -b $BROKER -X security.protocol=SASL_SSL -X sasl.mechanism=PLAIN -X sasl.username=$K_API -X sasl.password=$K_SECRET -t <topic> -r $SCHEMA_REGISTRY_URL -s value=avro -o beginning
+
+kafka-consumer-groups.sh --bootstrap-server $BROKER --group "<consumer_group>" --command-config ~/.config/kafkactl/config.properties --describe
+
+kafka-consumer-groups.sh --bootstrap-server $BROKER --group "<consumer_group>" --command-config ~/.config/kafkactl/config.properties --topic <topic> --reset-offsets --to-earliest --execute
