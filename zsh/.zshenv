@@ -24,6 +24,9 @@ export PATH=$GOBIN:$PATH
 export PATH=$HOME/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 
+# kafka shit
+export PATH=$HOME/.local/bin/kafka/bin:$PATH
+
 # Shit to make work GPG again under MacOS.
 export GPG_TTY=$(tty)
 
