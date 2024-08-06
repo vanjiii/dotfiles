@@ -7,7 +7,16 @@ require('telescope').setup {
 	defaults = {
 		file_ignore_patterns = {
 			".git"
-		}
+		},
+		mappings = {
+			n = {
+				['<c-d>'] = require('telescope.actions').delete_buffer
+			}, -- n
+			i = {
+				["<C-h>"] = "which_key",
+				['<c-d>'] = require('telescope.actions').delete_buffer
+			} -- i
+		} -- mappings
 	}
 }
 
