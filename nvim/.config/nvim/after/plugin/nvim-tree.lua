@@ -139,5 +139,5 @@ require("nvim-tree").setup({
 })
 
 
-vim.api.nvim_set_keymap("n", "<F3>", ":NvimTreeToggle<cr>", { silent = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<leader><F3>", ":NvimTreeFindFile<cr>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "<F8>", ":NvimTreeToggle<cr>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "<leader><F8>", ":NvimTreeFindFile<cr>", { silent = true, noremap = true })
