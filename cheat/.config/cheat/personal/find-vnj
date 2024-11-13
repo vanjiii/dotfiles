@@ -10,3 +10,12 @@ find . -name "*.go" -exec grep "API" {} \; -exec nvim {} \;
 # - grep -H shows the file name
 # - -name is useful to exclude dirs and files like .git and other shit
 find . -name "*.rb" -not -path "./db/migrate/*" -exec grep -nH "_STATUS" {} \;
+
+# suppress the files that cannot be opened => less verbose
+#
+# find
+# in current dir and recursive
+# with name that contains 'ledger-live'
+# of type file (f)
+# the errors redirect to /dev/null
+find ./ -name "*ledger-live*" -type f 2>/dev/null

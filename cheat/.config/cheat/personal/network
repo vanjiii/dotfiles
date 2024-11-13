@@ -61,3 +61,6 @@ dig +short example.com
 nslookup example.com 8.8.8.8
 # get text record
 dig example.com txt
+
+# Sniff a pod traffic in k8s
+kubectl sniff settlement-report-generator-785b4cc7f-ckggr  -f "port 3000" -
