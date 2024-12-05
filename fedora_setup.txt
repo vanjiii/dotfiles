@@ -1,5 +1,12 @@
 https://github.com/notabugwontfix/public-obsidian-vault/blob/master/Fedora%2036%20Workstation%20Setup.md
 
+=== useful apps ===
+flatseal - edit flatpak apps settings
+tweaks - gnome settings on steroids
+dconf editor - editor gnome internal settings
+extensions app - browse extensions
+color picker
+
 === dnf ===
 echo 'max_parallel_downloads=10' | sudo tee -a /etc/dnf/dnf.conf
 
@@ -70,4 +77,3 @@ sudo rpm -i https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore
 More info at http://mscorefonts2.sourceforge.net/.
 
 https://copr.fedorainfracloud.org/coprs/dawid/better_fonts/
-

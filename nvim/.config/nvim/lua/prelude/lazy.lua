@@ -15,11 +15,12 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(
 -- Plugins
 	{
-		{ 'rose-pine/neovim',                name = 'rose-pine', lazy = false, priority = 53 },
+		{ 'rose-pine/neovim',                           name = 'rose-pine', lazy = false, priority = 53 },
 		-- { "catppuccin/nvim",                 name = "catppuccin", priority = 52 },
 		-- { 'rmehri01/onenord.nvim',           lazy = false,        priority = 51, },
 
-		{ 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+		{ 'nvim-treesitter/nvim-treesitter',            build = ':TSUpdate' },
+		{ 'nvim-treesitter/nvim-treesitter-textobjects' },
 
 		{
 			'nvim-telescope/telescope.nvim',
@@ -27,26 +28,16 @@ require("lazy").setup(
 			dependencies = { 'nvim-lua/plenary.nvim' }
 		},
 
+		-- {{{ lsp-zero
+		{ 'VonHeikemen/lsp-zero.nvim', branch = 'v4.x', },
+		{ 'neovim/nvim-lspconfig' },
+		{ 'hrsh7th/cmp-nvim-lsp' },
+		{ 'hrsh7th/nvim-cmp' },
 		{
-			'VonHeikemen/lsp-zero.nvim',
-			branch = 'v2.x',
-			dependencies = {
-				-- LSP Support
-				{ 'neovim/nvim-lspconfig' }, -- Required
-				{                -- Optional
-					'williamboman/mason.nvim',
-					build = function()
-						pcall(vim.cmd, 'MasonUpdate')
-					end,
-				},
-				{ 'williamboman/mason-lspconfig.nvim' }, -- Optional
-
-				-- Autocompletion
-				{ 'hrsh7th/nvim-cmp' }, -- Required
-				{ 'hrsh7th/cmp-nvim-lsp' }, -- Required
-				{ 'L3MON4D3/LuaSnip' }, -- Required
-			},
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
 		},
+		-- }}}
 
 		{ 'nvim-tree/nvim-tree.lua' },
 
@@ -85,6 +76,9 @@ require("lazy").setup(
 			"cappyzawa/trim.nvim",
 			opts = {}
 		},
+		-- {
+		-- "github/copilot.vim"
+		-- },
 	},
 	--
 	-- Lazy options

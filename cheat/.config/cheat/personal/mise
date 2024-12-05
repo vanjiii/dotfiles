@@ -1,0 +1,16 @@
+# default file: .mise.toml
+# [env]
+# note that mise unset env var using ENV=false
+# FOO = "default"
+
+# theta file: .mise.theta.toml
+
+# preview current profile
+mise env -s fish
+
+# particular profile
+mise --profile theta env -s fish
+MISE_ENV mise env -s fish
+
+# source
+mise env -s fish | source

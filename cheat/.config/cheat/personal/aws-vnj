@@ -1,0 +1,9 @@
+# fleet
+#
+# don't forget to change context and filter by appropriate namesapce
+aws-vault login <.aws/config#profile>
+k9s
+
+# classic
+aws --profile <.aws/config#profile> sso login
+aws ecr get-login-password --profile <.aws/config#profile>  | podman login --username AWS --password-stdin <aws_registry>

@@ -1,0 +1,12 @@
+- make checkheatlh script that will check if some bins are installed (like ag , fd, fzf)
+  - nodejs
+  - c11plus
+- make delete via script (delete also cache dirs like .config)
+  - ~/.local/share/nvim
+  - ~/.local/state/nvim
+
+Res:
+http://neovimcraft.com/plugin/nanotee/nvim-lua-guide/index.html
+https://neovim.io/doc/user/lua-guide.html#lua-guide
+https://neovim.io/doc/user/luaref.html#luaref
+https://neovim.io/doc/user/lua.html#lua-concepts
