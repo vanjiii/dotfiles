@@ -36,4 +36,4 @@ export BAT_THEME="GitHub"
 
 export PAGER='less -F -S -R -M -i'
 
-source "$HOME/.zsh/profiles/work.zsh"
+[[ -f "$HOME/.zsh/profiles/work.zsh" ]] && source  "$HOME/.zsh/profiles/work.zsh"
