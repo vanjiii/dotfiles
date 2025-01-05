@@ -1,3 +1,6 @@
+# available wifi devices
+nmcli device wifi list
+
 # More feature rich tool for ping-like tasks
 #    -i = interval in seconds;
 mtr domain.example.com -i 0.3
