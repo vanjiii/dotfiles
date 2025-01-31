@@ -39,7 +39,7 @@ alias tr1='tree --dirsfirst -L 1 -a'
 alias tr2='tree --dirsfirst -L 2 -a '
 alias tr3='tree --dirsfirst -L 3 -a'
 
-alias lz='lazygit'
+alias lzg='lazygit'
 
 # used in kitty so open hyperlinks can work
 alias ls='ls --hyperlink=auto --color=auto'
