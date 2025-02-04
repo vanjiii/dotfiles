@@ -43,4 +43,13 @@ if [[ "$empty_lines" == 0 ]]; then
     echo "There are files with empty lines."
 fi
 
+#
+# gitleaks
+if ! command -v gitleaks >/dev/null 2>&1; then
+	echo "Require gitleaks but it's not installed. Aborting the pre-commit."
+else
+	gitleaks git --redact --staged --verbose
+	exit $?
+fi
+
 exit 0

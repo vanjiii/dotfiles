@@ -1,7 +1,7 @@
 [user]
 	name = Ivan Dimitrov
-	email = ivan.dimitrov@sumup.com
-	signingkey = 0A04AD6B427E2926
+	email = ivan.v.dimitrov@pm.me
+	signingkey = 99C921F4B23F061A
 
 [push]
 	default = simple
