@@ -37,5 +37,5 @@ As <package> may be any top level folder in the project.
 ^TODO: add install script
 
 # Notable projects
-[dotfiles.github]( https://dotfiles.github.io/ ) <\br>
+[dotfiles.github]( https://dotfiles.github.io/ ) </br>
 [dotfiles.stow]( https://gitlab.com/waterkip/dotty )
