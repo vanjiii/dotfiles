@@ -5,6 +5,10 @@
   - ~/.local/share/nvim
   - ~/.local/state/nvim
 - create wrapper script/make/mage files
+  - git
+    - install git if missing?
+    - update gpg signing key
+    - stow git
   - e.g. that will wrap:
     - `install fzf`
     - `install kubectl`
