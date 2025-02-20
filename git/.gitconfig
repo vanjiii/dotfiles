@@ -1,7 +1,7 @@
 [user]
 	name = Ivan Dimitrov
 	email = ivan.v.dimitrov@pm.me
-	signingkey = 99C921F4B23F061A
+	signingkey = <gpg --list-secret-keys --keyid-format=long>
 
 [push]
 	default = simple
