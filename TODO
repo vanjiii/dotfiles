@@ -4,6 +4,13 @@
 - make delete via script (delete also cache dirs like .config)
   - ~/.local/share/nvim
   - ~/.local/state/nvim
+- create wrapper script/make/mage files
+  - e.g. that will wrap:
+    - `install fzf`
+    - `install kubectl`
+    - .. 
+    - `stow zsh`
+- editorconfig
 
 Res:
 http://neovimcraft.com/plugin/nanotee/nvim-lua-guide/index.html
