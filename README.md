@@ -16,14 +16,14 @@ stow            # for all packages
 As <package> may be any top level folder in the project.
 
 ## Prerequisites
-
-### cheat
-`cheat` must be installed
+Some packages needs additional dependencies to work properly. Below are listed only packages that need such dependencies.
 
 ### zsh
+`oh-my-zsh`
 `zoxide`
 `kubectl`
-`oh-my-zsh`
+`fzf`
+
 
 ### kitty
 `zsh`
@@ -31,10 +31,6 @@ As <package> may be any top level folder in the project.
 
 ### nvim
 `go`
-
-^Note: Some configs may need additional setup
-
-^TODO: add install script
 
 # Notable projects
 [dotfiles.github]( https://dotfiles.github.io/ ) </br>
