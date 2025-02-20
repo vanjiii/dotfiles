@@ -9,8 +9,8 @@ For convenience clone the repo into `~/.dotfiles` directory.
 Then you may install one of the preferred config via
 
 ```
-stow <package> # just for single package
-stow          # for all packages
+stow <package>  # just for single package
+stow            # for all packages
 ```
 
 As <package> may be any top level folder in the project.
