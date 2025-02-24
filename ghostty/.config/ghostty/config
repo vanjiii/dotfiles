@@ -1,0 +1,6 @@
+theme = "farmhouse-light"
+cursor-color = "#000"
+shell-integration-features = "no-cursor"
+cursor-style = "block"
+window-theme = "auto"
+mouse-hide-while-typing = true
