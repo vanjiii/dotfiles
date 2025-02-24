@@ -25,7 +25,7 @@ alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 
 alias cryfs.mega='cryfs ~/MEGA/private.enc ~/Vaults/mega --unmount-idle 5'
-alias cryfs.umega='cryfs-unmount "~/Vaults/mega"'
+alias cryfs.umega='cryfs-unmount ~/Vaults/mega'
 alias veracrypt.wdd='veracrypt --mount /run/media/ivand/WDD/enc ~/Vaults/wdd'
 alias veracrypt.uwdd='veracrypt --dismount'
 
@@ -123,4 +123,5 @@ source <(kubectl completion zsh)
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
 source <(fzf --zsh)
