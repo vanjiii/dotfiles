@@ -29,7 +29,11 @@
 [commit]
 	gpgsign = true
 
+[tag]
+	gpgSign = true
+
 [alias]
+	aliases = "!f() { git config --get-regexp ^alias | cut -c 7-; }; f"
 	; git switch to local branch
 	swb = ! git switch "$(git branch | fzf | tr -d '[:space:]')"
 	; git switch to remote branch
