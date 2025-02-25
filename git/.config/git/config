@@ -1,7 +1,8 @@
-[user]
-	name = Ivan Dimitrov
-	email = ivan.v.dimitrov@pm.me
-	signingkey = 99C921F4B23F061A
+[include]
+	path = config.personal
+
+[includeIf "gitdir:**/gps/**/.git"]
+	path = config.work
 
 [push]
 	default = simple
@@ -24,7 +25,7 @@
 [core]
 	pager = less -FR
 	editor = vi
-	hooksPath = ~/.gitcfg/hooks
+	hooksPath = ~/.config/git/hooks
 
 [commit]
 	gpgsign = true
