@@ -1,0 +1,7 @@
+#!/bin/bash
+
+f() {
+	git config --get-regexp ^alias | cut -c 7- | awk '{alias=$1; $1=""; printf("%-10s => %s\n", alias, substr($0,2))}'
+}
+
+f

@@ -1,8 +1,11 @@
 [include]
 	path = config.personal
 
-[includeIf "gitdir:**/gps/**/.git"]
-	path = config.work
+[includeIf "gitdir:**/ivanvd/**/.git"]
+	path = config.work.me
+
+[includeIf "gitdir:**/ivanvd/**/gps/**/.git"]
+	path = config.work.i3t
 
 [push]
 	default = simple
@@ -19,6 +22,12 @@
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
 
+[url "ssh://git@gogs.marathon.mesos/"]
+	insteadOf = https://gogs.marathon.mesos/
+
+[url "ssh://git@gogs.marathon.mesos/"]
+	insteadOf = http://gogs.marathon.mesos/
+
 [pager]
 	branch = false
 
@@ -34,24 +43,19 @@
 	gpgSign = true
 
 [alias]
-	aliases = "!f() { git config --get-regexp ^alias | cut -c 7-; }; f"
-	; git switch to local branch
-	swb = ! git switch "$(git branch | fzf | tr -d '[:space:]')"
-	; git switch to remote branch
-	swr = ! git switch "$(git fetch; git branch -r | fzf | cut -d '/' -f2 | tr -d '[:space:]')"
-	co = checkout
+	aliases = !git-list-available-aliases
+	amend = commit --amend --no-edit
 	br = branch
 	cm = commit
-	st = status
-	unstage = reset HEAD --
-	sw = switch
-	; git log with fzf
-	flog = ! git log --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | fzf --ansi --reverse --no-sort --preview='git show --color {1}'
-	; git log only for current branch
-	ll = ! git log --no-merges --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit "$(git symbolic-ref refs/remotes/origin/HEAD --short)"..
-	; git pretty log
-	h = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	pf = !git push --set-upstream origin $(git branch --show)
-	amend = commit --amend --no-edit
-	rename = commit --amend
+	co = checkout
 	fixup = ! git log --oneline -n 20 | fzf | cut -d ' ' -f1 | xargs git commit --no-verify --fixup
+	flog = ! git log --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | fzf --ansi --reverse --no-sort --preview='git show --color {1}'
+	h = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	ll = ! git log --no-merges --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit "$(git symbolic-ref refs/remotes/origin/HEAD --short)"..
+	pf = !git push --set-upstream origin $(git branch --show)
+	rename = commit --amend
+	st = status
+	sw = switch
+	swb = ! git switch "$(git branch | fzf | tr -d '[:space:]')"
+	swr = ! git switch "$(git fetch; git branch -r | fzf | cut -d '/' -f2 | tr -d '[:space:]')"
+	unstage = reset HEAD --
