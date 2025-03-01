@@ -1,4 +1,4 @@
-# !/bin/bash
+#!/bin/bash
 
 # Check whether there is not staged files.
 files=$(git diff --name-only)
