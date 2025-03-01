@@ -1,11 +1,45 @@
 https://github.com/notabugwontfix/public-obsidian-vault/blob/master/Fedora%2036%20Workstation%20Setup.md
 
+enable rpm fusion free&nonfree
+
+setup fingerprints (e16 is via settings auto, mega easy)
+
+capslock as ctrl
+
+keyboard -> input source
+
+clock settings
+
+tittle bar bottons -> Minimize
+
+hostname - settings or `hostnamectl set-hostname YOUR_HOSTNAME`
+
+=== update firmware ===
+sudo fwupdmgr refresh --force
+sudo fwupdmgr get-devices # Lists devices with available updates.
+sudo fwupdmgr get-updates # Fetches list of available updates.
+sudo fwupdmgr update
+# you can download an iso file from Lenovo and boot
+
+=== dotfiles ===
+	git
+		gitleaks
+	zoxide
+	kubectl
+	fzf
+	install zsh
+	install oh-my-zsh
+	nvim
+		go
+	deno
+
 === useful apps ===
 flatseal - edit flatpak apps settings
 tweaks - gnome settings on steroids
 dconf editor - editor gnome internal settings
 extensions app - browse extensions
 color picker
+dconf
 
 === dnf ===
 echo 'max_parallel_downloads=10' | sudo tee -a /etc/dnf/dnf.conf
@@ -36,6 +70,8 @@ Review your Flatpak overrides: sudo flatpak override --show
 === codecs ===
 https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/
 dnf/flatpak vlc
+multimedia: https://docs.fedoraproject.org/en-US/quick-docs/installing-plugins-for-playing-movies-and-music/
+h264: https://docs.fedoraproject.org/en-US/quick-docs/openh264/
 
 === Fix thumbnails ===
 
@@ -65,15 +101,22 @@ sudo dnf install \
     pt-sans-fonts \
     open-sans-fonts
 
-
-
-MS Fonts
-
-Install dependencies and fonts:
-
-sudo dnf install cabextract xorg-x11-font-utils
-sudo rpm -i https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
-
-More info at http://mscorefonts2.sourceforge.net/.
-
-https://copr.fedorainfracloud.org/coprs/dawid/better_fonts/
+➜  ~ gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Shift>F11']"
+➜  ~ gsettings set org.gnome.desktop.wm.keybindings close "['<Super>w']"
+➜  ~ gsettings set org.gnome.mutter dynamic-workspaces false
+➜  ~ gsettings set org.gnome.desktop.wm.preferences num-workspaces 6
+➜  ~ gsettings set org.gnome.shell.keybindings switch-to-application-1 "['<Alt>1']"
+➜  ~ gsettings set org.gnome.shell.keybindings switch-to-application-2 "['<Alt>2']"
+➜  ~ gsettings set org.gnome.shell.keybindings switch-to-application-3 "['<Alt>3']"
+➜  ~ gsettings set org.gnome.shell.keybindings switch-to-application-4 "['<Alt>4']"
+➜  ~ gsettings set org.gnome.shell.keybindings switch-to-application-5 "['<Alt>5']"
+➜  ~ gsettings set org.gnome.shell.keybindings switch-to-application-6 "['<Alt>6']"
+➜  ~ gsettings set org.gnome.shell.keybindings switch-to-application-7 "['<Alt>7']"
+➜  ~ gsettings set org.gnome.shell.keybindings switch-to-application-8 "['<Alt>8']"
+➜  ~ gsettings set org.gnome.shell.keybindings switch-to-application-9 "['<Alt>9']"
+➜  ~ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>1']"
+➜  ~ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>2']"
+➜  ~ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>3']"
+➜  ~ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>4']"
+➜  ~ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-5 "['<Super>5']"
+➜  ~ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6 "['<Super>6']"
