@@ -29,6 +29,7 @@ require("lazy").setup(
 		},
 
 		-- {{{ lsp-zero
+		-- TODO: remove lsp-zero dep
 		{ 'VonHeikemen/lsp-zero.nvim', branch = 'v4.x', },
 		{ 'neovim/nvim-lspconfig' },
 		{ 'hrsh7th/cmp-nvim-lsp' },
@@ -41,14 +42,15 @@ require("lazy").setup(
 
 		{ 'nvim-tree/nvim-tree.lua' },
 
+		-- TODO: smoka7/hop.nvim move to this or other like from mini.nvim or folke's QoL
 		{ 'phaazon/hop.nvim',       branch = 'v2' },
 
-		{
-			'terrortylor/nvim-comment',
-			config = function()
-				require('nvim_comment').setup({ comment_empty = false })
-			end,
-		},
+		-- {
+		-- 	'terrortylor/nvim-comment',
+		-- 	config = function()
+		-- 		require('nvim_comment').setup({ comment_empty = false })
+		-- 	end,
+		-- },
 
 		{
 			'folke/which-key.nvim',
@@ -76,9 +78,6 @@ require("lazy").setup(
 			"cappyzawa/trim.nvim",
 			opts = {}
 		},
-		-- {
-		-- "github/copilot.vim"
-		-- },
 	},
 	--
 	-- Lazy options
