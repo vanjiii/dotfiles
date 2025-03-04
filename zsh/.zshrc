@@ -33,6 +33,15 @@ alias open='xdg-open 2>/dev/null'
 alias o='xdg-open 2>/dev/null'
 
 alias k='kubectl'
+pd () {
+	if [[ "$1" == "c" ]]; then
+		shift
+		# command calls `podman` bypassing aliases, functions, shell builtins, etc
+		command podman container "$@"
+	else
+		command podman "$@"
+	fi
+}
 
 alias delta='delta --light --line-numbers --side-by-side'
 
@@ -50,11 +59,7 @@ alias ls='ls --hyperlink=auto --color=auto'
 alias img='kitty +kitten icat'
 alias icat='kitty +kitten icat'
 
-alias speedtest=speedtest-cli
-
 alias fuck='sudo $(fc -ln -1)'
-
-alias bwu='export BW_SESSION="$(bw unlock --raw)"'
 
 # fzf history - repeat history
 fhistory() {
