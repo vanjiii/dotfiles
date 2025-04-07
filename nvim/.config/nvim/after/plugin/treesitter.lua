@@ -5,13 +5,21 @@ require 'nvim-treesitter.configs'.setup {
 	-- A list of parser names, or "all" (the five listed parsers should always be installed)
 	ensure_installed = {
 		-- "dockerfile",
+		"css",
 		"go",
+		"html",
+		"javascript",
 		"json",
 		"lua",
+		"php",
 		"ruby",
 		"sql",
+		"toml",
+		"tsx",
+		"typescript",
 		"vim",
 		"vimdoc",
+		"yaml",
 	},
 
 	-- Install parsers synchronously (only applied to `ensure_installed`)
@@ -22,7 +30,7 @@ require 'nvim-treesitter.configs'.setup {
 	auto_install = true,
 
 	-- List of parsers to ignore installing (for "all")
-	ignore_install = { "javascript" },
+	ignore_install = {},
 
 	highlight = {
 		enable = true,
