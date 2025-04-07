@@ -10,11 +10,12 @@ require('telescope').setup {
 		},
 		mappings = {
 			n = {
-				['<c-d>'] = require('telescope.actions').delete_buffer
+				-- ['<c-d>'] = require('telescope.actions').delete_buffer
 			}, -- n
 			i = {
 				["<C-h>"] = "which_key",
-				['<c-d>'] = require('telescope.actions').delete_buffer
+				['<c-x>'] = require('telescope.actions').delete_buffer,
+				['<c-s>'] = require('telescope.actions').select_horizontal,
 			} -- i
 		} -- mappings
 	}
