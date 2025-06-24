@@ -39,12 +39,7 @@ vim.keymap.set('n', '<C-k>', builtin.live_grep, opts('live grep'))
 vim.keymap.set('n', '<leader>pg', builtin.git_status, opts('grep git status'))
 vim.keymap.set('n', '<leader>pb', builtin.buffers, opts('list buffers'))
 vim.keymap.set('n', '<leader>ph', builtin.help_tags, opts('help tags'))
--- vim.keymap.set('n', '<leader>ps', function()
--- 	builtin.grep_string({
--- 		search = vim.fn.input("Grep > "),
--- 		desc = 'Telescope: grep'
--- 	});
--- end)
+vim.keymap.set("n", "<leader>ss", builtin.lsp_document_symbols, opts('list current buffer symbols'))
 
 ---
 vim.keymap.set('n', '<leader>pS', builtin.grep_string, opts('grep under cursor'))
