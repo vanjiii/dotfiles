@@ -30,3 +30,6 @@ vim.opt.listchars = {
 	extends = '#',
 }
 vim.opt.list = false
+
+-- spell checker
+vim.opt.spell = true
