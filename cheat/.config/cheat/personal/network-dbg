@@ -1,0 +1,39 @@
+#
+# 1. dns resolve
+# this will show will whether this domain is resolved, is it cached and which
+# DNS resolved it
+nslookup domain.com
+
+#
+# example:
+# ➜  ~ nslookup master-postgres-gps.marathon.mesos
+#Server:		127.0.0.53
+#Address:	127.0.0.53#53
+#
+#Non-authoritative answer:
+#Name:	master-postgres-gps.marathon.mesos
+#Address: 10.101.5.130
+#
+# this shows that the DNS is 127.0.0.53 (which is the local to the host)
+# that the IP for that domain is 10.101.5.130
+
+#
+# 1. dns resolve against custom DNS
+#
+nslookup domain.com 1.1.1.1
+
+#
+# 1. Locate DNS authoritative server of the domain
+#
+dig NS timeforyou.bg +short
+
+# in case you are changing them and want to manually check different dns servers
+dig NS timeforyou.bg @1.1.1.1 +short
+
+#
+# 2. do you have conn
+#
+telnet 10.101.5.130 5432
+Trying 10.101.5.130...
+Connected to 10.101.5.130.
+Escape character is '^]'.
