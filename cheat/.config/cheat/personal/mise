@@ -14,3 +14,4 @@ MISE_ENV mise env -s fish
 
 # source
 mise env -s fish | source
+eval "$(mise env)" # zsh
