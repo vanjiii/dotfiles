@@ -51,8 +51,9 @@
 	delta = "!git diff --color=always \"$@\" | delta --side-by-side"
 	fixup = ! git log --oneline -n 20 | fzf | cut -d ' ' -f1 | xargs git commit --no-verify --fixup
 	flog = ! git log --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | fzf --ansi --reverse --no-sort --preview='git show --color {1}'
-	h = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	ll = ! git log --no-merges --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit "$(git symbolic-ref refs/remotes/origin/HEAD --short)"..
+	h = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=format:'%d-%m-%Y'
+	ll = ! git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit "$(git symbolic-ref refs/remotes/origin/HEAD --short)"..
+	ls-stat = ! git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --stat
 	pf = !git push --set-upstream origin $(git branch --show)
 	rename = commit --amend
 	st = status
