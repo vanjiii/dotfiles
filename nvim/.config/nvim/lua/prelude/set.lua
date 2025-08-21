@@ -1,35 +1,39 @@
-vim.opt.cursorline = true
+local set = vim.opt
+
+set.statusline = "%f%m%r%h%w %q %=%-14.(%l:%c%V%) %{v:lua.gitbranch()} %y [%{empty(&fileencoding)?'enc':&fileencoding}] %{&expandtab?'spaces:'.&tabstop:'tabs:'.&tabstop} %P "
+
+set.cursorline = true
 
 -- set numbers
-vim.opt.number = true
-vim.opt.relativenumber = true
+set.number = true
+set.relativenumber = true
 
 -- show existing tabs with 4 spaces
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
+set.tabstop = 4
+set.softtabstop = 4
+set.shiftwidth = 4
 -- replace tab with spaces
--- vim.opt.expandtab = true
+-- set.expandtab = true
 
-vim.opt.wrap = false
+set.wrap = false
 
--- don't go to end of file but N rows
-vim.opt.scrolloff = 8
+-- don't go to end of file but to the N rows
+set.scrolloff = 8
 
-vim.opt.hlsearch = true
-vim.opt.incsearch = true
+set.hlsearch = true
+set.incsearch = true
 
-vim.opt.swapfile = false
-vim.opt.backup = false
+set.swapfile = false
+set.backup = false
 
-vim.opt.listchars = {
+set.listchars = {
 	eol = '↵',
 	tab = '>-',
 	space = ' ',
 	trail = '-',
 	extends = '#',
 }
-vim.opt.list = false
+set.list = false
 
 -- spell checker
-vim.opt.spell = true
+set.spell = true
