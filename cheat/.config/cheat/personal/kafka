@@ -10,3 +10,13 @@ kcat -b $BROKER -X security.protocol=SASL_SSL -X sasl.mechanism=PLAIN -X sasl.us
 kafka-consumer-groups.sh --bootstrap-server $BROKER --group "<consumer_group>" --command-config ~/.config/kafkactl/config.properties --describe
 
 kafka-consumer-groups.sh --bootstrap-server $BROKER --group "<consumer_group>" --command-config ~/.config/kafkactl/config.properties --topic <topic> --reset-offsets --to-earliest --execute
+
+# kafka broker:
+podman run -it -p 9092:9092 apache/kafka:4.0.0
+#
+# red panda console:
+podman run --network=host -p 8080:8080 -e KAFKA_BROKERS=localhost:9092 docker.redpanda.com/redpandadata/console:latest
+#
+# validate via
+kcat -b localhost:9092 -L
+kcat -b 0.0.0.0:9092 -L

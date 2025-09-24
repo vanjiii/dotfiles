@@ -23,3 +23,9 @@ docker run -d \
 
 # if the container exists, just start it
 docker start dev-postgres
+
+# clean dangling resources
+docker system prune
+
+# clean all not just dangling
+docker system prune -a

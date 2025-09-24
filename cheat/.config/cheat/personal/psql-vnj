@@ -1,0 +1,5 @@
+\dv         -- views
+\dS         -- system tables
+\d          -- all relations (tables, views, sequences, indexes, etc.)
+\dt *.*		-- all tables matching regexp
+\dT			-- list user defined data types

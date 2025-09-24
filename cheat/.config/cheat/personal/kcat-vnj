@@ -1,0 +1,8 @@
+# read single message, parse it with local avro schema
+#
+# -b <broker_domain>
+# -t <topic_name>
+# -C consume mode
+# -c 1 (limit message count)
+# -f '%s\n' (format msg)
+kcat -b example.com -t <topic_name> -C -c 1 -f '%s\n' | acat --schema ~/Projects/gogs.mesos/gps/avro/etc/avro/alert_message.avsc | jq
