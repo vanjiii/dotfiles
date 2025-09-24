@@ -32,15 +32,19 @@ local opts = function(desc)
 	}
 end
 
+local rgopts = function(_)
+	return {"--hidden"}
+end
+
 vim.keymap.set('n', '<leader>pf', builtin.find_files, opts('find files'))
 vim.keymap.set('n', '<C-p>', builtin.find_files, opts('find files'))
 vim.keymap.set('n', '<leader>ps', builtin.live_grep, opts('live grep'))
-vim.keymap.set('n', '<C-k>', builtin.live_grep, opts('live grep'))
+vim.keymap.set('n', '<C-k>', function() builtin.live_grep({ additional_args = rgopts }) end, opts('live grep'))
 vim.keymap.set('n', '<leader>pg', builtin.git_status, opts('grep git status'))
 vim.keymap.set('n', '<leader>pb', builtin.buffers, opts('list buffers'))
 vim.keymap.set('n', '<leader>ph', builtin.help_tags, opts('help tags'))
 vim.keymap.set("n", "<leader>ss", builtin.lsp_document_symbols, opts('list current buffer symbols'))
 
 ---
-vim.keymap.set('n', '<leader>pS', builtin.grep_string, opts('grep under cursor'))
+vim.keymap.set('n', '<leader>pS', function() builtin.grep_string({ additional_args = rgopts }) end, opts('live grep under cursor'))
 vim.keymap.set('n', '<leader>hh', builtin.command_history, opts('history'))
