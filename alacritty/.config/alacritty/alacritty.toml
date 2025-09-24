@@ -1,0 +1,7 @@
+[general]
+import = [
+	# "/home/ivanvd/.dotfiles/alacritty/.config/alacritty/papertheme.toml",
+	"/home/ivanvd/.dotfiles/alacritty/.config/alacritty/papercolor_light.toml",
+# "~/.config/alacritty/keybindings.toml",
+# "alacritty-theme/themes/gruvbox_dark.toml",
+]
