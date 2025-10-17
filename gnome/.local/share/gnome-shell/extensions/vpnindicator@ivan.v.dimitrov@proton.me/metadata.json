@@ -1,0 +1,8 @@
+{
+  "name": "VPN Indicator",
+  "description": "Shows current active ovpn connection",
+  "uuid": "vpnindicator@ivan.v.dimitrov@proton.me",
+  "shell-version": [
+    "48"
+  ]
+}
