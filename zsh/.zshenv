@@ -27,6 +27,9 @@ export PATH=$HOME/.local/bin:$PATH
 # kafka shit
 export PATH=$HOME/.local/bin/kafka/bin:$PATH
 
+# npm
+export PATH=$HOME/.npm-global/bin:$PATH
+
 # Shit to make work GPG again under MacOS.
 export GPG_TTY=$(tty)
 
