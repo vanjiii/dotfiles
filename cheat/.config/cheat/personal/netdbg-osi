@@ -1,0 +1,229 @@
+# Network Debugging - OSI Layer Approach
+# Systematic layer-by-layer network troubleshooting
+
+# ============================================================================
+# LAYER 1 - PHYSICAL
+# ============================================================================
+
+# Check network interface status
+ip link show
+
+# Check if interface is up
+ip link show dev eth0
+
+# Bring interface up/down
+sudo ip link set eth0 up
+sudo ip link set eth0 down
+
+# Check physical connection stats (errors, drops)
+ip -s link show eth0
+
+# Check WiFi signal strength and quality
+iwconfig wlan0
+iw dev wlan0 link
+iw dev wlan0 station dump
+
+# Monitor WiFi signal in real-time
+watch -n 1 iw dev wlan0 link
+
+# Check ethernet cable connection (ethtool required)
+sudo ethtool eth0
+
+# ============================================================================
+# LAYER 2 - DATA LINK
+# ============================================================================
+
+# Show MAC addresses (ARP table)
+ip neigh show
+arp -a
+
+# Check specific MAC address
+ip neigh show dev eth0
+
+# Clear ARP cache for troubleshooting
+sudo ip neigh flush dev eth0
+
+# Show bridge information (for containers)
+ip link show type bridge
+bridge link show
+
+# Check VLAN configuration
+ip link show type vlan
+
+# Monitor layer 2 traffic
+sudo tcpdump -i eth0 -e -n
+
+# ============================================================================
+# LAYER 3 - NETWORK (IP)
+# ============================================================================
+
+# Show IP addresses
+ip addr show
+ip -4 addr show  # IPv4 only
+ip -6 addr show  # IPv6 only
+
+# Show routing table
+ip route show
+ip route get 8.8.8.8  # How to reach specific IP
+
+# Add/delete route
+sudo ip route add 192.168.1.0/24 via 10.0.0.1
+sudo ip route del 192.168.1.0/24
+
+# Check IP forwarding (important for containers/VPN)
+sysctl net.ipv4.ip_forward
+sysctl net.ipv6.conf.all.forwarding
+
+# Enable IP forwarding
+sudo sysctl -w net.ipv4.ip_forward=1
+
+# Ping test (ICMP)
+ping -c 4 8.8.8.8
+ping -c 4 -I eth0 8.8.8.8  # Via specific interface
+
+# Traceroute (show path)
+traceroute 8.8.8.8
+traceroute -n 8.8.8.8  # No DNS resolution
+mtr 8.8.8.8  # Better than traceroute (real-time)
+
+# Check NAT/masquerading (iptables)
+sudo iptables -t nat -L -n -v
+sudo nft list ruleset  # For nftables
+
+# ============================================================================
+# LAYER 4 - TRANSPORT (TCP/UDP)
+# ============================================================================
+
+# Show listening ports and connections
+ss -tulpn        # All TCP/UDP listening ports
+ss -tunap        # All TCP/UDP connections
+ss -t state established  # Established TCP connections
+
+# Check specific port
+ss -tulpn | grep :8080
+ss -tulpn sport = :8080
+
+# Show process using port
+sudo ss -tulpn | grep :8080
+sudo lsof -i :8080
+
+# Test TCP connection
+nc -zv example.com 443
+telnet example.com 443
+
+# Test UDP connection
+nc -zuv example.com 53
+
+# Check connection states
+ss -tan | awk '{print $1}' | sort | uniq -c
+
+# Monitor new connections
+sudo tcpdump -i any -n 'tcp[tcpflags] & tcp-syn != 0'
+
+# ============================================================================
+# LAYER 7 - APPLICATION
+# ============================================================================
+
+# DNS resolution
+nslookup example.com
+nslookup example.com 8.8.8.8  # Use specific DNS server
+dig example.com
+dig @8.8.8.8 example.com  # Use specific DNS server
+dig +trace example.com  # Full DNS path
+host example.com
+
+# Test HTTP/HTTPS
+curl -v http://example.com
+curl -I https://example.com  # Headers only
+curl --connect-timeout 5 http://example.com
+
+# Check TLS/SSL certificate
+openssl s_client -connect example.com:443 -servername example.com
+curl -vI https://example.com 2>&1 | grep -A 5 'SSL connection'
+
+# Test with specific DNS server
+curl --dns-servers 8.8.8.8 http://example.com
+
+# ============================================================================
+# CONTAINER-SPECIFIC (Layer 3-4)
+# ============================================================================
+
+# Docker/Podman network inspection
+docker network ls
+docker network inspect bridge
+podman network ls
+podman network inspect podman
+
+# Check container IP and network
+docker inspect <container> | grep -A 10 NetworkSettings
+podman inspect <container> | grep -A 10 NetworkSettings
+
+# Enter container network namespace
+docker exec -it <container> ip addr
+podman exec -it <container> ss -tulpn
+
+# Check if container can reach outside
+docker exec <container> ping -c 2 8.8.8.8
+docker exec <container> curl -I https://example.com
+
+# ============================================================================
+# SELINUX (Fedora-specific)
+# ============================================================================
+
+# Check SELinux status
+getenforce
+sestatus
+
+# Check SELinux denials
+sudo ausearch -m avc -ts recent
+sudo grep 'denied' /var/log/audit/audit.log
+
+# Check network-related SELinux booleans
+getsebool -a | grep network
+
+# Allow container networking (if blocked)
+sudo setsebool -P container_manage_cgroup on
+sudo setsebool -P virt_use_nfs on
+
+# Generate SELinux policy from denials
+sudo ausearch -m avc -ts recent | audit2allow -M mynetwork
+sudo semodule -i mynetwork.pp
+
+# ============================================================================
+# FIREWALL (Layer 3-4)
+# ============================================================================
+
+# Check firewalld status (Fedora default)
+sudo firewall-cmd --state
+sudo firewall-cmd --list-all
+
+# Check if port is allowed
+sudo firewall-cmd --list-ports
+sudo firewall-cmd --query-port=8080/tcp
+
+# Temporarily allow port (until reboot)
+sudo firewall-cmd --add-port=8080/tcp
+
+# Permanently allow port
+sudo firewall-cmd --permanent --add-port=8080/tcp
+sudo firewall-cmd --reload
+
+# Check iptables rules (lower level)
+sudo iptables -L -n -v
+sudo iptables -t nat -L -n -v
+
+# ============================================================================
+# USEFUL COMBINED CHECKS
+# ============================================================================
+
+# Full interface diagnostic
+ip addr show eth0 && ip route show && ip neigh show dev eth0
+
+# Quick connectivity test
+ping -c 1 -W 1 8.8.8.8 && echo "Internet OK" || echo "No Internet"
+
+# DNS resolution test
+nslookup google.com && echo "DNS OK" || echo "DNS Failed"
+
+# Full network stack test
+for layer in "ping -c 1 8.8.8.8" "curl -sI https://google.com"; do echo "Testing: $layer"; eval $layer && echo "✓ PASS" || echo "✗ FAIL"; done

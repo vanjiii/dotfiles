@@ -1,0 +1,467 @@
+# Network Debugging - Workflow Approach
+# Step-by-step troubleshooting workflows for common scenarios
+
+# ============================================================================
+# WORKFLOW 1: General "No Internet" Troubleshooting
+# ============================================================================
+
+# Step 1: Check physical/link layer
+ip link show
+# Look for: state UP
+
+# Step 2: Check if IP address assigned
+ip addr show
+# Look for: inet X.X.X.X/XX
+
+# Step 3: Check default gateway
+ip route show | grep default
+# Should see: default via X.X.X.X dev ethX
+
+# Step 4: Ping gateway
+ping -c 2 $(ip route | grep default | awk '{print $3}')
+# If fails: Layer 2/3 issue
+
+# Step 5: Ping external IP (bypass DNS)
+ping -c 2 8.8.8.8
+# If fails: routing/firewall issue
+
+# Step 6: Check DNS
+nslookup google.com
+# If fails: DNS configuration issue
+
+# Step 7: Test HTTPS
+curl -I https://google.com
+# If fails: firewall/proxy issue
+
+# Decision tree:
+# Gateway ping fails -> Check: cable, WiFi, interface status, firewall
+# 8.8.8.8 ping fails -> Check: routing, NAT, upstream firewall
+# DNS fails -> Check: /etc/resolv.conf, DNS server, port 53
+# HTTPS fails -> Check: application firewall, proxy, SELinux
+
+# ============================================================================
+# WORKFLOW 2: Container Networking Debug
+# ============================================================================
+
+# Step 1: Verify container is running
+docker ps | grep <container>
+
+# Step 2: Check container network mode
+docker inspect <container> | grep NetworkMode
+
+# Step 3: Get container IP
+CONTAINER_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container>)
+echo "Container IP: $CONTAINER_IP"
+
+# Step 4: Check if container has network access
+docker exec <container> ip addr
+docker exec <container> ip route
+
+# Step 5: Test DNS from container
+docker exec <container> nslookup google.com
+# If fails -> Check /etc/resolv.conf in container
+
+# Step 6: Test external connectivity from container
+docker exec <container> ping -c 2 8.8.8.8
+# If fails -> Check IP forwarding and NAT
+
+# Step 7: Check host IP forwarding
+sysctl net.ipv4.ip_forward
+# Should be: net.ipv4.ip_forward = 1
+
+# Step 8: Enable IP forwarding if needed
+sudo sysctl -w net.ipv4.ip_forward=1
+# Make permanent: echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
+
+# Step 9: Check NAT/MASQUERADE rules
+sudo iptables -t nat -L -n -v | grep MASQUERADE
+# Should see MASQUERADE rules for docker networks
+
+# Step 10: Check firewall
+sudo firewall-cmd --list-all
+sudo firewall-cmd --get-active-zones
+
+# Step 11: If still failing, check SELinux
+sudo ausearch -m avc -ts recent | grep docker
+sudo ausearch -m avc -ts recent | grep podman
+
+# Step 12: Recreate container network
+docker network rm <network> && docker network create <network>
+
+# ============================================================================
+# WORKFLOW 3: Service Not Accessible (Port Not Responding)
+# ============================================================================
+
+# Step 1: Verify service is running
+sudo systemctl status <service>
+ps aux | grep <service>
+
+# Step 2: Check if port is listening
+sudo ss -tulpn | grep :<port>
+# Note the PID and listen address (0.0.0.0 vs 127.0.0.1)
+
+# Step 3: Test locally first
+nc -zv localhost <port>
+curl -v http://localhost:<port>
+
+# Step 4: If local works, test from same host using IP
+nc -zv <host_ip> <port>
+
+# Step 5: Check firewall rules
+sudo firewall-cmd --query-port=<port>/tcp
+sudo firewall-cmd --list-ports
+
+# Step 6: Add firewall rule if needed
+sudo firewall-cmd --add-port=<port>/tcp
+sudo firewall-cmd --permanent --add-port=<port>/tcp
+sudo firewall-cmd --reload
+
+# Step 7: Check iptables
+sudo iptables -L INPUT -n -v | grep <port>
+
+# Step 8: Check if service bound to wrong interface
+ss -tulpn | grep :<port>
+# 127.0.0.1:<port> = only localhost
+# 0.0.0.0:<port> = all interfaces
+
+# Step 9: Check SELinux
+sudo ausearch -m avc -ts recent | grep <port>
+sudo semanage port -l | grep <port>
+
+# Step 10: Test from remote machine
+nc -zv <host> <port>  # From another machine
+
+# ============================================================================
+# WORKFLOW 4: DNS Resolution Issues
+# ============================================================================
+
+# Step 1: Check /etc/resolv.conf
+cat /etc/resolv.conf
+# Should have nameserver entries
+
+# Step 2: Test local DNS server
+nslookup google.com
+# Note which server it uses
+
+# Step 3: Test with known good DNS
+nslookup google.com 8.8.8.8
+dig @8.8.8.8 google.com
+
+# Step 4: Check if DNS port is reachable
+nc -zuv 8.8.8.8 53
+
+# Step 5: Trace DNS query path
+dig +trace google.com
+
+# Step 6: Check systemd-resolved (if used)
+systemd-resolve --status
+resolvectl status
+
+# Step 7: Check if DNSSEC causing issues
+dig +dnssec google.com
+
+# Step 8: Flush DNS cache
+sudo systemd-resolve --flush-caches
+sudo resolvectl flush-caches
+
+# Step 9: Test with different record types
+dig A google.com
+dig AAAA google.com
+dig MX google.com
+
+# Step 10: Check /etc/nsswitch.conf
+grep hosts /etc/nsswitch.conf
+# Should include: files dns
+
+# ============================================================================
+# WORKFLOW 5: VPN Troubleshooting
+# ============================================================================
+
+# Step 1: Check VPN service status
+sudo systemctl status openvpn@<config>
+ps aux | grep openvpn
+
+# Step 2: Check VPN interface exists
+ip link show | grep tun
+ip addr show tun0
+
+# Step 3: Check VPN routing
+ip route show | grep tun0
+# Should see routes through tun0
+
+# Step 4: Check if VPN assigned IP
+ip addr show tun0
+# Should have inet address
+
+# Step 5: Test connectivity through VPN
+ping -c 2 -I tun0 8.8.8.8
+
+# Step 6: Check DNS through VPN
+grep -i nameserver /etc/resolv.conf
+nslookup google.com
+
+# Step 7: Check VPN logs
+sudo journalctl -u openvpn@<config> -n 50
+tail -f /var/log/openvpn/*.log
+
+# Step 8: Check IP forwarding
+sysctl net.ipv4.ip_forward
+
+# Step 9: Check NAT for VPN
+sudo iptables -t nat -L -n -v | grep tun0
+
+# Step 10: Verify VPN server is reachable
+ping -c 2 <vpn_server_ip>
+
+# Step 11: Test VPN connectivity
+curl --interface tun0 https://ifconfig.me
+# Should show VPN IP
+
+# ============================================================================
+# WORKFLOW 6: Microservices Communication Debug
+# ============================================================================
+
+# Step 1: Identify services
+docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Networks}}"
+
+# Step 2: Check if services on same network
+docker network inspect <network> | grep Name
+
+# Step 3: Get service IPs
+docker inspect <service1> | grep IPAddress
+docker inspect <service2> | grep IPAddress
+
+# Step 4: Test network connectivity between services
+docker exec <service1> ping -c 2 <service2_ip>
+
+# Step 5: Test DNS resolution
+docker exec <service1> nslookup <service2_name>
+docker exec <service1> ping -c 2 <service2_name>
+
+# Step 6: Check listening ports on target service
+docker exec <service2> ss -tulpn
+
+# Step 7: Test HTTP endpoint
+docker exec <service1> curl -v http://<service2_name>:<port>/health
+
+# Step 8: Check service discovery (if using)
+# Consul:
+curl http://localhost:8500/v1/catalog/service/<service>
+# Eureka:
+curl http://localhost:8761/eureka/apps/<service>
+
+# Step 9: Check logs for connection errors
+docker logs <service1> --tail 50
+docker logs <service2> --tail 50
+
+# Step 10: Capture traffic between services
+sudo tcpdump -i docker0 -n host <service1_ip> and host <service2_ip>
+
+# ============================================================================
+# WORKFLOW 7: Slow Network Performance
+# ============================================================================
+
+# Step 1: Check current bandwidth usage
+iftop -i <interface>
+nload <interface>
+
+# Step 2: Check interface errors
+ip -s link show <interface>
+# Look for: errors, dropped, overruns
+
+# Step 3: Test latency to gateway
+ping -c 100 $(ip route | grep default | awk '{print $3}')
+# Calculate: packet loss %, avg latency
+
+# Step 4: Check for retransmissions
+ss -ti | grep -i retrans
+
+# Step 5: Test with mtr (combines ping + traceroute)
+mtr -n <destination>
+# Look for: packet loss at specific hop
+
+# Step 6: Check DNS resolution time
+time nslookup google.com
+
+# Step 7: Check TCP window sizes
+ss -tm
+
+# Step 8: Check network queues
+tc -s qdisc show dev <interface>
+
+# Step 9: WiFi specific - check signal
+iw dev wlan0 link
+iw dev wlan0 station dump
+
+# Step 10: Test bandwidth
+iperf3 -c <server>
+
+# ============================================================================
+# WORKFLOW 8: Debugging with tcpdump/Wireshark
+# ============================================================================
+
+# Step 1: Capture all traffic on interface
+sudo tcpdump -i eth0 -w capture.pcap
+
+# Step 2: Capture specific port
+sudo tcpdump -i eth0 port 80 -w http.pcap
+
+# Step 3: Capture between two IPs
+sudo tcpdump -i eth0 host 192.168.1.100 and host 192.168.1.200
+
+# Step 4: Capture HTTP traffic (readable)
+sudo tcpdump -i eth0 -A port 80
+
+# Step 5: Capture DNS queries
+sudo tcpdump -i eth0 -n port 53
+
+# Step 6: Capture TCP SYN packets (new connections)
+sudo tcpdump -i eth0 'tcp[tcpflags] & tcp-syn != 0'
+
+# Step 7: Monitor container traffic
+sudo tcpdump -i docker0 -n
+
+# Step 8: Real-time HTTP requests
+sudo tcpdump -i eth0 -n -s 0 -A 'tcp port 80 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)'
+
+# Step 9: Analyze capture file
+tcpdump -r capture.pcap
+tcpdump -r capture.pcap port 443
+tcpdump -r capture.pcap src 192.168.1.100
+
+# ============================================================================
+# WORKFLOW 9: Firewall Debugging
+# ============================================================================
+
+# Step 1: Check firewall status
+sudo firewall-cmd --state
+sudo systemctl status firewalld
+
+# Step 2: Check active zones
+sudo firewall-cmd --get-active-zones
+
+# Step 3: Check default zone
+sudo firewall-cmd --get-default-zone
+
+# Step 4: List all rules for zone
+sudo firewall-cmd --list-all
+sudo firewall-cmd --zone=public --list-all
+
+# Step 5: Check specific port
+sudo firewall-cmd --query-port=8080/tcp
+
+# Step 6: Check services
+sudo firewall-cmd --list-services
+
+# Step 7: Add port temporarily (testing)
+sudo firewall-cmd --add-port=8080/tcp
+# Test your connection
+
+# Step 8: If works, make permanent
+sudo firewall-cmd --permanent --add-port=8080/tcp
+sudo firewall-cmd --reload
+
+# Step 9: Check iptables rules (underlying)
+sudo iptables -L -n -v
+sudo iptables -t nat -L -n -v
+
+# Step 10: Enable logging for debugging
+sudo firewall-cmd --set-log-denied=all
+
+# ============================================================================
+# WORKFLOW 10: SELinux Network Debugging (Fedora)
+# ============================================================================
+
+# Step 1: Check SELinux status
+getenforce
+sestatus
+
+# Step 2: Check recent denials
+sudo ausearch -m avc -ts recent
+
+# Step 3: Check for network-related denials
+sudo ausearch -m avc -ts today | grep -E 'connect|bind|name_connect'
+
+# Step 4: Check service-specific denials
+sudo ausearch -m avc -ts today | grep <service_name>
+
+# Step 5: Check relevant booleans
+getsebool -a | grep -E 'httpd_can_network|container|virt'
+
+# Step 6: Set permissive for testing (TEMPORARY)
+sudo setenforce 0
+# Test your connection
+sudo setenforce 1
+
+# Step 7: If permissive mode works, generate policy
+sudo ausearch -m avc -ts recent | audit2allow -M my_network_policy
+
+# Step 8: Review the policy
+cat my_network_policy.te
+
+# Step 9: Install the policy
+sudo semodule -i my_network_policy.pp
+
+# Step 10: Or enable specific boolean permanently
+sudo setsebool -P httpd_can_network_connect on
+
+# ============================================================================
+# COMPREHENSIVE DIAGNOSTIC SCRIPT
+# ============================================================================
+
+# Save this as network-diag.sh and make executable
+cat << 'EOF' > network-diag.sh
+#!/bin/bash
+
+echo "========================================="
+echo "Network Diagnostic Report"
+echo "Time: $(date)"
+echo "========================================="
+
+echo -e "\n[1] Interface Status"
+ip link show
+
+echo -e "\n[2] IP Addresses"
+ip addr show
+
+echo -e "\n[3] Routing Table"
+ip route show
+
+echo -e "\n[4] DNS Configuration"
+cat /etc/resolv.conf
+
+echo -e "\n[5] Listening Services"
+sudo ss -tulpn
+
+echo -e "\n[6] Active Connections"
+sudo ss -tan | grep ESTAB
+
+echo -e "\n[7] Gateway Reachability"
+GATEWAY=$(ip route | grep default | awk '{print $3}')
+echo "Gateway: $GATEWAY"
+ping -c 2 $GATEWAY
+
+echo -e "\n[8] External Connectivity"
+ping -c 2 8.8.8.8
+
+echo -e "\n[9] DNS Resolution"
+nslookup google.com
+
+echo -e "\n[10] Firewall Status"
+sudo firewall-cmd --list-all 2>/dev/null || echo "firewalld not running"
+
+echo -e "\n[11] SELinux Status"
+getenforce
+
+echo -e "\n[12] Recent SELinux Denials"
+sudo ausearch -m avc -ts recent 2>/dev/null | tail -5
+
+echo -e "\n[13] Container Networks (if any)"
+docker network ls 2>/dev/null || echo "Docker not running"
+
+echo "========================================="
+echo "Diagnostic Complete"
+echo "========================================="
+EOF
+
+chmod +x network-diag.sh

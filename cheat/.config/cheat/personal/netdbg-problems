@@ -1,0 +1,392 @@
+# Network Debugging - Problem-First Approach
+# Common network problems and their diagnostic commands
+
+# ============================================================================
+# PROBLEM: Can't reach external service/API
+# ============================================================================
+
+# Quick connectivity test
+ping -c 4 <hostname or IP>
+
+# Check DNS resolution
+nslookup <hostname>
+dig <hostname>
+
+# Test specific port
+nc -zv <hostname> <port>
+telnet <hostname> <port>
+
+# Check routing
+ip route get <IP>
+traceroute <hostname>
+mtr -n <hostname>
+
+# Try different DNS server
+nslookup <hostname> 8.8.8.8
+dig @8.8.8.8 <hostname>
+
+# Check if firewall blocking
+sudo iptables -L -n | grep <port>
+sudo firewall-cmd --list-all
+
+# Test with curl (HTTP/HTTPS)
+curl -vI https://<hostname>
+curl --connect-timeout 5 https://<hostname>
+
+# ============================================================================
+# PROBLEM: Container can't reach external network
+# ============================================================================
+
+# Check container network configuration
+docker network inspect bridge
+podman network inspect podman
+
+# Check if container has IP
+docker exec <container> ip addr
+docker exec <container> ip route
+
+# Test from inside container
+docker exec <container> ping -c 2 8.8.8.8
+docker exec <container> curl -I https://google.com
+docker exec <container> nslookup google.com
+
+# Check IP forwarding (MUST be enabled)
+sysctl net.ipv4.ip_forward
+sudo sysctl -w net.ipv4.ip_forward=1
+
+# Check NAT rules
+sudo iptables -t nat -L -n -v | grep MASQUERADE
+
+# Check container DNS settings
+docker exec <container> cat /etc/resolv.conf
+
+# Recreate network
+docker network rm <network_name>
+docker network create <network_name>
+
+# Check SELinux blocking container network
+sudo ausearch -m avc -ts recent | grep container
+sudo setsebool -P container_manage_cgroup on
+
+# ============================================================================
+# PROBLEM: Container can't communicate with another container
+# ============================================================================
+
+# Check if on same network
+docker network inspect <network_name>
+
+# Check container IPs
+docker inspect <container1> | grep IPAddress
+docker inspect <container2> | grep IPAddress
+
+# Ping between containers
+docker exec <container1> ping -c 2 <container2_IP>
+
+# Check DNS resolution (if using container names)
+docker exec <container1> nslookup <container2_name>
+
+# Check listening ports in target container
+docker exec <container2> ss -tulpn
+
+# Create user-defined network (enables DNS)
+docker network create mynetwork
+docker run --network mynetwork ...
+
+# ============================================================================
+# PROBLEM: DNS not resolving
+# ============================================================================
+
+# Check DNS servers configured
+cat /etc/resolv.conf
+
+# Test DNS directly
+nslookup example.com
+nslookup example.com 8.8.8.8
+dig example.com
+dig @8.8.8.8 example.com
+
+# Full DNS trace
+dig +trace example.com
+
+# Check if DNS port reachable
+nc -zuv 8.8.8.8 53
+
+# Test with different DNS
+dig @1.1.1.1 example.com  # Cloudflare
+dig @8.8.8.8 example.com  # Google
+
+# Flush DNS cache (systemd-resolved)
+sudo systemd-resolve --flush-caches
+sudo resolvectl flush-caches
+
+# Check systemd-resolved status
+resolvectl status
+systemd-resolve --status
+
+# Temporarily change DNS
+sudo sh -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
+
+# ============================================================================
+# PROBLEM: "No route to host"
+# ============================================================================
+
+# Check routing table
+ip route show
+ip route get <destination_IP>
+
+# Check if destination is on local network
+ip neigh show
+
+# Check ARP table
+arp -a
+ip neigh show dev eth0
+
+# Add static route
+sudo ip route add <network>/24 via <gateway>
+
+# Check gateway is reachable
+ping -c 2 $(ip route | grep default | awk '{print $3}')
+
+# Trace route
+traceroute -n <destination>
+mtr -n <destination>
+
+# ============================================================================
+# PROBLEM: "Connection refused"
+# ============================================================================
+
+# Check if service is running
+sudo systemctl status <service>
+
+# Check if port is listening
+ss -tulpn | grep :<port>
+sudo lsof -i :<port>
+
+# Test connection locally
+nc -zv localhost <port>
+
+# Check firewall
+sudo firewall-cmd --list-ports
+sudo firewall-cmd --query-port=<port>/tcp
+
+# Check listening interface (0.0.0.0 vs 127.0.0.1)
+ss -tulpn | grep :<port>
+
+# Check service logs
+sudo journalctl -u <service> -f
+
+# ============================================================================
+# PROBLEM: "Connection timeout"
+# ============================================================================
+
+# Check if host is reachable
+ping -c 4 <host>
+
+# Check specific port with timeout
+nc -zv -w 5 <host> <port>
+timeout 5 telnet <host> <port>
+
+# Trace route to see where it stops
+traceroute -n <host>
+mtr -n <host>
+
+# Check firewall blocking outbound
+sudo iptables -L OUTPUT -n -v
+
+# Check if VPN/proxy interfering
+ip route show table all
+curl -v https://<host>
+
+# ============================================================================
+# PROBLEM: VPN connection issues
+# ============================================================================
+
+# Check VPN interface
+ip link show tun0
+ip addr show tun0
+
+# Check VPN routing
+ip route show | grep tun0
+
+# Check if VPN process running
+ps aux | grep openvpn
+sudo systemctl status openvpn@<config>
+
+# Check VPN logs
+sudo journalctl -u openvpn@<config> -f
+tail -f /var/log/openvpn/*.log
+
+# Test connectivity through VPN
+ping -c 2 -I tun0 8.8.8.8
+
+# Check DNS through VPN
+dig @<vpn_dns_server> example.com
+
+# Check IP forwarding
+sysctl net.ipv4.ip_forward
+
+# Verify split-tunnel or full-tunnel
+ip route show | grep tun0
+
+# ============================================================================
+# PROBLEM: WiFi slow or unstable
+# ============================================================================
+
+# Check WiFi signal strength
+iwconfig wlan0
+iw dev wlan0 link
+
+# Check for packet loss
+ping -c 100 $(ip route | grep default | awk '{print $3}')
+
+# Monitor signal in real-time
+watch -n 1 'iw dev wlan0 link'
+
+# Check WiFi statistics
+iw dev wlan0 station dump
+
+# Check for interference (channels)
+sudo iw dev wlan0 scan | grep -E 'SSID|freq|signal'
+
+# Test bandwidth
+iperf3 -c <server>
+
+# Check for errors/drops
+ip -s link show wlan0
+
+# Restart WiFi
+sudo systemctl restart NetworkManager
+sudo nmcli radio wifi off && sleep 2 && sudo nmcli radio wifi on
+
+# ============================================================================
+# PROBLEM: Port already in use
+# ============================================================================
+
+# Find process using port
+sudo ss -tulpn | grep :<port>
+sudo lsof -i :<port>
+sudo fuser <port>/tcp
+
+# Kill process by port
+sudo fuser -k <port>/tcp
+
+# Kill by PID
+sudo kill <PID>
+sudo kill -9 <PID>  # Force kill
+
+# ============================================================================
+# PROBLEM: High latency / Packet loss
+# ============================================================================
+
+# Check packet loss to gateway
+ping -c 100 $(ip route | grep default | awk '{print $3}')
+
+# Check latency over time
+mtr -n <destination>
+
+# Check interface errors
+ip -s link show <interface>
+
+# Check network buffer/queue stats
+tc -s qdisc show dev <interface>
+
+# Monitor connections
+watch -n 1 'ss -tan | grep ESTAB | wc -l'
+
+# Check for TCP retransmissions
+ss -ti
+
+# ============================================================================
+# PROBLEM: "Network unreachable"
+# ============================================================================
+
+# Check if interface is up
+ip link show
+
+# Check if IP assigned
+ip addr show
+
+# Check default gateway
+ip route show | grep default
+
+# Bring interface up
+sudo ip link set <interface> up
+
+# Request new IP (DHCP)
+sudo dhclient <interface>
+sudo nmcli connection up <connection>
+
+# Check NetworkManager
+sudo systemctl status NetworkManager
+
+# ============================================================================
+# PROBLEM: SELinux blocking network access
+# ============================================================================
+
+# Check SELinux mode
+getenforce
+
+# Check recent denials
+sudo ausearch -m avc -ts recent
+sudo grep 'denied' /var/log/audit/audit.log | tail -20
+
+# Check specific service/container denials
+sudo ausearch -m avc -ts today | grep <service_name>
+
+# Allow specific network operation
+sudo setsebool -P httpd_can_network_connect on
+
+# Temporarily set permissive (testing only!)
+sudo setenforce 0
+
+# Generate and install policy
+sudo ausearch -m avc -ts recent | audit2allow -M mynetwork
+sudo semodule -i mynetwork.pp
+
+# ============================================================================
+# PROBLEM: Microservices can't discover each other
+# ============================================================================
+
+# Check service mesh/DNS
+nslookup <service_name>
+dig <service_name>
+
+# Check service registry (if using Consul/etcd)
+curl http://localhost:8500/v1/catalog/services  # Consul
+curl http://localhost:2379/v2/keys  # etcd
+
+# Check container DNS
+docker exec <container> cat /etc/resolv.conf
+docker exec <container> nslookup <service_name>
+
+# Check network policies (Kubernetes)
+kubectl get networkpolicies
+
+# Test service endpoint directly
+curl -v http://<service_name>:<port>/health
+
+# Check load balancer
+ss -tulpn | grep <lb_port>
+
+# ============================================================================
+# QUICK DIAGNOSTIC SCRIPT
+# ============================================================================
+
+# Run this to get quick overview
+cat << 'EOF'
+#!/bin/bash
+echo "=== Network Interfaces ==="
+ip link show
+echo -e "\n=== IP Addresses ==="
+ip addr show
+echo -e "\n=== Routes ==="
+ip route show
+echo -e "\n=== DNS ==="
+cat /etc/resolv.conf
+echo -e "\n=== Listening Ports ==="
+ss -tulpn
+echo -e "\n=== Connectivity Test ==="
+ping -c 2 8.8.8.8
+echo -e "\n=== DNS Test ==="
+nslookup google.com
+EOF
