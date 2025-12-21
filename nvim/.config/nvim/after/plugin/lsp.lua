@@ -9,6 +9,39 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'diagnostic: ' .. '
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'diagnostic: ' .. 'go to next' })
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
+vim.keymap.set('n', '<leader>gh', vim.lsp.buf.document_highlight, { desc = 'LSP: occurences highlight' })
+vim.keymap.set('n', '<leader><F9>', function()
+	vim.cmd.noh()
+	vim.lsp.buf.clear_references()
+end, { desc = 'clear highlight' })
+
+-- TODO: how to format just selected lines ..????
+vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format({ async = false }) end, { desc = 'LSP: format file' })
+
+-- -- Set updatetime for faster CursorHold (default is 4000ms)
+-- vim.opt.updatetime = 500
+--
+-- -- Function to set up document highlight autocommands
+-- local function setup_document_highlight(client, bufnr)
+--     if client.server_capabilities.documentHighlightProvider then
+--         local augroup = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
+--
+--         -- Highlight references when cursor holds
+--         vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+--             group = augroup,
+--             buffer = bufnr,
+--             callback = vim.lsp.buf.document_highlight,
+--         })
+--
+--         -- Clear highlights when cursor moves
+--         vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+--             group = augroup,
+--             buffer = bufnr,
+--             callback = vim.lsp.buf.clear_references,
+--         })
+--     end
+-- end
+
 -- Reserve a space in the gutter
 -- This will avoid an annoying layout shift in the screen
 vim.opt.signcolumn = 'yes'
@@ -24,6 +57,9 @@ local lsp_attach = function(client, bufnr)
 		-- enforce lsp-zero keymappings
 		preserve_mappings = false,
 	})
+
+	-- setup_document_highlight(client, bufnr)
+
 	print(client.name .. ': Hello there.')
 end
 
@@ -41,116 +77,200 @@ lsp_zero.extend_lspconfig({
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-	ensure_installed = { 'lua_ls', 'gopls' }, -- solargraph is omitted
-	handlers = {
-		-- this first function is the "default handler"
-		-- it applies to every language server without a "custom handler"
-		function(server_name)
-			require('lspconfig')[server_name].setup({})
-		end,
+	ensure_installed = { 'lua_ls', 'gopls' },
+	automatic_enable = false,
+	-- 	-- this first function is the "default handler"
+	-- 	-- it applies to every language server without a "custom handler"
+	-- 	-- function(server_name)
+	-- 	-- 	print(server_name .. " is starting without handler")
+	-- 	-- 	require('lspconfig')[server_name].setup({})
+	-- 	-- end,
+	--
+	-- 	-- {{{
+	-- 	-- this is the "custom handler" for `lua_ls`
+	-- 	lua_ls = function()
+	-- 		require('lspconfig').lua_ls.setup({
+	-- 			on_init = function(client)
+	-- 				lsp_zero.nvim_lua_settings(client, {})
+	-- 			end,
+	-- 			on_attach = function(client, bufnr)
+	-- 				-- autoformat
+	-- 				lsp_zero.async_autoformat(client, bufnr)
+	-- 			end,
+	-- 			settings = {
+	-- 				Lua = {
+	-- 					diagnostics = {
+	-- 						-- Get the language server to recognize the `vim` global
+	-- 						globals = { 'vim' },
+	-- 					},
+	-- 					workspace = {
+	-- 						-- Make the server aware of Neovim runtime files
+	-- 						library = vim.api.nvim_get_runtime_file("", true),
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- 	-- }}}
+	--
+	-- 	-- {{{ gopls
+	--
+	-- 	-- {{{ solargraph
+	-- 	solargraph = function()
+	-- 		require('lspconfig').solargraph.setup({
+	-- 			on_attach = function(_client, bufnr)
+	-- 				local opts = { buffer = bufnr }
+	-- 				local bind = vim.keymap.set
+	--
+	-- 				-- -- keys
+	-- 				-- bind("n", "<leader>gh", vim.lsp.buf.document_highlight, opts)
+	-- 				-- bind("n", "<leader><F9>", function()
+	-- 				-- 	vim.cmd.noh()
+	-- 				-- 	vim.lsp.buf.clear_references()
+	-- 				-- end)
+	-- 			end,
+	-- 			cmd = {
+	-- 				os.getenv("HOME") .. "/bin/solargraph", 'stdio'
+	-- 			},
+	-- 			settings = {
+	-- 				solargraph = {
+	-- 					autoformat = false,
+	-- 					formatting = false,
+	-- 					completion = true,
+	-- 					diagnostic = true,
+	-- 					folding = true,
+	-- 					references = true,
+	-- 					rename = true,
+	-- 					symbols = true
+	-- 				}
+	-- 			},
+	-- 			init_options = {
+	-- 				formatting = true,
+	-- 			},
+	-- 			-- hard disabled diagnostics
+	-- 			-- handlers = {
+	-- 			-- 	['textDocument/publishDiagnostics'] = function() end
+	-- 			-- },
+	-- 		})
+	-- 	end,
+	-- 	-- }}}
+	--
+	-- 	-- {{{ javascript/typscript server
+	-- 	-- more like linter.. do I need it?
+	-- 	biome = function()
+	-- 		require('lspconfig').biome.setup({})
+	-- 	end,
+	--
+	--
+	-- 	-- tsserver = function()
+	-- 	-- 	require('lspconfig').tsserver.setup({
+	-- 	-- 		on_attach = function(client, bufnr)
+	-- 	-- 			-- autoformat
+	-- 	-- 			lsp_zero.async_autoformat(client, bufnr)
+	-- 	-- 		end,
+	-- 	-- 	})
+	-- 	-- end,
+	-- 	-- }}}
+})
 
-		-- {{{
-		-- this is the "custom handler" for `lua_ls`
-		lua_ls = function()
-			require('lspconfig').lua_ls.setup({
-				on_init = function(client)
-					lsp_zero.nvim_lua_settings(client, {})
-				end,
-				on_attach = function(client, bufnr)
-					-- autoformat
-					lsp_zero.async_autoformat(client, bufnr)
-				end,
-				settings = {
-					Lua = {
-						diagnostics = {
-							-- Get the language server to recognize the `vim` global
-							globals = { 'vim' },
-						},
-						workspace = {
-							-- Make the server aware of Neovim runtime files
-							library = vim.api.nvim_get_runtime_file("", true),
-						},
-					},
-				},
-			})
-		end,
-		-- }}}
+require('lspconfig').lua_ls.setup({
+	on_init = function(client)
+		lsp_zero.nvim_lua_settings(client, {})
+	end,
+	on_attach = function(client, bufnr)
+		-- autoformat
+		lsp_zero.async_autoformat(client, bufnr)
+	end,
+	settings = {
+		Lua = {
+			diagnostics = {
+				-- Get the language server to recognize the `vim` global
+				globals = { 'vim' },
+			},
+			workspace = {
+				-- Make the server aware of Neovim runtime files
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+		},
+	},
+})
 
-		-- {{{ gopls
-		gopls = function()
-			require('lspconfig').gopls.setup({
-				on_attach = function(client, bufnr)
-					-- -- omnifunc
-					-- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+-- golang's gopls server
+-- https://github.com/golang/tools/blob/master/gopls/doc/editor/vim.md
+require('lspconfig').gopls.setup({
+	settings = {
+		gopls = {
+			completeUnimported = true,
+			gofumpt = true,
+			staticcheck = true,
+			verboseOutput = true,
+			analyses = {
+				unusedparams = true,
+				nilness = true,
+				unusedwrite = true,
+			},
+			hints = {
+				constantValues = true,
+				parameterNames = true,
+				assignVariableType = true,
+				rangeVariableTypes = true,
+				compositeLiteralTypes = true,
+				compositeLiteralFields = true,
+				functionTypeParameters = true,
+			},
+			buildFlags = { "-tags=e2e" }
+		},
+	},
+})
+-- 	gopls = function()
+-- 		require('lspconfig').gopls.setup({
+-- 			on_attach = function(client, bufnr)
+-- 				-- autoformat
+-- 				lsp_zero.async_autoformat(client, bufnr)
+--
+-- 				local opts = { buffer = bufnr }
+-- 				local bind = vim.keymap.set
+-- 				--
+-- 				-- -- keys
+-- 				-- -- TODO make this global
+-- 				-- bind("n", "<leader>gh", vim.lsp.buf.document_highlight, opts)
+-- 				-- bind("n", "<leader><F9>", function()
+-- 				-- 	vim.cmd.noh()
+-- 				-- 	vim.lsp.buf.clear_references()
+-- 				-- end)
+-- 			end,
+-- 			settings = {
+-- 				gopls = {
+-- 					analyses = {
+-- 						unusedparams = true,
+-- 					},
+-- 					staticcheck = true,
+-- 					buildFlags = { "-tags=e2e" }
+-- 				},
+-- 			},
+-- 		})
+-- 	end,
+-- 	-- }}}
 
-					-- autoformat
-					lsp_zero.async_autoformat(client, bufnr)
+-- js/ts server
+require('lspconfig').ts_ls.setup({
+	-- on_attach = function(client, bufnr)
+	-- autoformat
+	-- DO NOT COMMIT
+	-- temp disable due to portal-api ..
+	-- lsp_zero.async_autoformat(client, bufnr)
+	-- end,
+})
 
-					local opts = { buffer = bufnr }
-					local bind = vim.keymap.set
-
-					-- keys
-					-- TODO make this global
-					bind("n", "<leader>rn", vim.lsp.buf.rename, opts)
-					bind("n", "<leader>gh", vim.lsp.buf.document_highlight, opts)
-					bind("n", "<leader><F9>", function()
-						vim.cmd.noh()
-						vim.lsp.buf.clear_references()
-					end)
-				end,
-				settings = {
-					gopls = {
-						analyses = {
-							unusedparams = true,
-						},
-						staticcheck = true,
-						buildFlags = { "-tags=e2e" }
-					},
-				},
-			})
-		end,
-		-- }}}
-
-		-- {{{ solargraph
-		solargraph = function()
-			require('lspconfig').solargraph.setup({
-				on_attach = function(client, bufnr)
-					local opts = { buffer = bufnr }
-					local bind = vim.keymap.set
-
-					-- keys
-					bind("n", "<leader>gh", vim.lsp.buf.document_highlight, opts)
-					bind("n", "<leader><F9>", function()
-						vim.cmd.noh()
-						vim.lsp.buf.clear_references()
-					end)
-				end,
-				cmd = {
-					os.getenv("HOME") .. "/bin/solargraph", 'stdio'
-				},
-				settings = {
-					solargraph = {
-						autoformat = false,
-						formatting = false,
-						completion = true,
-						diagnostic = true,
-						folding = true,
-						references = true,
-						rename = true,
-						symbols = true
-					}
-				},
-				init_options = {
-					formatting = true,
-				},
-				-- hard disabled diagnostics
-				-- handlers = {
-				-- 	['textDocument/publishDiagnostics'] = function() end
-				-- },
-			})
-		end,
-		-- }}}
-	}
+-- php server
+require('lspconfig').intelephense.setup({
+	single_file_support = true,
+	settings = {
+		intelephense = {
+			files = { maxSize = 5 * 1024 * 1024, associations = { "*.php", "*.phtml", "*.inc", "*.tpl" } },
+			environment = { phpVersion = "7.3" },
+		},
+	},
 })
 
 local cmp = require('cmp')

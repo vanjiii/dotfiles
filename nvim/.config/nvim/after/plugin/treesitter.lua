@@ -1,6 +1,8 @@
 -- I don't care about vim syntax highlight.
 vim.cmd("syntax off")
 
+-- TODO: make TODO, FIXME and other to be highlighted red+italic
+
 require 'nvim-treesitter.configs'.setup {
 	-- A list of parser names, or "all" (the five listed parsers should always be installed)
 	ensure_installed = {

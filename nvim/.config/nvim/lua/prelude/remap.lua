@@ -16,17 +16,19 @@ vim.keymap.set("n", "<leader>qq", vim.cmd.copen, opts('open list [copen]'))
 
 -- Copy relative path (<leader>cf)
 vim.keymap.set('n', '<leader>cf', function()
-  vim.fn.setreg('+', vim.fn.expand('%'))  -- relative path
-  vim.notify('Copied relative path to clipboard', vim.log.levels.INFO)
+	vim.fn.setreg('+', vim.fn.expand('%')) -- relative path
+	vim.notify('Copied relative path to clipboard', vim.log.levels.INFO)
 end, opts("Copy relative file path"))
 
 -- Copy absolute path (<leader>cF)
 vim.keymap.set('n', '<leader>cF', function()
-  vim.fn.setreg('+', vim.fn.expand('%:p'))  -- absolute path
-  vim.notify('Copied absolute path to clipboard', vim.log.levels.INFO)
+	vim.fn.setreg('+', vim.fn.expand('%:p')) -- absolute path
+	vim.notify('Copied absolute path to clipboard', vim.log.levels.INFO)
 end, opts("Copy absolute file path"))
 
+--
 -- stollen from folke
+--
 
 -- Move Lines
 vim.keymap.set("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
