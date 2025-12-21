@@ -1,6 +1,12 @@
-theme = "farmhouse-light"
-cursor-color = "#000"
-shell-integration-features = "no-cursor"
-cursor-style = "block"
-window-theme = "auto"
+theme = Farmhouse Light
+window-theme = auto
+
+cursor-color = 000
+cursor-style = block
+cursor-text = cell-background
+adjust-cursor-thickness = 3
 mouse-hide-while-typing = true
+
+shell-integration-features = no-cursor
+
+command = zellij
