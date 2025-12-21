@@ -1,0 +1,12 @@
+# pull in pwd the helm chart and unzip it
+helm pull oci://codeberg.org/<user>/helm-charts/<chart> --untar
+
+# build locally (dry run) a template
+helm template <name> ./folder
+
+helm install <name> ./folder -n <ns>
+helm upgrade <name> ./folder -n <ns>
+helm history <name> -n <ns>
+
+# helm plugin install https://github.com/databus23/helm-diff
+helm diff revision <name> <rev_1> <rev_2> -n <ns>
