@@ -8,5 +8,3 @@ adjust-cursor-thickness = 3
 mouse-hide-while-typing = true
 
 shell-integration-features = no-cursor
-
-command = zellij
