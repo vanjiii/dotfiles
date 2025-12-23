@@ -1,42 +1,33 @@
-# This (due to mirroring) also keeps the entries in PATH unique.
-typeset -U PATH path
+#
+# Environment variables
+#
 
-VISUAL=vi
+export GOBIN=$HOME/go/bin
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+export BUN_INSTALL="$HOME/.bun"
 
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.bin:/usr/local/bin:$PATH
+export VISUAL=vi
 
-HISTFILE=~/.zsh_history
-SAVEHIST=10000
-HISTSIZE=10000
+export PAGER=less
+export LESS='-F -S -R -M -i'
 
-GOBIN=$HOME/go/bin
-export GOBIN
-export PATH=$GOBIN:$PATH
+export LANG=en_US.UTF-8
 
-export PATH=$HOME/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
-
-# kafka shit
-export PATH=$HOME/.local/bin/kafka/bin:$PATH
-
-# npm
-export PATH=$HOME/.npm-global/bin:$PATH
-
-# Shit to make work GPG again under MacOS.
-export GPG_TTY=$(tty)
+export HISTFILE=~/.zsh_history
+export SAVEHIST=10000
+export HISTSIZE=10000
 
 # Sets bat theme.
 # Also used in fzf.vim preview window (for better colorscheme).
 export BAT_THEME="GitHub"
 
-export PAGER='less -F -S -R -M -i'
+typeset -U PATH path
 
-[[ -f "$HOME/.zsh/profiles/work.zsh" ]] && source  "$HOME/.zsh/profiles/work.zsh"
+path=(
+    $HOME/.local/bin
+    /usr/local/{bin,sbin}
+    $GOBIN
+    $BUN_INSTALL/bin
+    $HOME/.npm-global/bin
+    $path
+)

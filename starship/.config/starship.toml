@@ -1,0 +1,21 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+add_newline = false
+format = "$directory$git_branch$git_status$character"
+
+[directory]
+fish_style_pwd_dir_length = 1
+
+[cmd_duration]
+format = "[$duration]($style) "
+
+[nodejs]
+disabled = true
+
+[python]
+disabled = true
+
+[golang]
+format = "[$symbol$version]($style) "
+
+[docker_context]
+disabled = true
