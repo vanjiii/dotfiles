@@ -50,6 +50,8 @@ fkill() {
 eval "$(zoxide init zsh)"
 source <(kubectl completion zsh)
 
+eval "$(gup completion zsh)"
+
 # bun completions
 [ -s "/home/ivand/.bun/_bun" ] && source "/home/ivand/.bun/_bun"
 
