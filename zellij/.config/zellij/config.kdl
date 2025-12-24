@@ -1,4 +1,5 @@
 keybinds clear-defaults=true {
+    unbind "Ctrl p" "Ctrl n"
     locked {
         bind "Ctrl g" { SwitchToMode "normal"; }
     }
