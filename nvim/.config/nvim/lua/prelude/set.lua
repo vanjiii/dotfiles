@@ -1,9 +1,5 @@
 local set = vim.opt
 
--- TODO: make lualine to be custom for non-editable buffers (like nvimtree)
-set.statusline =
-"%f%m%r%h%w %q %=%-14.(%l:%c%V%) %{v:lua.gitbranch()} %y [%{empty(&fileencoding)?'enc':&fileencoding}] %{&expandtab?'spaces:'.&tabstop:'tabs:'.&tabstop} %P "
-
 set.cursorline = true
 
 -- set numbers
@@ -45,3 +41,7 @@ set.list = false
 
 -- spell checker
 set.spell = true
+
+-- Reserve a space in the gutter
+-- This will avoid an annoying layout shift in the screen
+vim.opt.signcolumn = 'yes'

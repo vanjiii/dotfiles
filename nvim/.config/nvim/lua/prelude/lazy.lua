@@ -16,11 +16,13 @@ require("lazy").setup(
 -- Plugins
 	{
 		{ 'rose-pine/neovim',                           name = 'rose-pine', lazy = false, priority = 53 },
-		-- { "catppuccin/nvim",                 name = "catppuccin", priority = 52 },
-		-- { 'rmehri01/onenord.nvim',           lazy = false,        priority = 51, },
 
 		{ 'nvim-treesitter/nvim-treesitter',            build = ':TSUpdate' },
 		{ 'nvim-treesitter/nvim-treesitter-textobjects' },
+		{
+			'nvim-lualine/lualine.nvim',
+			dependencies = { 'nvim-tree/nvim-web-devicons' },
+		},
 
 		{
 			'nvim-telescope/telescope.nvim',
@@ -28,17 +30,9 @@ require("lazy").setup(
 			dependencies = { 'nvim-lua/plenary.nvim' }
 		},
 
-		-- {{{ lsp-zero
-		-- TODO: remove lsp-zero dep
-		{ 'VonHeikemen/lsp-zero.nvim', branch = 'v4.x', },
 		{ 'neovim/nvim-lspconfig' },
 		{ 'hrsh7th/cmp-nvim-lsp' },
 		{ 'hrsh7th/nvim-cmp' },
-		{
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-		},
-		-- }}}
 
 		{ 'nvim-tree/nvim-tree.lua' },
 
@@ -46,7 +40,17 @@ require("lazy").setup(
 		-- maybe remove it at all, after all there is
 		-- realtive numbers; f, F; search
 		{ 'phaazon/hop.nvim',       branch = 'v2' },
-
+		{
+			"folke/lazydev.nvim",
+			ft = "lua",
+			opts = {
+				library = {
+					-- See the configuration section for more details
+					-- Load luvit types when the `vim.uv` word is found
+					{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				},
+			},
+		},
 		{
 			'folke/which-key.nvim',
 			event = "VeryLazy",
