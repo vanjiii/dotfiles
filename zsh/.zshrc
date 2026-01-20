@@ -2,10 +2,13 @@
 # vim:filetype=zsh
 #
 # Functionality
-#
+
+# TODO:
+# - implement healthcheck - it will check if depenencies are present (like dup)
 
 export ZSHCONFIG=$HOME/.config/zsh
 export ZSHPROFILE=$ZSHCONFIG/profiles
+export ZSHCOMPLETIONS=$ZSHCONFIG/completions
 
 autoload -Uz compinit
 # Only rebuild cache once a day (performance optimization)
@@ -22,6 +25,17 @@ export LANG=en_US.UTF-8
 
 # Disable the Xon/Xoff so the C-s to work and be able to cycle forward.
 stty -ixon
+
+setopt autocd                   # cd by typing directory name
+setopt interactive_comments     # allow comments in interactive shell
+setopt hist_ignore_all_dups     # remove older duplicate entries from history
+setopt hist_reduce_blanks       # remove superfluous blanks from history
+setopt inc_append_history       # append to history immediately
+setopt share_history            # share history between sessions
+
+# Key bindings
+bindkey -e  # Emacs-style (or -v for vim-style)
+bindkey '^R' history-incremental-search-backward
 
 
 # fzf history - repeat history
@@ -44,24 +58,10 @@ fkill() {
     fi
 }
 
-# TODO: move those `eval` functions to happen once per login
-# then loaded
-# aka introduce caching for those
-eval "$(zoxide init zsh)"
-source <(kubectl completion zsh)
+[[ -f "$ZSHPROFILE/work.zsh" ]] && source "$ZSHPROFILE/work.zsh"
 
-eval "$(gup completion zsh)"
-
-# bun completions
-[ -s "/home/ivand/.bun/_bun" ] && source "/home/ivand/.bun/_bun"
-
-source <(fzf --zsh)
-
-eval "$(starship init zsh)"
-
-[[ -f "$HOME/.zsh/profiles/work.zsh" ]] && source "$ZSHPROFILE/work.zsh"
-
-if [ -e /home/ivand/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ivand/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+. $ZSHCOMPLETIONS/builtin.zsh
+. $ZSHCOMPLETIONS/thirdparty.zsh
 
 . $ZSHCONFIG/title.zsh
 
