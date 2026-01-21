@@ -21,8 +21,6 @@ fi
 # slow git repos
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-export LANG=en_US.UTF-8
-
 # Disable the Xon/Xoff so the C-s to work and be able to cycle forward.
 stty -ixon
 
@@ -36,7 +34,6 @@ setopt share_history            # share history between sessions
 # Key bindings
 bindkey -e  # Emacs-style (or -v for vim-style)
 bindkey '^R' history-incremental-search-backward
-
 
 # fzf history - repeat history
 fhistory() {
