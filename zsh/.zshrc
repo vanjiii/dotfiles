@@ -34,6 +34,8 @@ setopt share_history            # share history between sessions
 # Key bindings
 bindkey -e  # Emacs-style (or -v for vim-style)
 bindkey '^R' history-incremental-search-backward
+bindkey '^[[A' history-search-backward   # UP arrow
+bindkey '^[[B' history-search-forward    # DOWN arrow
 
 # fzf history - repeat history
 fhistory() {
