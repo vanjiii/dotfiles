@@ -16,6 +16,11 @@ git add -i
 git rebase -i HEAD~3
 # into the opening window use `squash` for the commit that you want to sqaush
 # with the *previous* commit (obviously you cannot do that for the first one)
+#
+# example:
+# pick <sha1> #comment
+# squash <sha2> #comment
+#
 git push -f
 
 #
