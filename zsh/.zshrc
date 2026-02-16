@@ -36,6 +36,8 @@ bindkey -e  # Emacs-style (or -v for vim-style)
 bindkey '^R' history-incremental-search-backward
 bindkey '^[[A' history-search-backward   # UP arrow
 bindkey '^[[B' history-search-forward    # DOWN arrow
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
 
 # fzf history - repeat history
 fhistory() {

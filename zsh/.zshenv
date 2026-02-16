@@ -21,6 +21,8 @@ export HISTSIZE=10000
 # Also used in fzf.vim preview window (for better colorscheme).
 export BAT_THEME="GitHub"
 
+# ${XDG_CACHE_HOME:-$HOME/.cache}
+
 typeset -U PATH path
 
 path=(
