@@ -14,14 +14,14 @@ vim.keymap.set("n", "[q", vim.cmd.cp, opts('item previous [cp]'))
 vim.keymap.set("n", "<leader>qc", vim.cmd.cclose, opts('close list [cclose]'))
 vim.keymap.set("n", "<leader>qq", vim.cmd.copen, opts('open list [copen]'))
 
--- Copy relative path (<leader>cf)
-vim.keymap.set('n', '<leader>cf', function()
+-- Copy relative path
+vim.keymap.set('n', '<leader>py', function()
 	vim.fn.setreg('+', vim.fn.expand('%')) -- relative path
 	vim.notify('Copied relative path to clipboard', vim.log.levels.INFO)
 end, opts("Copy relative file path"))
 
--- Copy absolute path (<leader>cF)
-vim.keymap.set('n', '<leader>cF', function()
+-- Copy absolute path
+vim.keymap.set('n', '<leader>pY', function()
 	vim.fn.setreg('+', vim.fn.expand('%:p')) -- absolute path
 	vim.notify('Copied absolute path to clipboard', vim.log.levels.INFO)
 end, opts("Copy absolute file path"))
