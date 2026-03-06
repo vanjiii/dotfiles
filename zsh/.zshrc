@@ -31,13 +31,19 @@ setopt hist_reduce_blanks       # remove superfluous blanks from history
 setopt inc_append_history       # append to history immediately
 setopt share_history            # share history between sessions
 
-# Key bindings
-bindkey -e  # Emacs-style (or -v for vim-style)
+bindkey -e
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
 bindkey '^R' history-incremental-search-backward
-bindkey '^[[A' history-search-backward   # UP arrow
-bindkey '^[[B' history-search-forward    # DOWN arrow
 bindkey '^[[H' beginning-of-line
 bindkey '^[[F' end-of-line
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[OA' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+bindkey '^[OB' down-line-or-beginning-search
 
 # fzf history - repeat history
 fhistory() {
