@@ -1,0 +1,8 @@
+# Generate private + public key pair
+wg genkey | tee privatekey | wg pubkey > publickey
+
+# Generate a preshared key (for extra security)
+wg genpsk > presharedkey
+
+# NetworkManager integration
+sudo nmcli connection import type wireguard file /etc/wireguard/wg0.conf

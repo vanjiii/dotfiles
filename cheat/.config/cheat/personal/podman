@@ -1,0 +1,13 @@
+# ~/.config/containers/systemd/whoami.container
+
+# Make systemd aware of the new unit
+systemctl --user daemon-reload
+
+systemctl --user start whoami.service
+systemctl --user status whoami.service
+systemctl --user restart whoami.service
+
+# to make rootless service to work on boot
+sudo loginctl enable-linger $USER
+
+podman logs systemd-caddy
