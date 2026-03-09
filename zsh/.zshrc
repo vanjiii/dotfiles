@@ -13,9 +13,9 @@ export ZSHCOMPLETIONS=$ZSHCONFIG/completions
 autoload -Uz compinit
 # Only rebuild cache once a day (performance optimization)
 if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
-  compinit
+	compinit
 else
-  compinit -C
+	compinit -C
 fi
 
 # slow git repos
@@ -47,7 +47,7 @@ bindkey '^[OB' down-line-or-beginning-search
 
 # fzf history - repeat history
 fhistory() {
-  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
+	print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
 }
 
 # fkill - kill processes - list only the ones you can kill. Modified the earlier script.
