@@ -24,7 +24,7 @@ alias tr3='tree --dirsfirst -L 3 -a'
 alias lzg='lazygit'
 
 # used in kitty so open hyperlinks can work
-alias ls='ls --hyperlink=auto --color=auto'
+alias ls='ls --hyperlink=auto --color=auto --group-directories-first'
 
 # open images in terminal (need ImageMagick)
 alias img='kitty +kitten icat'

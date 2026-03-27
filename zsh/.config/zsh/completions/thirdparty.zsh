@@ -3,6 +3,7 @@
 # aka introduce caching for those
 
 command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
+
 command -v kubectl &> /dev/null && source <(kubectl completion zsh)
 
 command -v gup &> /dev/null && eval "$(gup completion zsh)"
@@ -10,6 +11,8 @@ command -v gup &> /dev/null && eval "$(gup completion zsh)"
 command -v fzf &> /dev/null && source <(fzf --zsh)
 
 command -v starship &> /dev/null && eval "$(starship init zsh)"
+
+command -v mise &> /dev/null && eval "$(mise activate zsh)"
 
 if [ -e /home/ivand/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ivand/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 

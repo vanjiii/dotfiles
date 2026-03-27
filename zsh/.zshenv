@@ -11,8 +11,6 @@ export VISUAL=vi
 export PAGER=less
 export LESS='-F -S -R -M -i'
 
-export LANG=en_US.UTF-8
-
 export HISTFILE=~/.zsh_history
 export SAVEHIST=10000
 export HISTSIZE=10000

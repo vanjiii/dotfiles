@@ -1,11 +1,14 @@
 function update_title() {
   local a
+
   # escape '%' in $1, make nonprintables visible
   a=${(V)1//\%/\%\%}
   print -nz "%20>...>$a"
   read -rz a
+
   # remove newlines
   a=${a//$'\n'/}
+
   if [[ -n "$TMUX" ]] && [[ $TERM == screen* || $TERM == tmux* ]]; then
     print -n "\ek${(%)a}:${(%)2}\e\\"
   elif [[ "$TERM" =~ "screen*" ]]; then
@@ -14,6 +17,8 @@ function update_title() {
     print -n "\e]0;${(%)a}:${(%)2}\a"
   elif [[ "$TERM" =~ "^rxvt-unicode.*" ]]; then
     printf '\33]2;%s:%s\007' ${(%)a} ${(%)2}
+	else
+		echo "unknown terminal"
   fi
 }
 
@@ -37,6 +42,7 @@ function _zsh_title__preexec() {
     %*)	cmd="${(z)jobtexts[${(Q)cmd[1]:-%+}]}" ;;
   esac
   update_title "$cmd" "%20<...<%~"
+  # update_title "vnj" "%20<...<%~"
 }
 
 autoload -Uz add-zsh-hook
