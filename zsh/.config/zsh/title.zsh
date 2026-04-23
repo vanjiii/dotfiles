@@ -1,9 +1,10 @@
 function update_title() {
   local a
+  local width=${3:-20}
 
   # escape '%' in $1, make nonprintables visible
   a=${(V)1//\%/\%\%}
-  print -nz "%20>...>$a"
+  print -nz "%${width}>...>$a"
   read -rz a
 
   # remove newlines
@@ -41,8 +42,8 @@ function _zsh_title__preexec() {
     fg)	cmd="${(z)jobtexts[${(Q)cmd[2]:-%+}]}" ;;
     %*)	cmd="${(z)jobtexts[${(Q)cmd[1]:-%+}]}" ;;
   esac
-  update_title "$cmd" "%20<...<%~"
-  # update_title "vnj" "%20<...<%~"
+
+  update_title "$cmd" "%20<...<%~" 10
 }
 
 autoload -Uz add-zsh-hook
