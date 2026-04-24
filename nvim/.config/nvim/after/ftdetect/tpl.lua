@@ -1,5 +1,5 @@
 vim.filetype.add({
   extension = {
-    tpl = 'php', -- treat *.tpl as PHP
+    tpl = 'html', -- treat *.tpl as PHP
   },
 })

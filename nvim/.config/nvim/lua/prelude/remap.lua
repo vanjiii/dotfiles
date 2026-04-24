@@ -26,6 +26,8 @@ vim.keymap.set('n', '<leader>pY', function()
 	vim.notify('Copied absolute path to clipboard', vim.log.levels.INFO)
 end, opts("Copy absolute file path"))
 
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+
 --
 -- stollen from folke
 --
