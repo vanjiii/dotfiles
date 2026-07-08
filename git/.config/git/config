@@ -28,6 +28,9 @@
 [url "ssh://git@gogs.marathon.mesos/"]
 	insteadOf = http://gogs.marathon.mesos/
 
+[url "ssh://git@forgejo.192.168.122.187.sslip.io/"]
+	insteadOf = http://forgejo.192.168.122.187.sslip.io/
+
 [pager]
 	branch = false
 
@@ -51,7 +54,8 @@
 	delta = "!git diff --color=always \"$@\" | delta --side-by-side"
 	fixup = ! git log --oneline -n 20 | fzf | cut -d ' ' -f1 | xargs git commit --no-verify --fixup
 	flog = ! git log --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | fzf --ansi --reverse --no-sort --preview='git show --color {1}'
-	h = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=format:'%d-%m-%Y'
+	hs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(bold yellow)%d%Creset %s %Cgreen(%cd) %C(blue)<%an>%Creset' --abbrev-commit --date=format:'%d-%m-%Y'
+	; hs = !git-log-history
 	ll = ! git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit "$(git symbolic-ref refs/remotes/origin/HEAD --short)"..
 	ls-stat = ! git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --stat
 	pf = !git push --set-upstream origin $(git branch --show)

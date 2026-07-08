@@ -1,0 +1,12 @@
+#!/bin/bash
+
+f() {
+	cols=$(tput cols 2>/dev/null || echo 120)
+	git log --color --graph \
+		--pretty=format:'%Cred%h%Creset -%C(bold yellow)%d%Creset %s%>|('"$(($cols - 33))"')%Cgreen(%cd) %C(blue)<%an>%Creset' \
+		--abbrev-commit \
+		--date=format:'%d-%m-%Y' "$@"
+	echo
+}
+
+f
