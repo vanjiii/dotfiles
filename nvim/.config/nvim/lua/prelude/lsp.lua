@@ -5,25 +5,26 @@
 --
 
 vim.lsp.enable({
-	'cssls',		-- ✓ from vscode-langservers-extracted
+	'bashls', -- ✓ npm -> bash-language-server | dnf -> shellcheck
+	'cssls', -- ✓ npm -> vscode-langservers-extracted
 	'gopls',
-	'html', 		-- ✓ from vscode-langservers-extracted
+	'html', -- ✓ npm -> vscode-langservers-extracted
 	'intelephense',
-	'lua_ls',
+	'lua_ls', -- mise -> lua-language-server
 	'ts_ls',
 	-- 'solargraph',
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
 	callback = function(args)
-		 vim.keymap.set('n', 'gd', vim.lsp.buf.definition,
-             { buffer = args.buf, desc = 'vim.lsp.buf.definition()' })
+		vim.keymap.set('n', 'gd', vim.lsp.buf.definition,
+			{ buffer = args.buf, desc = 'vim.lsp.buf.definition()' })
 
-         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
-             { buffer = args.buf, desc = 'vim.lsp.buf.declaration()' })
+		vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
+			{ buffer = args.buf, desc = 'vim.lsp.buf.declaration()' })
 
-         vim.keymap.set('n', '<leader>pl', vim.lsp.buf.format,
-             { buffer = args.buf, desc = 'vim.lsp.buf.format()' })
+		vim.keymap.set({ 'n', 'v' }, '<leader>pl', vim.lsp.buf.format,
+			{ buffer = args.buf, desc = 'Format buffer/selection' })
 
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		print(client.name .. ': Hello there!')

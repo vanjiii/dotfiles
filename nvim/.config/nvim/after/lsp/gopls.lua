@@ -1,6 +1,6 @@
 return {
 	on_attach = function(client, bufnr)
-		if not client.supports_method('textDocument/formatting') then
+		if not client:supports_method('textDocument/formatting') then
 			print('lsp server does not support autoformat...')
 			return
 		end
@@ -39,6 +39,7 @@ return {
 				unusedparams = true,
 				nilness = true,
 				unusedwrite = true,
+				ST1000 = false, -- "at least one file in a package should have a package comment"
 			},
 			hints = {
 				constantValues = true,

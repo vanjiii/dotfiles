@@ -15,10 +15,19 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(
 -- Plugins
 	{
-		{ 'rose-pine/neovim',                           name = 'rose-pine', lazy = false, priority = 53 },
+		{ 'rose-pine/neovim',       name = 'rose-pine', lazy = false, priority = 53 },
 
-		{ 'nvim-treesitter/nvim-treesitter',            build = ':TSUpdate' },
-		{ 'nvim-treesitter/nvim-treesitter-textobjects' },
+		{
+			'nvim-treesitter/nvim-treesitter',
+			branch = 'main',
+			lazy = false,
+			build = ':TSUpdate',
+		},
+		{
+			'nvim-treesitter/nvim-treesitter-textobjects',
+			branch = 'main',
+		},
+
 		{
 			'nvim-lualine/lualine.nvim',
 			dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -39,7 +48,6 @@ require("lazy").setup(
 		-- TODO: smoka7/hop.nvim move to this or other like from mini.nvim or folke's QoL
 		-- maybe remove it at all, after all there is
 		-- realtive numbers; f, F; search
-		{ 'phaazon/hop.nvim',       branch = 'v2' },
 		{
 			"folke/lazydev.nvim",
 			ft = "lua",

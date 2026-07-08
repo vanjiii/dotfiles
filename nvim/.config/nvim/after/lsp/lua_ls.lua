@@ -1,7 +1,7 @@
 return {
 	cmd       = { 'mise', 'x', '--', 'lua-language-server' },
 	on_attach = function(client, bufnr)
-		if not client.supports_method('textDocument/formatting') then
+		if not client:supports_method('textDocument/formatting') then
 			print('lsp server does not support autoformat...')
 			return
 		end
