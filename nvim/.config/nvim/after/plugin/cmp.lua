@@ -14,8 +14,15 @@ cmp.setup({
 		['<C-e>'] = cmp.mapping.abort(),
 	}),
 	window = {
-		completion = cmp.config.window.bordered(),
-		documentation = cmp.config.window.bordered(),
+		-- use the float highlight groups so the popups match lsp.hover
+		completion = cmp.config.window.bordered({
+			border = 'rounded',
+			winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None',
+		}),
+		documentation = cmp.config.window.bordered({
+			border = 'rounded',
+			winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder,Search:None',
+		}),
 	},
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' }, -- LSP completions

@@ -15,7 +15,13 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(
 -- Plugins
 	{
-		{ 'rose-pine/neovim',       name = 'rose-pine', lazy = false, priority = 53 },
+		{
+			"zenbones-theme/zenbones.nvim",
+			dependencies = "rktjmp/lush.nvim",
+			lazy = false,
+			priority = 1000,
+		},
+		{ "e-q/okcolors.nvim",      name = "okcolors" },
 
 		{
 			'nvim-treesitter/nvim-treesitter',
@@ -35,7 +41,7 @@ require("lazy").setup(
 
 		{
 			'nvim-telescope/telescope.nvim',
-			tag = '0.1.4',
+			branch = 'master',
 			dependencies = { 'nvim-lua/plenary.nvim' }
 		},
 
