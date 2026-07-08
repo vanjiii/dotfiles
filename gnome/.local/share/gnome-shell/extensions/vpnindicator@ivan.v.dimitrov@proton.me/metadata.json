@@ -4,6 +4,8 @@
   "uuid": "vpnindicator@ivan.v.dimitrov@proton.me",
   "shell-version": [
     "48",
-    "49"
+    "49",
+	"50",
+	"51"
   ]
 }

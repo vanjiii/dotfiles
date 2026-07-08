@@ -91,7 +91,17 @@ class Indicator extends PanelMenu.Button {
                 icon: 'face-angry-symbolic',
                 color: '#e64545',
                 label: 'Prod',
-            }
+            },
+			itcraft: {
+                icon: 'face-sick-symbolic',
+                color: '#d8c500',
+                label: 'ITKraft',
+			},
+			wg0: {
+                icon: 'face-cool-symbolic',
+                color: '#cd57ff',
+                label: 'WG-0',
+			}
         };
 
         const activeConns = this._nmClient.get_active_connections() || 'None';
