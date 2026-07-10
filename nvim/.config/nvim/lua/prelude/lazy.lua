@@ -22,6 +22,13 @@ require("lazy").setup(
 			priority = 1000,
 		},
 		{ "e-q/okcolors.nvim",      name = "okcolors" },
+		{
+			"tadaa/vimade",
+			opts = {
+				recipe = { "default", { animate = true } },
+				fadelevel = 0.4,
+			}
+		},
 
 		{
 			'nvim-treesitter/nvim-treesitter',

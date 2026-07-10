@@ -26,3 +26,11 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 })
 
 vim.cmd('colorscheme okcolors-smooth')
+
+require 'vimade'.setup(
+	{
+		recipe = {
+			"minimalist", { animate = true },
+		}
+	}
+)
