@@ -33,7 +33,9 @@ require('lualine').setup {
 	},
 	sections = {
 		lualine_a = { 'mode' },
-		lualine_b = { 'filename' },
+		lualine_b = {
+			{ 'filename', path = 1, shorting_target = 3 }
+		},
 		lualine_c = { 'branch', 'diff', 'diagnostics' },
 		lualine_x = { 'encoding', 'fileformat', 'filetype' },
 		lualine_y = { 'progress', 'lsp_status' },
