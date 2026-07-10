@@ -51,9 +51,8 @@ require("lazy").setup(
 
 		{ 'nvim-tree/nvim-tree.lua' },
 
-		-- TODO: smoka7/hop.nvim move to this or other like from mini.nvim or folke's QoL
-		-- maybe remove it at all, after all there is
-		-- realtive numbers; f, F; search
+		{ 'nvim-mini/mini.nvim',    version = false },
+
 		{
 			"folke/lazydev.nvim",
 			ft = "lua",
