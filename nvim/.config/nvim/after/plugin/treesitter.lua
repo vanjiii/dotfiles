@@ -20,6 +20,7 @@ require('nvim-treesitter').install({
 	"toml",
 	"tsx",
 	"typescript",
+	"svelte",
 	"vim",
 	"vimdoc",
 	"yaml",

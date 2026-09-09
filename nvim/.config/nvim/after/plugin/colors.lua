@@ -32,7 +32,7 @@ require 'vimade'.setup(
 		recipe = {
 			"minimalist", { animate = true },
 		},
-		fadelevel = 0.6,
+		fadelevel = 0.8,
 		blocklist = {
 			special_buffers = {
 				buf_opts = {

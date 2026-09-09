@@ -11,6 +11,7 @@ vim.lsp.enable({
 	'html', -- ✓ npm -> vscode-langservers-extracted
 	'intelephense',
 	'lua_ls', -- mise -> lua-language-server
+	'svelte',
 	'ts_ls',
 	-- 'solargraph',
 })
