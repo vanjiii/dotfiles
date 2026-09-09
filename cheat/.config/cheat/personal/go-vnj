@@ -1,0 +1,16 @@
+# start
+go work init .
+go work use ../yourlib
+
+# verify it actually took — don't skip this
+go list -m -f '{{.Path}} => {{.Dir}}' gogs.marathon.mesos/gopkg/yourlib
+
+# develop — edits in ../yourlib are picked up immediately, no rebuild step
+go run .
+go test ./...
+
+# temporarily build against the real dependency, without deleting anything
+GOWORK=off go run .
+
+# done for good
+rm go.work go.work.sum

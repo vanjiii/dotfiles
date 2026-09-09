@@ -15,3 +15,43 @@ MISE_ENV mise env -s fish
 # source
 mise env -s fish | source
 eval "$(mise env)" # zsh
+
+#
+##
+## Some basic functionalities
+##
+#
+
+# Misc
+mise outdated            # what has newer versions
+mise which node          # real path behind the shim
+mise doctor              # diagnose activation/PATH problems
+
+# List
+mise ls                  # everything installed + what's configured
+mise ls --installed      # only actually installed (hides configured-but-missing)
+mise ls --current        # only what's active in this directory
+mise ls --global         # only what's in ~/.config/mise/config.toml
+mise ls node             # versions of one specific tool
+
+# Remote
+mise registry            # full list of shorthands and their backends
+mise registry | grep -i terraform
+
+mise ls-remote go           # all versions
+mise ls-remote go@1.25      # filtered by prefix
+mise latest go              # just the newest stable
+
+# Install
+mise install go@1.25.1      # install only, don't touch any config
+mise install                # install everything in the active config
+mise exec node@24 -- node -v    # runs it once, changes nothing
+
+# Enable
+cd ~/P/g/g/svelte-components
+mise use node@24
+mise use pnpm@10 node@24        # multiple at once
+mise use --global go@1.25
+mise use -g go@1.25 node@24     # short form
+mise use --path mise.local.toml node@24
+mise unuse node
